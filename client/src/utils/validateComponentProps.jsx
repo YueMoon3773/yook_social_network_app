@@ -16,6 +16,7 @@ const ValidatedComponent = (Component, schema) => {
     // DEV
     const Wrapped = (rawProps) => {
         const validationResult = schema.safeParse(rawProps);
+        // console.log(validationResult);
 
         if (validationResult.success === false) {
             console.error(`Invalid props for ${Component.name || Component.displayName}:`, validationResult);

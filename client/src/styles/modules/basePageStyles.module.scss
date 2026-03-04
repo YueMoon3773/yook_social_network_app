@@ -1,17 +1,13 @@
 .page {
     @include flexColumn;
     width: 100%;
-    height: 100%;
-    min-height: 100vh;
+    // height: 100%;
+    // min-height: 100vh;
+    height: 100vh;
     background-color: var(--bg_color);
-    transition: all 360ms ease-in-out;
-
+    transition: $transition_md;
+    overflow: hidden;
     position: relative;
-}
-
-.pageHeader,
-.pageContent {
-    padding: 0 8.6rem;
 }
 
 .pageHeader {
@@ -20,28 +16,59 @@
     left: 0;
     width: 100%;
     z-index: 100;
-    
+
     @include flexCenter;
     justify-content: space-between;
     gap: clamp(20px, 5.6em, 60px);
-    padding-top: 3.6rem;
-    padding-bottom: 3.6rem;
+    padding: $fs_normal_md calc($fs_heading_lg * 1.06);
 
-    transition: all 60ms ease-in-out;
+    transition: $transition_md;
 }
 
 .pageContent {
     flex: 1;
-    @include flexColumn;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: clamp(30px, 3.6em, 40px);
-    margin-bottom: clamp(46px, 5.6em, 60px);
-    transition: all 360ms ease-in-out;
+
+    @include displayGrid;
+    grid-template-columns: 2.5fr 9.5fr;
+    transition: $transition_md;
+    position: relative;
+    overflow: hidden;
+}
+
+.sideBar {
+    padding: $page_content_main_padding;
+    padding-left: calc($fs_heading_lg * 1.06);
+    position: sticky;
 }
 
 .footer {
     @include flexCenter;
     padding: clamp(8px, 1.4em, 16px);
-    transition: all 360ms ease-in-out;
+    transition: $transition_md;
 }
+
+.mainBtn {
+    border-radius: $distance_sm;
+    // font-size: $fs_normal_md;
+    border: none;
+    outline: none;
+    background-color: var(--out_focus_gray);
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--in_focus_gray);
+    }
+}
+
+.userAvatar {
+    width: 100%;
+    height: auto;
+    border: 3px solid $primary_light_color;
+    border-radius: 999px;
+
+    &:hover {
+        border-color: $primary_dark_color;
+    }
+}
+
+// .mainItemHover

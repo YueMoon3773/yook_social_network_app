@@ -1,0 +1,120 @@
+.postItem {
+    padding: 20px;
+
+    @include flexColumn;
+    gap: clamp($distance_md, 2rem, $distance_lg);
+    border-radius: $distance_sm;
+    box-shadow: 0 $distance_3sm $distance_sm var(--out_focus_gray);
+    transition: $transition_md;
+    transition-delay: 160ms;
+
+    &:hover {
+        filter: brightness(1.03);
+        transform: translateY(-2px);
+        box-shadow: 0 $distance_ssm $distance_md var(--out_focus_gray);
+    }
+}
+
+.postItemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    // flex-wrap: wrap;
+    font-size: 1rem;
+    gap: clamp($distance_md, 1.6rem, 18px);
+}
+
+.postHeaderLeft {
+    @include flexCenter;
+    justify-content: flex-start;
+    gap: clamp($distance_sm, 1rem, 12px);
+
+    .postAvatarImgWrapper {
+        flex-shrink: 0;
+        width: clamp(42px, 14%, 50px);
+        aspect-ratio: 1 / 1;
+        @include flexCenter;
+    }
+
+    a {
+        @include flexColumn;
+        align-items: flex-start;
+
+        span {
+            font-size: $fs_normal_ssm;
+            color: var(--text_color);
+            transition: $transition_md;
+        }
+
+        &:hover span {
+            text-decoration: underline;
+            text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
+        }
+    }
+}
+
+.postHeaderRight {
+    cursor: default;
+
+    span {
+        font-size: $fs_normal_3sm;
+        font-weight: 500;
+        color: var(--text_color);
+        padding: 0.2em 0.46em;
+        background-color: $primary_color;
+        border-radius: $distance_ssm;
+        transition: $transition_md;
+    }
+}
+
+.postItemBody {
+    @include flexColumn;
+    align-items: flex-start;
+    gap: clamp($distance_ssm, 0.66rem, $distance_sm);
+
+    a,
+    p {
+        font-size: $fs_normal_3sm;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+
+    a {
+        font-size: $fs_normal_md;
+        &:hover {
+            text-decoration: underline;
+            text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
+        }
+    }
+
+    p {
+        max-width: 75ch;
+    }
+}
+
+.postItemFooter {
+    @include flexCenter;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .numberPostComments,
+    .postDate {
+        font-size: $fs_normal_3sm;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+
+    .numberPostComments {
+        padding: 0.36em 0.6em;
+        background-color: var(--out_focus_gray);
+        border-radius: $distance_ssm;
+
+        &:hover {
+            color: var(--hover_text_color);
+            background-color: var(--in_focus_gray);
+        }
+    }
+
+    .postDate {
+    }
+}

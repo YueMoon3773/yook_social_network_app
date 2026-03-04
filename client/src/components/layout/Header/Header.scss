@@ -1,0 +1,164 @@
+.header {
+    min-height: 110px;
+    background-color: var(--bg_color);
+    border-bottom: $distance_ssm solid $primary_color;
+    transition: $transition_md;
+
+    &.expanded {
+        border-width: $distance_3sm;
+
+        .headerLogo {
+            transform: scale(1.06);
+        }
+    }
+}
+
+.headerLogo {
+    @include flexCenter;
+    gap: clamp($distance_3sm, 0.46rem, 8px);
+    transition: $transition_md;
+
+    .logoImgWrapper {
+        @include flexCenter;
+        border-radius: calc($distance_sm / 100 * 160);
+        transition: $transition_md;
+        overflow: hidden;
+        img {
+            width: clamp(50px, 5.2rem, 56px);
+            height: auto;
+        }
+    }
+
+    span {
+        font-size: $fs_heading_sm;
+        font-weight: 700;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+
+    &:hover {
+        .logoImgWrapper {
+            transform: scale(1.06);
+        }
+
+        span {
+            transform: scale(1.02);
+            letter-spacing: 0.06em;
+            filter: drop-shadow(0 0 $distance_ssm $red_color);
+        }
+    }
+}
+
+.nav_button_show_controllers {
+    padding: $distance_3sm;
+    @include flexCenter;
+    outline: none;
+    border: 3px solid var(--hover_text_color);
+    border-radius: $distance_sm;
+    background-color: var(--bg_color);
+    transition: $transition_md;
+
+    display: none;
+
+    cursor: pointer;
+    svg {
+        color: var(--text_color);
+        background-color: var(--bg_color);
+    }
+
+    &:hover {
+        border-color: var(--text_color);
+    }
+}
+
+.headerController {
+    @include flexCenter;
+
+    .userControllerWrapper {
+        position: relative;
+
+        ul {
+            position: absolute;
+            top: 110%;
+        }
+    }
+}
+
+.userController {
+    @include flexCenter;
+    gap: clamp($distance_sm, 1rem, 16px);
+    cursor: pointer;
+    padding: 0.66em 1.4em;
+    border-radius: $distance_sm;
+
+    .userAvatarWrapper {
+        max-width: max(42px, 4.6rem);
+        @include flexCenter;
+    }
+
+    .userInfoWrapper {
+        @include flexColumn;
+        gap: clamp($distance_3sm, 0.46rem, 6px);
+
+        .userFullName,
+        .userUserName {
+            font-size: $fs_normal_md;
+            font-weight: 600;
+            transition: $transition_md;
+        }
+
+        .userFullName {
+            color: var(--text_color);
+        }
+
+        .userUserName {
+            color: var(--out_focus_gray);
+        }
+    }
+
+    &:hover {
+        background-color: var(--bg_color_brighter);
+
+        & > * > .userFullName,
+        & > * > .userUserName {
+            filter: var(--text_hover_brightness);
+        }
+    }
+}
+
+.logInAndRegisterControllerWrapper {
+    @include displayGrid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 2.6rem, 30px);
+    gap: 30px;
+
+    a {
+        font-size: $fs_normal_md;
+        font-weight: 600;
+        color: var(--text_color);
+        padding: 0.6em 1.2em;
+        text-align: center;
+        // border: 2px solid;
+        border: $thick_border_light_gray;
+        border-radius: $distance_sm;
+        transition: $transition_md;
+
+        &:hover {
+            filter: var(--text_hover_brightness);
+        }
+    }
+
+    & > *:first-child {
+        &:hover {
+            background-color: var(--bg_color_brighter);
+            border-color: var(--bg_color_brighter);
+        }
+    }
+
+    & > *:last-child {
+        &:hover {
+            background-color: $primary_color;
+            border-color: $primary_color;
+        }
+    }
+}

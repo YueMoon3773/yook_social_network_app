@@ -1,0 +1,39 @@
+@keyframes dropdownBounce {
+    0% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scaleY(1.06);
+        opacity: 1;
+    }
+    80% {
+        transform: scaleY(0.96);
+        opacity: 1;
+    }
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: scale(1) rotate(0);
+    }
+    30% {
+        transform: scale(1.5) rotate(1080deg);
+    }
+    50% {
+        transform: scale(1.96) rotate(1440deg);
+    }
+    70% {
+        transform: scale(1.36) rotate(1800deg);
+    }
+    90% {
+        transform: scale(0.66) rotate(2190deg);
+    }
+    100% {
+        transform: scale(1) rotate(2160deg);
+    }
+}

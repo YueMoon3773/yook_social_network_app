@@ -54,7 +54,7 @@
     --fs_heading_lg: clamp(3.6rem, 2.6vw + 3.6rem, 4rem);
     --fs_heading_md: clamp(3.2rem, 1.86vw + 3.2rem, 3.6rem);
     --fs_heading_sm: clamp(3rem, 1.66vw + 3rem, 3.2rem);
-    --fs_heading_2sm: clamp(2.66rem, 1.6vw + 2.8rem, 3rem);
+    --fs_heading_ssm: clamp(2.66rem, 1.6vw + 2.8rem, 3rem);
     --fs_heading_3sm: clamp(2.6rem, 1.4vw + 2.6rem, 2.66rem);
 
     --fs_normal_xl: clamp(2.26rem, 1.2vw + 2.4rem, 2.46rem);

@@ -1,0 +1,34 @@
+.btn {
+    text-align: center;
+    transition: $transition_md;
+    font-size: 1rem;
+    padding: 0.26em 1.2em;
+
+    &.nextBtn,
+    &.prevBtn {
+        @include flexCenter;
+        gap: clamp($distance_ssm, 0.86em, 10px);
+
+        span,
+        svg {
+            color: var(--text_color);
+            transition: $transition_md;
+        }
+
+        span {
+            font-size: $fs_normal_md;
+            font-weight: 500;
+        }
+
+        svg {
+            height: $fs_heading_ssm;
+        }
+
+        &:hover {
+            span,
+            svg {
+                color: var(--text_hover_brightness);
+            }
+        }
+    }
+}

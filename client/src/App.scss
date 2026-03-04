@@ -1,0 +1,93 @@
+.postsPageContent {
+    @include flexColumn;
+    gap: clamp(26px, 2.8rem, $distance_xl);
+    position: relative;
+}
+
+.sortControllers {
+    justify-self: start;
+    @include flexCenter;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: clamp($distance_lg, 2.66rem, $distance_xl);
+}
+
+.postsWrapper,
+.pageController {
+    width: 100%;
+}
+
+.masonryGrid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: calc($post_masonry_gap * -1); /* gutter size offset */
+    width: auto;
+}
+.masonryGridColumn {
+    padding-left: $post_masonry_gap; /* gutter size */
+    background-clip: padding-box;
+}
+
+.masonryGridColumn > div {
+    margin-bottom: $post_masonry_gap;
+}
+
+.pageController {
+    @include flexColumn;
+    align-items: center;
+    gap: 16px;
+
+    p {
+        font-size: $fs_normal_md;
+        color: var(--text_color);
+        transition: $transition_md;
+
+        span {
+            font-size: $fs_normal_md;
+            font-weight: 600;
+            color: var(--text_color);
+            transition: $transition_md;
+        }
+    }
+}
+
+.paginationControllers {
+    @include flexCenter;
+    flex-wrap: wrap;
+    gap: clamp(26px, 2.8rem, $distance_xl);
+
+    & > * {
+        flex: 1;
+    }
+}
+
+.postPageAddPostBtn {
+    position: fixed;
+    bottom: calc($page_content_main_padding * 0.5);
+    right: calc($page_content_main_padding * 0.5);
+
+    font-size: 1rem;
+    padding: 1.2em;
+    outline: none;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--bg_color_brighter);
+    transition: $transition_md;
+
+    cursor: pointer;
+
+    svg {
+        height: $fs_heading_md;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+
+    &:hover {
+        background-color: $primary_color;
+
+        svg {
+            animation: spin 660ms ease-in-out;
+        }
+    }
+}

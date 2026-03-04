@@ -1,0 +1,59 @@
+.headerUsrDropDownList {
+    $dropDownItemPaddingTopBottom: 0.66em;
+    font-size: 1rem;
+    width: 100%;
+    background-color: var(--hover_text_color);
+    border: 2px solid var(--out_focus_gray);
+    border-radius: $distance_sm;
+    overflow: hidden;
+    transition: $transition_md;
+
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+
+    &.open {
+        animation: dropdownBounce 360ms cubic-bezier(0.36, 1.66, 0.66, 1) forwards;
+        pointer-events: auto;
+    }
+
+    .usrDropDownItem {
+        font-size: 1rem;
+
+        a {
+            display: block;
+            font-size: $fs_normal_md;
+            font-weight: 560;
+            color: var(--text_color);
+            padding: 0.46em;
+            padding-left: 2.6em;
+            // transition: $transition_md;
+        }
+    }
+
+    & > *:first-child {
+        a {
+            padding-top: $dropDownItemPaddingTopBottom;
+        }
+
+        &:hover {
+            background-color: var(--in_focus_gray);
+
+            a {
+                color: var(--hover_text_color);
+            }
+        }
+    }
+
+    & > *:last-child {
+        border-top: $thin_border_light_gray;
+        a {
+            padding-bottom: $dropDownItemPaddingTopBottom;
+        }
+
+        &:hover {
+            background-color: $red_color;
+        }
+    }
+}
