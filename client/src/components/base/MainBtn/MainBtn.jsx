@@ -15,5 +15,5 @@ const MainBtn = ({ btnClass, onClickHandler, children }) => {
     return <button className={`${pageBaseStyles.mainBtn} btn ${btnClass}`}>{children}</button>;
 };
 
-export default MainBtn;
-// export default ValidatedComponent(MainBtn, btnSchema)
+// export default MainBtn;
+export default ValidatedComponent(MainBtn, btnSchema);

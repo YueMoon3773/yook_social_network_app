@@ -9,6 +9,10 @@
 
         .headerLogo {
             transform: scale(1.06);
+
+            & > .logoImgWrapper {
+                transform: scale(1.03);
+            }
         }
     }
 }

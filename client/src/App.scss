@@ -62,18 +62,28 @@
     }
 }
 
-.postPageAddPostBtn {
+.addPostBtnWrapper {
     position: fixed;
-    bottom: calc($page_content_main_padding * 0.5);
-    right: calc($page_content_main_padding * 0.5);
+    bottom: calc($page_content_main_padding * 0.6);
+    right: calc($page_content_main_padding * 0.8);
+    isolation: isolate;
+}
+
+.postPageAddPostBtn {
+    position: relative;
+    @include flexCenter;
 
     font-size: 1rem;
     padding: 1.2em;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+
     outline: none;
     border: none;
     border-radius: 999px;
     background-color: var(--bg_color_brighter);
     transition: $transition_md;
+    z-index: 10;
 
     cursor: pointer;
 
@@ -89,5 +99,45 @@
         svg {
             animation: spin 660ms ease-in-out;
         }
+    }
+}
+
+.addPostBtnHelper {
+    $bottom_arrow_width: $distance_md;
+    position: absolute;
+    top: -100%;
+    right: 0;
+
+    font-size: $fs_normal_md;
+    font-weight: 500;
+    color: var(--text_color);
+    padding: 0.36em 0.8em;
+    width: max-content;
+    background-color: $primary_color;
+    border-radius: $distance_sm;
+    cursor: default;
+    transition: $transition_md;
+    z-index: 5;
+
+    animation: vanish 360ms ease-in-out;
+    display: none;
+
+    &::after {
+        position: absolute;
+        content: '';
+        display: block;
+        right: 12%;
+        bottom: -40%;
+        height: 0;
+        width: 0;
+        border-left: $bottom_arrow_width solid transparent;
+        border-right: $bottom_arrow_width solid transparent;
+        border-top: $bottom_arrow_width solid $primary_light_color;
+        z-index: 1;
+    }
+
+    &.show {
+        animation: appear 360ms ease-in-out;
+        display: flex;
     }
 }

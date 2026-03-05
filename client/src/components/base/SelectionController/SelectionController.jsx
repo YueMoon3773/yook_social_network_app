@@ -16,7 +16,11 @@ const SelectionController = ({ labelText, selectId, selectOptionList }) => {
             {labelText}
             <select name={selectId} id={selectId} className="sortSelection">
                 {selectOptionList.map((option) => {
-                    return <option key={option.content}>{option.content}</option>;
+                    return (
+                        <option key={option.content} value={option.value}>
+                            {option.content}
+                        </option>
+                    );
                 })}
             </select>
         </label>

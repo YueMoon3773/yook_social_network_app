@@ -51,7 +51,7 @@ const Header = ({ expandHeaderBottomBorder }) => {
             </Link>
 
             <section ref={controllerDropDownRef} className="headerController">
-                <div className="userControllerWrapper">
+                {/* <div className="userControllerWrapper">
                     <div className="userController" onClick={() => setOpenUserDropDownController((prev) => !prev)}>
                         <div className="userAvatarWrapper">
                             <UserAvatarImg imgSrc={logoImg}></UserAvatarImg>
@@ -62,12 +62,12 @@ const Header = ({ expandHeaderBottomBorder }) => {
                         </div>
                     </div>
                     <UserControllerDropDown isOpen={openUserDropDownController}></UserControllerDropDown>
-                </div>
+                </div> */}
 
-                {/* <div className="logInAndRegisterControllerWrapper">
+                <div className="logInAndRegisterControllerWrapper">
                     <Link to="/user/log-in">Log in</Link>
                     <Link to="/user/register">Register</Link>
-                </div> */}
+                </div>
             </section>
         </header>
     );

@@ -46,10 +46,12 @@ const PostItem = ({
                 </div>
                 <div className="postHeaderRight">{isUsrAdmin && <span>Admin</span>}</div>
             </section>
+
             <section className="postItemBody">
                 <Link to={`/post/${postId}`}>{postTitle}</Link>
                 <p>{postContent}</p>
             </section>
+            
             <section className="postItemFooter">
                 <Link to={`/post/${postId}`} className="numberPostComments">
                     {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}

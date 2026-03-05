@@ -20,18 +20,20 @@ const breakpointColumnsObj = {
 };
 
 const sortByOptsList = [
-    { id: 1, content: 'Newest to Oldest' },
-    { id: 2, content: 'Oldest to Newest' },
-    { id: 3, content: 'Most comments' },
-    { id: 4, content: 'Fewest comments' },
+    { id: 1, content: 'Newest to Oldest', value: 'newToOld' },
+    { id: 2, content: 'Oldest to Newest', value: 'oldToNew' },
+    { id: 3, content: 'Most comments', value: 'mostCmt' },
+    { id: 4, content: 'Fewest comments', value: 'leastCmt' },
 ];
 const postPerPageOptsList = [
-    { id: 1, content: 25 },
-    { id: 2, content: 50 },
-    { id: 3, content: 100 },
+    { id: 1, content: 25, value: '25' },
+    { id: 2, content: 50, value: '50' },
+    { id: 3, content: 100, value: '100' },
 ];
 
 const App = () => {
+    const [showHelperAddPostBtn, setShowHelperAddPostBtn] = useState(false);
+
     return (
         <PageLayout>
             <div className="postsPageContent">
@@ -67,7 +69,7 @@ const App = () => {
                                     postTitle={item.post_title}
                                     postContent={item.post_content}
                                     numberPostComments={6}
-                                    postDate={'06/03/2026'}
+                                    postDate={'06:06 PM - 06/03/2026'}
                                 ></PostItem>
                             );
                         })}
@@ -92,9 +94,16 @@ const App = () => {
                 </section>
             </div>
 
-            <button className="postPageAddPostBtn">
-                <PlusIcon></PlusIcon>
-            </button>
+            <div className="addPostBtnWrapper">
+                <button
+                    onMouseEnter={() => setShowHelperAddPostBtn(true)}
+                    onMouseLeave={() => setShowHelperAddPostBtn(false)}
+                    className="postPageAddPostBtn"
+                >
+                    <PlusIcon></PlusIcon>
+                </button>
+                <span className={`addPostBtnHelper ${showHelperAddPostBtn === true ? 'show' : ''}`}>Add post</span>
+            </div>
         </PageLayout>
     );
 };

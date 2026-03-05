@@ -18,13 +18,15 @@
 .postItemHeader {
     display: flex;
     justify-content: space-between;
+    // justify-content: center;
     align-items: flex-start;
-    // flex-wrap: wrap;
+    flex-wrap: wrap;
     font-size: 1rem;
     gap: clamp($distance_md, 1.6rem, 18px);
 }
 
 .postHeaderLeft {
+    flex: 1;
     @include flexCenter;
     justify-content: flex-start;
     gap: clamp($distance_sm, 1rem, 12px);
@@ -44,6 +46,10 @@
             font-size: $fs_normal_ssm;
             color: var(--text_color);
             transition: $transition_md;
+        }
+
+        & > *:first-child {
+            font-weight: 560;
         }
 
         &:hover span {
@@ -81,6 +87,7 @@
 
     a {
         font-size: $fs_normal_md;
+        font-weight: 600;
         &:hover {
             text-decoration: underline;
             text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
@@ -105,7 +112,8 @@
     }
 
     .numberPostComments {
-        padding: 0.36em 0.6em;
+        padding: 0.46em 0.8em;
+        font-weight: 560;
         background-color: var(--out_focus_gray);
         border-radius: $distance_ssm;
 

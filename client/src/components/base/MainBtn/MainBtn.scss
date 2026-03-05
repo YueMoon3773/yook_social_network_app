@@ -2,7 +2,7 @@
     text-align: center;
     transition: $transition_md;
     font-size: 1rem;
-    padding: 0.26em 1.2em;
+    padding: 0.66em 1.2em;
 
     &.nextBtn,
     &.prevBtn {
@@ -17,7 +17,7 @@
 
         span {
             font-size: $fs_normal_md;
-            font-weight: 500;
+            font-weight: 560;
         }
 
         svg {
@@ -27,7 +27,7 @@
         &:hover {
             span,
             svg {
-                color: var(--text_hover_brightness);
+                color: var(--hover_text_color);
             }
         }
     }
