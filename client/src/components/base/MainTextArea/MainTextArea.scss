@@ -1,0 +1,56 @@
+.mainTextAreaWrapper {
+    $textAreaFsz: $fs_normal_md;
+    $textAreaDistanceTopBottom: 0.36em;
+    $textAreaDistanceLeftRight: 0.6em;
+
+    position: relative;
+    font-size: $textAreaFsz;
+    width: 100%;
+
+    .mainTextAreaStyle {
+        width: 100%;
+        height: 100%;
+        font-size: $textAreaFsz;
+        color: $black_text;
+        letter-spacing: 0.06em;
+        padding: $textAreaDistanceTopBottom $textAreaDistanceLeftRight;
+        background-color: $snow_white_color;
+
+        border-radius: $distance_sm;
+        border: $thick_border_light_gray;
+        outline: none;
+        resize: none;
+
+        &::placeholder {
+            color: transparent;
+        }
+
+        &:focus,
+        &:active,
+        &:not(:placeholder-shown) {
+            border-color: $primary_dark_color;
+
+            & ~ label {
+                transform: translateY(-80%) translateX(-6%) scale(0.86);
+                color: $primary_color;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .mainTextAreaLabel {
+        position: absolute;
+        font-size: $textAreaFsz;
+        color: rgba($color: $dark_gray_color, $alpha: 0.66);
+        letter-spacing: 0.06em;
+        // padding: 0.36em 1.2em;
+        padding: $textAreaDistanceTopBottom $textAreaDistanceLeftRight;
+        background-color: transparent;
+
+        // top: $textAreaDistanceTopBottom;
+        // left: $textAreaDistanceLeftRight;
+        top: 0;
+        left: 0;
+        transition: $transition_md;
+    }
+}

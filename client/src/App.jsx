@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Masonry from 'react-masonry-css';
 
 import { testData } from './utils/testDataArr';
@@ -33,9 +33,14 @@ const postPerPageOptsList = [
 
 const App = () => {
     const [showHelperAddPostBtn, setShowHelperAddPostBtn] = useState(false);
+    const helperHoverTimer = useRef(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const addPostOnClickHandler = () => setShowModal(true);
+    const closeModalBtnHandler = () => setShowModal(false);
 
     return (
-        <PageLayout>
+        <PageLayout showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}>
             <div className="postsPageContent">
                 <section className="sortControllers">
                     <SelectionController
@@ -96,13 +101,23 @@ const App = () => {
 
             <div className="addPostBtnWrapper">
                 <button
-                    onMouseEnter={() => setShowHelperAddPostBtn(true)}
-                    onMouseLeave={() => setShowHelperAddPostBtn(false)}
+                    onMouseEnter={() => {
+                        helperHoverTimer.current = setTimeout(() => {
+                            setShowHelperAddPostBtn(true);
+                        }, 360);
+                    }}
+                    onMouseLeave={() => {
+                        clearTimeout(helperHoverTimer.current);
+                        setShowHelperAddPostBtn(false);
+                    }}
+                    onClick={addPostOnClickHandler}
                     className="postPageAddPostBtn"
                 >
                     <PlusIcon></PlusIcon>
                 </button>
-                <span className={`addPostBtnHelper ${showHelperAddPostBtn === true ? 'show' : ''}`}>Add post</span>
+                <span className={`addPostBtnHelper ${showHelperAddPostBtn === true ? 'show' : 'hidden'}`}>
+                    Add post
+                </span>
             </div>
         </PageLayout>
     );

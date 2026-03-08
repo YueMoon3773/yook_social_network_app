@@ -43,29 +43,29 @@
 
 @keyframes vanish {
     0% {
-        display: flex;
         opacity: 1;
-    }
-    50% {
-        opacity: 46%;
+        // visibility: visible;
+        // pointer-events: auto;
     }
     100% {
-        display: none;
         opacity: 0;
+        // visibility: hidden;
+        // pointer-events: none;
     }
 }
 
 @keyframes appear {
     0% {
-        display: none;
         opacity: 0;
+        // visibility: hidden;
+        // pointer-events: none;
     }
     50% {
-        display: flex;
         opacity: 60%;
     }
     100% {
-        display: flex;
         opacity: 1;
+        // visibility: visible;
+        // pointer-events: auto;
     }
 }

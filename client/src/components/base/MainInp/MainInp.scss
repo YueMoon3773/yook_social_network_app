@@ -1,0 +1,54 @@
+.mainInpWrapper {
+    $inpFsz: $fs_normal_md;
+    $inpDistanceTopBottom: 0.36em;
+    $inpDistanceLeftRight: 0.6em;
+
+    position: relative;
+    font-size: $inpFsz;
+    width: 100%;
+
+    .mainInpStyle {
+        width: 100%;
+        font-size: $inpFsz;
+        color: $black_text;
+        letter-spacing: 0.06em;
+        padding: $inpDistanceTopBottom $inpDistanceLeftRight;
+        background-color: $snow_white_color;
+
+        border-radius: $distance_sm;
+        border: $thick_border_light_gray;
+        outline: none;
+
+        &::placeholder {
+            color: transparent;
+        }
+
+        &:focus,
+        &:active,
+        &:not(:placeholder-shown) {
+            border-color: $primary_dark_color;
+
+            & ~ label {
+                transform: translateY(-80%) translateX(-6%) scale(0.86);
+                color: $primary_color;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .mainInpLabel {
+        position: absolute;
+        font-size: $inpFsz;
+        color: rgba($color: $dark_gray_color, $alpha: 0.66);
+        letter-spacing: 0.06em;
+        // padding: 0.36em 1.2em;
+        padding: $inpDistanceTopBottom $inpDistanceLeftRight;
+        background-color: transparent;
+
+        // top: $inpDistanceTopBottom;
+        // left: $inpDistanceLeftRight;
+        top: 0;
+        left: 0;
+        transition: $transition_md;
+    }
+}

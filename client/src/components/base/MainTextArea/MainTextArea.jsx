@@ -5,25 +5,26 @@ import ValidatedComponent from '../../../utils/validateComponentProps';
 import './MainTextArea.scss';
 
 const mainInpSchema = z.object({
-    textAreaType: z.string().default('text'),
     textAreaLabel: z.string(),
     textAreaId: z.string(),
     textAreaClass: z.string().optional(),
     onChangeHandler: z.function(),
 });
 
-const MainTextArea = ({ textAreaType = 'text', textAreaLabel, textAreaId, textAreaClass, onChangeHandler }) => {
+const MainTextArea = ({ textAreaLabel, textAreaId, textAreaClass, onChangeHandler }) => {
     return (
-        <label htmlFor={textAreaId}>
-            {textAreaLabel}
-            <input
+        <div className="mainTextAreaWrapper">
+            <textarea
                 id={textAreaId}
                 name={textAreaId}
-                type={textAreaType}
-                className={textAreaClass}
+                className={`mainTextAreaStyle ${textAreaClass}`}
                 onChange={onChangeHandler}
-            />
-        </label>
+                placeholder={textAreaLabel}
+            ></textarea>
+            <label className="mainTextAreaLabel" htmlFor={textAreaId}>
+                {textAreaLabel}
+            </label>
+        </div>
     );
 };
 
