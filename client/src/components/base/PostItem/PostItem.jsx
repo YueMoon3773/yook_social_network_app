@@ -8,12 +8,13 @@ import UserAvatarImg from '../UserAvatarImg/UserAvatarImg';
 import './PostItem.scss';
 
 const postItemSchema = z.looseObject({
-    usrAvatar: z.string(),
-    usrFirstName: z.string(),
-    usrLastName: z.string(),
-    usrUserName: z.string(),
-    isUsrAdmin: z.string(),
-    postId: z.string(),
+    showPostItemHeader: z.boolean(),
+    usrAvatar: z.string().optional(),
+    usrFirstName: z.string().optional(),
+    usrLastName: z.string().optional(),
+    usrUserName: z.string().optional(),
+    isUsrAdmin: z.boolean().optional(),
+    postId: z.string().or(z.number()),
     postTitle: z.string(),
     postContent: z.string(),
     numberPostComments: z.string().or(z.number()),
@@ -21,6 +22,7 @@ const postItemSchema = z.looseObject({
 });
 
 const PostItem = ({
+    showPostItemHeader,
     usrAvatar,
     usrFirstName,
     usrLastName,
@@ -34,24 +36,26 @@ const PostItem = ({
 }) => {
     return (
         <div className="postItem">
-            <section className="postItemHeader">
-                <div className="postHeaderLeft">
-                    <div className="postAvatarImgWrapper">
-                        <UserAvatarImg imgSrc={usrAvatar}></UserAvatarImg>
+            {showPostItemHeader && (
+                <section className="postItemHeader">
+                    <div className="postHeaderLeft">
+                        <div className="postAvatarImgWrapper">
+                            <UserAvatarImg imgSrc={usrAvatar}></UserAvatarImg>
+                        </div>
+                        <Link to={`/user/${usrUserName}`}>
+                            <span>{usrFirstName + ' ' + usrLastName}</span>
+                            <span>{'@' + usrUserName}</span>
+                        </Link>
                     </div>
-                    <Link to={`/user/${usrUserName}`}>
-                        <span>{usrFirstName + ' ' + usrLastName}</span>
-                        <span>{'@' + usrUserName}</span>
-                    </Link>
-                </div>
-                <div className="postHeaderRight">{isUsrAdmin && <span>Admin</span>}</div>
-            </section>
+                    <div className="postHeaderRight">{isUsrAdmin && <span>Admin</span>}</div>
+                </section>
+            )}
 
             <section className="postItemBody">
                 <Link to={`/post/${postId}`}>{postTitle}</Link>
                 <p>{postContent}</p>
             </section>
-            
+
             <section className="postItemFooter">
                 <Link to={`/post/${postId}`} className="numberPostComments">
                     {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
@@ -62,4 +66,4 @@ const PostItem = ({
     );
 };
 
-export default PostItem;
+export default ValidatedComponent(PostItem, postItemSchema);

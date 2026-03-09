@@ -1,0 +1,29 @@
+.errorMsgsWrapper {
+    @include flexColumn;
+    gap: clamp($distance_md, 2rem, $distance_lg);
+
+    .errorMsg {
+        font-size: $fs_heading_md;
+        color: var(--text_color);
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    span {
+        font-size: $fs_normal_md;
+        color: var(--text_color);
+        text-align: center;
+
+        a {
+            font-size: $fs_normal_md;
+            color: $primary_color;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 0.26em;
+            transition: $transition_md;
+            &:hover {
+                font-size: calc($fs_normal_md * 1.1);
+            }
+        }
+    }
+}

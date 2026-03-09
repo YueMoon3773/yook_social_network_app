@@ -34,7 +34,11 @@ const postPerPageOptsList = [
 const App = () => {
     const [showHelperAddPostBtn, setShowHelperAddPostBtn] = useState(false);
     const helperHoverTimer = useRef(null);
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(null);
+
+    useEffect(() => {
+        document.title = 'Yook | Home';
+    }, []);
 
     const addPostOnClickHandler = () => setShowModal(true);
     const closeModalBtnHandler = () => setShowModal(false);
@@ -65,6 +69,7 @@ const App = () => {
                             return (
                                 <PostItem
                                     key={item.id}
+                                    showPostItemHeader={true}
                                     usrAvatar={testImg}
                                     usrFirstName={item.first_name}
                                     usrLastName={item.last_name}
@@ -104,7 +109,7 @@ const App = () => {
                     onMouseEnter={() => {
                         helperHoverTimer.current = setTimeout(() => {
                             setShowHelperAddPostBtn(true);
-                        }, 360);
+                        }, 260);
                     }}
                     onMouseLeave={() => {
                         clearTimeout(helperHoverTimer.current);

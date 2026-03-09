@@ -17,7 +17,7 @@
     }
 }
 
-@keyframes spin {
+@keyframes addPostBtnOnHoverSpin {
     0% {
         transform: scale(1) rotate(0);
     }
@@ -44,28 +44,65 @@
 @keyframes vanish {
     0% {
         opacity: 1;
-        // visibility: visible;
-        // pointer-events: auto;
     }
     100% {
         opacity: 0;
-        // visibility: hidden;
-        // pointer-events: none;
     }
 }
 
 @keyframes appear {
     0% {
         opacity: 0;
-        // visibility: hidden;
-        // pointer-events: none;
+    }
+    30% {
+        opacity: 36%;
     }
     50% {
         opacity: 60%;
     }
+    90% {
+        opacity: 96%;
+    }
     100% {
         opacity: 1;
-        // visibility: visible;
-        // pointer-events: auto;
+    }
+}
+
+@keyframes modalZoomInAppear {
+    0% {
+        transform: scale(0.0006);
+    }
+    50% {
+        transform: scale(0.6);
+    }
+    80% {
+        transform: scale(0.96);
+    }
+    90% {
+        transform: scale(1.06);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes modalZoomOutDisappear {
+    0% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(1.02);
+    }
+    50% {
+        transform: scale(0.66);
+    }
+    80% {
+        transform: scale(0.36);
+    }
+    90% {
+        transform: scale(0.1);
+    }
+    100% {
+        transform: scale(0);
     }
 }

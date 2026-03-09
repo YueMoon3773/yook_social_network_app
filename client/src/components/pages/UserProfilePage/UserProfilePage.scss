@@ -1,0 +1,108 @@
+$profileBoxPadding: max($distance_xxl, 4rem);
+
+.userProfileWrapper {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+
+    @include flexColumn;
+    align-items: center;
+    gap: clamp($distance_md, 2rem, $distance_lg);
+
+    padding: $profileBoxPadding;
+    border-radius: $distance_md;
+    // border: $thick_border_light_gray;
+    box-shadow: 0 $distance_3sm $distance_md var(--out_focus_gray);
+    transition: $transition_md;
+
+    &:hover {
+        filter: brightness(1.03);
+        transform: translateY(-2px);
+        box-shadow: 0 $distance_ssm $distance_md var(--out_focus_gray);
+    }
+}
+
+.usrProfileAvatarWrapper {
+    width: clamp(160px, 16%, 200px);
+}
+
+.usrProfileNamesWrapper {
+    @include flexColumn;
+    align-items: center;
+    gap: clamp($distance_ssm, 0.66em, 8px);
+
+    span {
+        font-size: $fs_normal_md;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+
+    & > *:last-child {
+        color: var(--in_focus_gray);
+    }
+}
+
+.usrProfileInfoWrapper {
+    @include flexColumn;
+    align-items: center;
+    gap: clamp($distance_ssm, 0.66em, 10px);
+}
+
+.usrProfileInfoTop {
+    p {
+        max-width: 75ch;
+        font-size: $fs_normal_md;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+}
+
+.usrProfileInfoBottom {
+    @include flexCenter;
+    flex-wrap: wrap;
+    gap: clamp($distance_lg, 1.66rem, $distance_xl);
+
+    div {
+        @include flexCenter;
+        gap: clamp($distance_ssm, 0.6rem, $distance_sm);
+    }
+
+    svg,
+    span {
+        font-size: $fs_normal_md;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+
+    svg {
+        height: $fs_heading_3sm;
+    }
+}
+
+.usrProfileEditBtn {
+    @include flexCenter;
+    position: absolute;
+    top: calc($profileBoxPadding - 1em);
+    right: calc($profileBoxPadding - 1em);
+    padding: 1em;
+
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-radius: $distance_sm;
+    transition: $transition_md;
+    cursor: pointer;
+
+    svg {
+        height: $fs_heading_sm;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+
+    &:hover {
+        background-color: var(--bg_color_brighter);
+        svg {
+            color: $primary_color;
+        }
+    }
+}

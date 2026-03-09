@@ -23,6 +23,7 @@
         padding: 0.26em 0.36em;
         background-color: var(--bg_color);
         transition: $transition_md;
+        cursor: pointer;
     }
 
     &:active,

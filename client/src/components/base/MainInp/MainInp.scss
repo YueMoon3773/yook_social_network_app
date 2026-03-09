@@ -24,10 +24,11 @@
         }
 
         &:focus,
-        &:active,
-        &:not(:placeholder-shown) {
+        &:active {
             border-color: $primary_dark_color;
+        }
 
+        &:not(:placeholder-shown) {
             & ~ label {
                 transform: translateY(-80%) translateX(-6%) scale(0.86);
                 color: $primary_color;

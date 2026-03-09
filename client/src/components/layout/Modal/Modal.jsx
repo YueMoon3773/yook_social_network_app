@@ -11,7 +11,7 @@ import MainBtn from '../../base/MainBtn/MainBtn';
 import './Modal.scss';
 
 const modalSchema = z.object({
-    showModal: z.boolean().optional(),
+    showModal: z.boolean().nullable().optional(),
     closeModalBtnHandler: z.function().optional(),
 });
 
@@ -19,8 +19,8 @@ const Modal = ({ showModal, closeModalBtnHandler }) => {
     const [isCloseBtnHover, setIsCloseBtnHover] = useState(false);
 
     return (
-        <div className={`modalWrapper ${showModal === true ? 'show' : 'hidden'}`}>
-            <div className="modal">
+        <div className={`modalWrapper ${showModal === null ? '' : showModal ? 'show' : 'hidden'}`}>
+            <div className={`modal ${showModal === null ? '' : showModal ? 'show' : 'hidden'}`}>
                 <section className="modalHeader">
                     <h1>What's on your mind?</h1>
                     <button

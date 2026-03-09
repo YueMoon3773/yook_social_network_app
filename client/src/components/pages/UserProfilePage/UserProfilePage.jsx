@@ -1,0 +1,66 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { EditUserIcon, LocationIcon, BirthdayIcon } from '../../../assets/svgIcon';
+import PageLayout from '../../layout/PageLayout/PageLayout';
+import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
+
+import './UserProfilePage.scss';
+
+import noAvatar from '../../../assets/img/no_avatar.jpg';
+
+const UserProfilePage = () => {
+    const [showModal, setShowModal] = useState(null);
+
+    const usrFirstName = 'Aurelia';
+    const usrLastName = 'Kshlerin';
+    const usrUserName = 'aure_K_lerin';
+
+    useEffect(() => {
+        document.title = `Yook | ${usrUserName}'s profile`;
+    }, []);
+
+    const closeModalBtnHandler = () => setShowModal(false);
+
+    return (
+        <PageLayout showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}>
+            <div className="userProfileWrapper">
+                <div className="usrProfileAvatarWrapper">
+                    <UserAvatarImg imgSrc={noAvatar}></UserAvatarImg>
+                </div>
+
+                <section className="usrProfileNamesWrapper">
+                    <span>{usrFirstName + ' ' + usrLastName}</span>
+                    <span>{'@' + usrUserName}</span>
+                </section>
+
+                <section className="usrProfileInfoWrapper">
+                    <div className="usrProfileInfoTop">
+                        <p>
+                            Similique rerum corporis at. In consequatur ad maxime non sed aut deserunt. Necessitatibus
+                            voluptatum id odit et corporis et ad. Voluptatum autem et quibusdam aliquid eos quae eum
+                            voluptatem.
+                        </p>
+                    </div>
+
+                    <div className="usrProfileInfoBottom">
+                        <div className="infoBttmLeft">
+                            <LocationIcon></LocationIcon>
+                            <span>Lake Samir, Cook Islands</span>
+                        </div>
+                        <div className="infoBttmRight">
+                            <BirthdayIcon></BirthdayIcon>
+                            <span>Fri Apr 25 2025</span>
+                        </div>
+                    </div>
+                </section>
+
+                <button className="usrProfileEditBtn" onClick={() => setShowModal(true)}>
+                    <EditUserIcon></EditUserIcon>
+                </button>
+            </div>
+        </PageLayout>
+    );
+};
+
+export default UserProfilePage;

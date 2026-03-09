@@ -54,7 +54,7 @@
 }
 
 .nav_button_show_controllers {
-    padding: $distance_3sm;
+    padding: min($distance_3sm, 0.4rem);
     @include flexCenter;
     outline: none;
     border: 3px solid var(--hover_text_color);

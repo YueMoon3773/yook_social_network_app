@@ -97,7 +97,8 @@
         background-color: $primary_color;
 
         svg {
-            animation: spin 660ms ease-in-out;
+            animation: addPostBtnOnHoverSpin 660ms ease-in-out;
+            animation-delay: 260ms;
         }
     }
 }

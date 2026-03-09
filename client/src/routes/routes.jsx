@@ -1,14 +1,17 @@
 import App from '../App';
+import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
+import UserProfilePage from '../components/pages/UserProfilePage/UserProfilePage';
 
 const routes = [
     {
         path: '/',
         element: <App />,
-        // errorElement: <ErrorPage />,
+        errorElement: <ErrorPage />,
     },
     {
-        // path: '/profile/:name?',
-        // element: <Profile />,
+        path: '/user/profile',
+        element: <UserProfilePage />,
+        errorElement: <ErrorPage />,
     },
 ];
 

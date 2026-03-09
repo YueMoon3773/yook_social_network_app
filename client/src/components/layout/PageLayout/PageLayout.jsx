@@ -14,12 +14,13 @@ import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './PageLayout.scss';
 
 const pageLayoutSchema = z.object({
-    showModal: z.boolean().default(false).optional(),
+    showModal: z.boolean().nullable().optional(),
+    // showModal: z.string().optional(),
     closeModalBtnHandler: z.function().optional(),
     children: z.unknown().optional(),
 });
 
-const PageLayout = ({ showModal = false, closeModalBtnHandler, children }) => {
+const PageLayout = ({ showModal = null, closeModalBtnHandler, children }) => {
     const { theme } = useTheme();
     const { headerPassedTopPage, pageMaker, observerRoot } = useHeaderPassedTopPage();
 
@@ -36,7 +37,9 @@ const PageLayout = ({ showModal = false, closeModalBtnHandler, children }) => {
                     {children}
                 </PageContent>
             </main>
-            {showModal && <Modal showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}></Modal>}
+            {/* {showModal && <Modal showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}></Modal>} */}
+            {/* <Modal showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}></Modal> */}
+            {showModal !== null && <Modal showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}></Modal>}
         </div>
     );
 };
