@@ -4,7 +4,7 @@
     @include flexColumn;
     gap: clamp($distance_md, 2rem, $distance_lg);
     border-radius: $distance_sm;
-    box-shadow: 0 $distance_3sm $distance_sm var(--out_focus_gray);
+    box-shadow: 0 $distance_3sm $distance_ssm var(--out_focus_gray);
     transition: $transition_md;
     transition-delay: 160ms;
 

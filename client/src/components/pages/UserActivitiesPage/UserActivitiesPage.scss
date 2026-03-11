@@ -1,0 +1,68 @@
+$activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
+
+.userActivitiesPageContent {
+    @include flexColumn;
+    gap: clamp($distance_xl, 3.6rem, 40px);
+}
+
+.usrBasicInfoWrapper {
+    @include flexCenter;
+
+    .usrBasicInfo {
+        max-width: 30%;
+        @include flexCenter;
+        justify-content: flex-start;
+        gap: clamp($distance_md, 2rem, $distance_lg);
+        flex-wrap: wrap;
+
+        padding: $activitiesProfileBoxPadding;
+        border-radius: $distance_md;
+        box-shadow: 0 $distance_3sm $distance_sm var(--out_focus_gray);
+        transition: $transition_md;
+
+        &:hover {
+            filter: brightness(1.006);
+            transform: translateY(-2px);
+            box-shadow: 0 $distance_ssm $distance_md var(--out_focus_gray);
+        }
+
+        .basicInfoLeft {
+            max-width: 25%;
+        }
+
+        .usrActivitiesAvatarWrapper {
+            width: 100%;
+        }
+
+        .basicInfoRight {
+            @include flexColumn;
+            gap: clamp($distance_sm, 1.2rem, $distance_md);
+
+            span {
+                font-size: $fs_normal_md;
+                color: var(--text_color);
+                transition: $transition_md;
+            }
+
+            & > *:last-child {
+                color: var(--in_focus_gray);
+            }
+        }
+    }
+}
+
+.userActivitiesWrapper {
+    flex: 1;
+}
+
+.usrPostsWrapper {
+}
+
+.activitiesSectionHeading {
+}
+
+.activitiesWrapper {
+}
+
+.usrCommentsWrapper {
+}

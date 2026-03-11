@@ -119,6 +119,26 @@ export const EditUserIcon = ({ iconClassName = '' }) => {
     );
 };
 
+export const DeleteUserIcon = ({ iconClassName = '' }) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`svgIcon ${iconClassName}`}
+        >
+            <path d="M2 21a8 8 0 0 1 11.873-7" />
+            <circle cx="10" cy="8" r="5" />
+            <path d="m17 17 5 5" />
+            <path d="m22 17-5 5" />
+        </svg>
+    );
+};
+
 export const ActivitiesIcon = ({ iconClassName = '' }) => {
     return (
         <svg
@@ -288,6 +308,43 @@ export const BirthdayIcon = ({ iconClassName = '' }) => {
             <path d="M7 4h.01" />
             <path d="M12 4h.01" />
             <path d="M17 4h.01" />
+        </svg>
+    );
+};
+
+export const PostsIcon = ({ iconClassName = '' }) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`svgIcon ${iconClassName}`}
+        >
+            <path d="M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8" />
+            <path d="M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z" />
+            <path d="M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1" />
+        </svg>
+    );
+};
+
+export const CommentsIcon = ({ iconClassName = '' }) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`svgIcon ${iconClassName}`}
+        >
+            <path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+            <path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1" />
         </svg>
     );
 };

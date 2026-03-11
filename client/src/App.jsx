@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Masonry from 'react-masonry-css';
 
-import { testData } from './utils/testDataArr';
+import { useOpenCloseModal, OpenCloseModalProvider } from './hooks/useOpenCloseModal';
 
 import { ArrowRightIcon, ArrowLeftIcon, PlusIcon } from './assets/svgIcon';
 import PageLayout from './components/layout/PageLayout/PageLayout';
@@ -12,6 +12,7 @@ import MainBtn from './components/base/MainBtn/MainBtn';
 import './App.scss';
 
 import testImg from './assets/img/no_avatar.jpg';
+import { testUsrPosts } from './utils/testDataArr';
 
 const breakpointColumnsObj = {
     default: 3,
@@ -36,15 +37,36 @@ const App = () => {
     const helperHoverTimer = useRef(null);
     const [showModal, setShowModal] = useState(null);
 
+    const modalBoxRef = useRef(null);
+
     useEffect(() => {
         document.title = 'Yook | Home';
     }, []);
+
+    useEffect(() => {
+        const checkClickOutsideModalBox = (e) => {
+            if (modalBoxRef.current && !modalBoxRef.current.contains(e.target) && showModal !== null) {
+                setShowModal(false);
+            }
+        };
+
+        document.addEventListener('mousedown', checkClickOutsideModalBox);
+
+        return () => {
+            document.removeEventListener('mousedown', checkClickOutsideModalBox);
+        };
+    }, [showModal]);
 
     const addPostOnClickHandler = () => setShowModal(true);
     const closeModalBtnHandler = () => setShowModal(false);
 
     return (
-        <PageLayout showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}>
+        <PageLayout
+            showModal={showModal}
+            closeModalBtnHandler={closeModalBtnHandler}
+            modalType="addPost"
+            modalBoxRef={modalBoxRef}
+        >
             <div className="postsPageContent">
                 <section className="sortControllers">
                     <SelectionController
@@ -65,7 +87,7 @@ const App = () => {
                         className="masonryGrid"
                         columnClassName="masonryGridColumn"
                     >
-                        {testData.map((item) => {
+                        {testUsrPosts.map((item) => {
                             return (
                                 <PostItem
                                     key={item.id}

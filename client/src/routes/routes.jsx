@@ -1,6 +1,7 @@
 import App from '../App';
 import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
 import UserProfilePage from '../components/pages/UserProfilePage/UserProfilePage';
+import UserActivitiesPage from '../components/pages/UserActivitiesPage/UserActivitiesPage';
 
 const routes = [
     {
@@ -11,6 +12,11 @@ const routes = [
     {
         path: '/user/profile',
         element: <UserProfilePage />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/user/activities',
+        element: <UserActivitiesPage />,
         errorElement: <ErrorPage />,
     },
 ];

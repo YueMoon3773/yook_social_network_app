@@ -1,4 +1,4 @@
-$profileBoxPadding: max($distance_xxl, 4rem);
+$profileBoxPadding: max($distance_xxl, 4.2rem);
 
 .userProfileWrapper {
     position: relative;
@@ -16,9 +16,9 @@ $profileBoxPadding: max($distance_xxl, 4rem);
     transition: $transition_md;
 
     &:hover {
-        filter: brightness(1.03);
+        filter: brightness(1.006);
         transform: translateY(-2px);
-        box-shadow: 0 $distance_ssm $distance_md var(--out_focus_gray);
+        box-shadow: 0 $distance_ssm $distance_lg var(--out_focus_gray);
     }
 }
 
@@ -45,37 +45,38 @@ $profileBoxPadding: max($distance_xxl, 4rem);
 .usrProfileInfoWrapper {
     @include flexColumn;
     align-items: center;
-    gap: clamp($distance_ssm, 0.66em, 10px);
-}
+    gap: clamp($distance_md, 2rem, $distance_lg);
 
-.usrProfileInfoTop {
-    p {
-        max-width: 75ch;
-        font-size: $fs_normal_md;
-        color: var(--text_color);
-        transition: $transition_md;
+    .usrProfileInfoTop {
+        p {
+            text-align: justify;
+            max-width: 75ch;
+            font-size: $fs_normal_md;
+            color: var(--text_color);
+            transition: $transition_md;
+        }
     }
-}
 
-.usrProfileInfoBottom {
-    @include flexCenter;
-    flex-wrap: wrap;
-    gap: clamp($distance_lg, 1.66rem, $distance_xl);
-
-    div {
+    .usrProfileInfoBottom {
         @include flexCenter;
-        gap: clamp($distance_ssm, 0.6rem, $distance_sm);
-    }
+        flex-wrap: wrap;
+        gap: clamp($distance_xl, 3.6rem, $distance_xxl);
 
-    svg,
-    span {
-        font-size: $fs_normal_md;
-        color: var(--text_color);
-        transition: $transition_md;
-    }
+        div {
+            @include flexCenter;
+            gap: clamp($distance_ssm, 0.6rem, $distance_sm);
+        }
 
-    svg {
-        height: $fs_heading_3sm;
+        svg,
+        span {
+            font-size: $fs_normal_md;
+            color: var(--text_color);
+            transition: $transition_md;
+        }
+
+        svg {
+            height: $fs_heading_3sm;
+        }
     }
 }
 
@@ -84,12 +85,12 @@ $profileBoxPadding: max($distance_xxl, 4rem);
     position: absolute;
     top: calc($profileBoxPadding - 1em);
     right: calc($profileBoxPadding - 1em);
-    padding: 1em;
+    padding: 1.2em;
 
     background-color: transparent;
     outline: none;
     border: none;
-    border-radius: $distance_sm;
+    border-radius: 12px;
     transition: $transition_md;
     cursor: pointer;
 

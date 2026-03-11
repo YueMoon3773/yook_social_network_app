@@ -15,18 +15,20 @@ import './PageLayout.scss';
 
 const pageLayoutSchema = z.object({
     showModal: z.boolean().nullable().optional(),
-    // showModal: z.string().optional(),
     closeModalBtnHandler: z.function().optional(),
+    modalType: z.string().optional(),
+    modalBoxRef: z.unknown(),
     children: z.unknown().optional(),
 });
 
-const PageLayout = ({ showModal = null, closeModalBtnHandler, children }) => {
+const PageLayout = ({ showModal = null, closeModalBtnHandler, modalType, modalBoxRef, children }) => {
     const { theme } = useTheme();
     const { headerPassedTopPage, pageMaker, observerRoot } = useHeaderPassedTopPage();
 
     // console.log({ headerPassedTopPage });
     // console.log(pageMaker.current);
     // console.log(observerRoot.current);
+
 
     return (
         <div className={`${pageBaseStyles.page}`} data-theme={theme}>
@@ -37,9 +39,14 @@ const PageLayout = ({ showModal = null, closeModalBtnHandler, children }) => {
                     {children}
                 </PageContent>
             </main>
-            {/* {showModal && <Modal showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}></Modal>} */}
-            {/* <Modal showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}></Modal> */}
-            {showModal !== null && <Modal showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}></Modal>}
+            {showModal !== null && (
+                <Modal
+                    showModal={showModal}
+                    closeModalBtnHandler={closeModalBtnHandler}
+                    modalType={modalType}
+                    modalBoxRef={modalBoxRef}
+                ></Modal>
+            )}
         </div>
     );
 };

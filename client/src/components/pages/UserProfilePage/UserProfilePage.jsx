@@ -4,10 +4,9 @@ import { useParams } from 'react-router-dom';
 import { EditUserIcon, LocationIcon, BirthdayIcon } from '../../../assets/svgIcon';
 import PageLayout from '../../layout/PageLayout/PageLayout';
 import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
+import noAvatar from '../../../assets/img/no_avatar.jpg';
 
 import './UserProfilePage.scss';
-
-import noAvatar from '../../../assets/img/no_avatar.jpg';
 
 const UserProfilePage = () => {
     const [showModal, setShowModal] = useState(null);
@@ -23,7 +22,7 @@ const UserProfilePage = () => {
     const closeModalBtnHandler = () => setShowModal(false);
 
     return (
-        <PageLayout showModal={showModal} closeModalBtnHandler={closeModalBtnHandler}>
+        <PageLayout showModal={showModal} closeModalBtnHandler={closeModalBtnHandler} modalType={'editUsrProfile'}>
             <div className="userProfileWrapper">
                 <div className="usrProfileAvatarWrapper">
                     <UserAvatarImg imgSrc={noAvatar}></UserAvatarImg>

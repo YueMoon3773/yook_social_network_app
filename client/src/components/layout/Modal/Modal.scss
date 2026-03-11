@@ -11,8 +11,28 @@ $modalAnimationTime: 260ms;
     z-index: 150;
 
     @include displayGrid;
-    grid-template-columns: 2fr 6fr 2fr;
-    grid-template-rows: 1fr 3fr 1fr;
+
+    &.addPost {
+        grid-template-columns: 2fr 6fr 2fr;
+        grid-template-rows: 1fr 3fr 1fr;
+
+        .modal {
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
+        }
+    }
+
+    &.editUsrProfile {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 6fr 0.5fr;
+
+        .modal {
+            grid-row: 2 / 3;
+            justify-self: center;
+            max-width: 90%;
+            width: clamp(600px, 60%, 90%);
+        }
+    }
 
     &.hidden {
         animation: vanish $modalWrapperAnimationTime ease-in-out forwards;
@@ -29,15 +49,20 @@ $modalAnimationTime: 260ms;
 }
 
 .modal {
-    grid-row: 2 / 3;
-    grid-column: 2 / 3;
     background-color: var(--bg_color);
     border: $thick_border_light_gray;
     border-radius: $distance_lg;
 
     @include displayGrid;
-    grid-template-rows: 1fr 3fr 0.5fr;
     overflow: hidden;
+
+    &.addPost {
+        grid-template-rows: 1fr 3fr 0.5fr;
+    }
+
+    &.editUsrProfile {
+        grid-template-rows: 0.75fr 4fr 0.5fr;
+    }
 
     &.show {
         transform-origin: bottom center;
@@ -53,10 +78,11 @@ $modalAnimationTime: 260ms;
 }
 
 .modalHeader {
-    padding: min($distance_xxl, 4rem);
+    padding: min($distance_xl, 3.2rem) min($distance_xxl, 4rem);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    align-items: center;
     transition: $transition_md;
 
     background-color: $primary_color;
@@ -70,7 +96,7 @@ $modalAnimationTime: 260ms;
 
     button {
         font-size: 1rem;
-        padding: 0.66em;
+        padding: 0.3em;
         background-color: transparent;
         border: none;
         outline: none;
@@ -91,21 +117,46 @@ $modalAnimationTime: 260ms;
 }
 
 .modalBody {
-    @include flexColumn;
-    padding: min($distance_xl, 3.2rem) min($distance_xxl, 4rem) 0;
-    align-items: stretch;
-    gap: clamp($distance_xl, 3.6rem, $distance_xxl);
-
-    .mainTextAreaWrapper {
-        flex: 1;
+    .addPostModalBody,
+    .editUsrProfileModalBody {
+        height: 100%;
+        padding: min($distance_xl, 3.2rem) min($distance_xxl, 4rem) 0;
+        row-gap: clamp(30px, 3.2rem, 36px);
     }
-}
 
-.postTitle {
-}
+    .addPostModalBody {
+        @include flexColumn;
+        align-items: stretch;
 
-.postContent {
-    overflow-y: auto;
+        .mainTextAreaWrapper {
+            flex: 1;
+        }
+
+        .postTitle {
+        }
+
+        .postContent {
+            overflow-y: auto;
+        }
+    }
+
+    .editUsrProfileModalBody {
+        @include displayGrid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 0.6fr 0.6fr 2.5fr 0.6fr 0.6fr;
+        column-gap: clamp(20px, 2.4rem, 26px);
+
+        & > *:nth-child(3),
+        & > *:nth-child(4),
+        & > *:nth-child(5),
+        & > *:nth-child(6) {
+            grid-column: 1 / 3;
+        }
+
+        & > *:nth-child(4) {
+            height: 98%;
+        }
+    }
 }
 
 .modalFooter {
@@ -124,6 +175,6 @@ $modalAnimationTime: 260ms;
 
     &:hover {
         color: var(--hover_text_color);
-        background-color: $primary_darker_color;
+        background-color: $primary_dark_color;
     }
 }

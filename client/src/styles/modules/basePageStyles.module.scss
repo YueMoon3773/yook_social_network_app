@@ -20,7 +20,7 @@
     @include flexCenter;
     justify-content: space-between;
     gap: clamp(20px, 5.6em, 60px);
-    padding: $fs_normal_md calc($fs_heading_lg * 1.06);
+    padding: $fs_normal_md calc($page_content_main_padding * 1.06);
 
     transition: $transition_md;
 }
@@ -71,4 +71,46 @@
     }
 }
 
-// .mainItemHover
+.twoPartsSectionWrapper {
+    @include displayGrid;
+    grid-template-columns: repeat(2, 1fr);
+    isolation: isolate;
+
+    & > *:first-child {
+        border-right: $thin_border_light_gray;
+    }
+}
+
+.sectionHeading {
+    @include flexCenter;
+
+    position: sticky;
+    top: 0;
+    font-size: $fs_normal_lg;
+    font-weight: 600;
+    padding: 0.86em 0;
+    color: var(--text_color);
+    background-color: var(--bg_color);
+    transition: $transition_md;
+    z-index: 100;
+
+    gap: clamp($distance_sm, 0.8rem, 10px);
+    border-bottom: $thin_border_light_gray;
+    cursor: default;
+
+    svg {
+        height: $fs_heading_ssm;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+}
+
+.twoPartsSectionContentWrapper {
+    padding: $distance_md;
+    @include flexColumn;
+    gap: clamp($distance_lg, 2.6rem, 30px);
+    gap: 26px;
+    overflow-y: auto;
+    max-height: 760px;
+    z-index: 50;
+}
