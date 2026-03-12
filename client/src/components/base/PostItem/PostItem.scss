@@ -1,5 +1,5 @@
 .postItem {
-    padding: 20px;
+    padding: $postAndCommentItemPadding;
 
     @include flexColumn;
     gap: clamp($distance_md, 2rem, $distance_lg);
@@ -33,7 +33,7 @@
 
     .postAvatarImgWrapper {
         flex-shrink: 0;
-        width: clamp(42px, 14%, 50px);
+        width: $postAndCommentItemAvatarWidth;
         aspect-ratio: 1 / 1;
         @include flexCenter;
     }
@@ -60,9 +60,11 @@
 }
 
 .postHeaderRight {
+    @include flexCenter;
     cursor: default;
 
     span {
+        display: block;
         font-size: $fs_normal_3sm;
         font-weight: 500;
         color: var(--text_color);

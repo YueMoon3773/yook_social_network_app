@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { useTheme } from '../../../hooks/useTheme';
 import { useHeaderPassedTopPage } from '../../../hooks/useHeaderPassedTopOfPage';
+// import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
 
 import ValidatedComponent from '../../../utils/validateComponentProps';
 
@@ -25,10 +26,11 @@ const PageLayout = ({ showModal = null, closeModalBtnHandler, modalType, modalBo
     const { theme } = useTheme();
     const { headerPassedTopPage, pageMaker, observerRoot } = useHeaderPassedTopPage();
 
+    // const { showModal, modalBoxRef, openModal, closeModal } = useOpenCloseModal();
+
     // console.log({ headerPassedTopPage });
     // console.log(pageMaker.current);
     // console.log(observerRoot.current);
-
 
     return (
         <div className={`${pageBaseStyles.page}`} data-theme={theme}>

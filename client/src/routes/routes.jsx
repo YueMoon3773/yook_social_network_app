@@ -1,3 +1,5 @@
+import { OpenCloseModalProvider } from '../hooks/useOpenCloseModal';
+
 import App from '../App';
 import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
 import UserProfilePage from '../components/pages/UserProfilePage/UserProfilePage';
@@ -6,17 +8,29 @@ import UserActivitiesPage from '../components/pages/UserActivitiesPage/UserActiv
 const routes = [
     {
         path: '/',
-        element: <App />,
+        element: (
+            <OpenCloseModalProvider>
+                <App />
+            </OpenCloseModalProvider>
+        ),
         errorElement: <ErrorPage />,
     },
     {
         path: '/user/profile',
-        element: <UserProfilePage />,
+        element: (
+            <OpenCloseModalProvider>
+                <UserProfilePage />
+            </OpenCloseModalProvider>
+        ),
         errorElement: <ErrorPage />,
     },
     {
         path: '/user/activities',
-        element: <UserActivitiesPage />,
+        element: (
+            <OpenCloseModalProvider>
+                <UserActivitiesPage />
+            </OpenCloseModalProvider>
+        ),
         errorElement: <ErrorPage />,
     },
 ];

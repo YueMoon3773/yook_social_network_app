@@ -8,6 +8,7 @@ export const OpenCloseModalProvider = ({ children }) => {
 
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
+    const resetModalState = () => setShowModal(null);
 
     useEffect(() => {
         const checkIfUsrClickOutsideModalBox = (e) => {
@@ -24,7 +25,7 @@ export const OpenCloseModalProvider = ({ children }) => {
     }, [showModal]);
 
     return (
-        <OpenCloseModalContext.Provider value={{ showModal, modalBoxRef, openModal, closeModal }}>
+        <OpenCloseModalContext.Provider value={{ showModal, modalBoxRef, openModal, closeModal, resetModalState }}>
             {children}
         </OpenCloseModalContext.Provider>
     );

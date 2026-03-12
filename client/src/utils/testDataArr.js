@@ -396,8 +396,8 @@ export const testUsrCmts = [
         first_name: 'Sam',
         last_name: 'Rivers',
         user_name: 's_rivers_coffee',
-        is_admin: false,
-        postId: 1,
+        is_admin: true,
+        post_id: 1,
         post_title: 'My Morning Coffee Ritual',
     },
     {
@@ -409,7 +409,7 @@ export const testUsrCmts = [
         last_name: 'Chen',
         user_name: 'jules_explorer',
         is_admin: false,
-        postId: 2,
+        post_id: 2,
         post_title: 'The Comprehensive Guide to Hidden Gems in Madrid',
     },
     {
@@ -421,7 +421,7 @@ export const testUsrCmts = [
         last_name: 'Wazowski',
         user_name: 'mike_tech_tips',
         is_admin: true,
-        postId: 3,
+        post_id: 3,
         post_title: 'New Keyboard',
     },
     {
@@ -433,7 +433,7 @@ export const testUsrCmts = [
         last_name: 'Baker',
         user_name: 'tommy_bakes',
         is_admin: false,
-        postId: 4,
+        post_id: 4,
         post_title: 'Easy Sourdough',
     },
     {
@@ -445,7 +445,7 @@ export const testUsrCmts = [
         last_name: 'Connor',
         user_name: 's_connor_dev',
         is_admin: false,
-        postId: 5,
+        post_id: 5,
         post_title: 'Why VS Code Extensions are the Secret to Productivity',
     },
     {
@@ -456,7 +456,7 @@ export const testUsrCmts = [
         last_name: 'Hiker',
         user_name: 'benny_h',
         is_admin: false,
-        postId: 6,
+        post_id: 6,
         post_title: 'Weekend Hiking',
     },
     {
@@ -467,7 +467,7 @@ export const testUsrCmts = [
         last_name: 'Rick',
         user_name: 'vinyl_ricky',
         is_admin: false,
-        postId: 7,
+        post_id: 7,
         post_title: 'Vinyl Collection',
     },
     {
@@ -479,7 +479,7 @@ export const testUsrCmts = [
         last_name: 'Wonder',
         user_name: 'alice_ui',
         is_admin: true,
-        postId: 8,
+        post_id: 8,
         post_title: 'A Deep Dive into Inclusive UI Design',
     },
     {
@@ -490,7 +490,7 @@ export const testUsrCmts = [
         last_name: 'Strong',
         user_name: 'kev_fitness',
         is_admin: false,
-        postId: 9,
+        post_id: 9,
         post_title: 'Workout Routine',
     },
     {
@@ -502,7 +502,7 @@ export const testUsrCmts = [
         last_name: 'Dan',
         user_name: 'dan_codes',
         is_admin: false,
-        postId: 10,
+        post_id: 10,
         post_title: 'Deep Diving into React Hooks',
     },
     {
@@ -513,7 +513,7 @@ export const testUsrCmts = [
         last_name: 'Green',
         user_name: 'lily_g',
         is_admin: false,
-        postId: 11,
+        post_id: 11,
         post_title: 'Urban Gardening',
     },
     {
@@ -525,7 +525,7 @@ export const testUsrCmts = [
         last_name: 'Chris',
         user_name: 'chris_espresso',
         is_admin: false,
-        postId: 12,
+        post_id: 12,
         post_title: 'The Art of the Perfect Italian Espresso',
     },
     {
@@ -536,7 +536,7 @@ export const testUsrCmts = [
         last_name: 'Saver',
         user_name: 'penny_wise',
         is_admin: false,
-        postId: 13,
+        post_id: 13,
         post_title: 'Budgeting 101',
     },
     {
@@ -548,7 +548,7 @@ export const testUsrCmts = [
         last_name: 'Annie',
         user_name: 'annie_paint',
         is_admin: false,
-        postId: 14,
+        post_id: 14,
         post_title: 'Watercolor Painting',
     },
     {
@@ -559,7 +559,7 @@ export const testUsrCmts = [
         last_name: 'Gordon',
         user_name: 'flash_pix',
         is_admin: false,
-        postId: 15,
+        post_id: 15,
         post_title: 'Golden Hour Photography',
     },
     {
@@ -571,7 +571,7 @@ export const testUsrCmts = [
         last_name: 'Reader',
         user_name: 'brian_books',
         is_admin: false,
-        postId: 16,
+        post_id: 16,
         post_title: 'Book Review: Why Dune is Still the King of Sci-Fi',
     },
     {
@@ -582,7 +582,7 @@ export const testUsrCmts = [
         last_name: 'Will',
         user_name: 'will_time',
         is_admin: false,
-        postId: 17,
+        post_id: 17,
         post_title: 'Mechanical Watches',
     },
     {
@@ -593,7 +593,7 @@ export const testUsrCmts = [
         last_name: 'Block',
         user_name: 'write_on',
         is_admin: false,
-        postId: 18,
+        post_id: 18,
         post_title: "Writer's Block",
     },
     {
@@ -604,7 +604,7 @@ export const testUsrCmts = [
         last_name: 'Ops',
         user_name: 'devops_eric',
         is_admin: true,
-        postId: 19,
+        post_id: 19,
         post_title: 'Docker for Beginners',
     },
     {
@@ -616,7 +616,7 @@ export const testUsrCmts = [
         last_name: 'Dweller',
         user_name: 'desk_job_hero',
         is_admin: false,
-        postId: 20,
+        post_id: 20,
         post_title: 'Yoga for Posture',
     },
     {
@@ -628,7 +628,7 @@ export const testUsrCmts = [
         last_name: 'Davis',
         user_name: 'miles_jazz',
         is_admin: false,
-        postId: 21,
+        post_id: 21,
         post_title: 'Jazz Piano',
     },
     {
@@ -639,7 +639,7 @@ export const testUsrCmts = [
         last_name: 'Emma',
         user_name: 'emma_thrifter',
         is_admin: false,
-        postId: 22,
+        post_id: 22,
         post_title: 'Sustainable Fashion',
     },
     {
@@ -651,7 +651,7 @@ export const testUsrCmts = [
         last_name: 'Noob',
         user_name: 'pawn_star',
         is_admin: false,
-        postId: 23,
+        post_id: 23,
         post_title: 'The Sicilian Defense',
     },
     {
@@ -662,7 +662,7 @@ export const testUsrCmts = [
         last_name: 'Zoe',
         user_name: 'zoe_zen',
         is_admin: false,
-        postId: 24,
+        post_id: 24,
         post_title: 'Meditation',
     },
     {
@@ -673,7 +673,7 @@ export const testUsrCmts = [
         last_name: 'Bill',
         user_name: 'billy_wheels',
         is_admin: false,
-        postId: 25,
+        post_id: 25,
         post_title: 'Cycling in the Rain',
     },
     {
@@ -685,7 +685,7 @@ export const testUsrCmts = [
         last_name: 'Monster',
         user_name: 'cookie_mom',
         is_admin: false,
-        postId: 26,
+        post_id: 26,
         post_title: 'The Secret to Perfect Chocolate Chip Cookies',
     },
     {
@@ -696,7 +696,7 @@ export const testUsrCmts = [
         last_name: 'Guy',
         user_name: 'ultrawide_fan',
         is_admin: false,
-        postId: 27,
+        post_id: 27,
         post_title: 'Desktop Setup',
     },
     {
@@ -707,7 +707,7 @@ export const testUsrCmts = [
         last_name: 'Sam',
         user_name: 'sam_simple',
         is_admin: false,
-        postId: 28,
+        post_id: 28,
         post_title: 'Minimalism',
     },
     {
@@ -719,7 +719,7 @@ export const testUsrCmts = [
         last_name: 'Fred',
         user_name: 'fred_tech_talk',
         is_admin: true,
-        postId: 29,
+        post_id: 29,
         post_title: 'The Future of AI',
     },
     {
@@ -730,7 +730,7 @@ export const testUsrCmts = [
         last_name: 'Paul',
         user_name: 'paul_plants',
         is_admin: false,
-        postId: 30,
+        post_id: 30,
         post_title: 'Stop Overwatering!',
     },
     {
@@ -741,7 +741,7 @@ export const testUsrCmts = [
         last_name: 'Rich',
         user_name: 'rich_runs',
         is_admin: false,
-        postId: 31,
+        post_id: 31,
         post_title: 'Half-Marathon Training',
     },
     {
@@ -752,7 +752,7 @@ export const testUsrCmts = [
         last_name: 'Pete',
         user_name: 'pete_py',
         is_admin: false,
-        postId: 32,
+        post_id: 32,
         post_title: 'Python Tips',
     },
     {
@@ -763,7 +763,7 @@ export const testUsrCmts = [
         last_name: 'Cate',
         user_name: 'cate_clumsy',
         is_admin: false,
-        postId: 33,
+        post_id: 33,
         post_title: 'Coffee Brewing',
     },
     {
@@ -775,7 +775,7 @@ export const testUsrCmts = [
         last_name: 'Mary',
         user_name: 'mary_less',
         is_admin: false,
-        postId: 34,
+        post_id: 34,
         post_title: 'My Journey Toward a Capsule Wardrobe',
     },
     {
@@ -786,7 +786,7 @@ export const testUsrCmts = [
         last_name: 'Rob',
         user_name: 'rob_games',
         is_admin: false,
-        postId: 35,
+        post_id: 35,
         post_title: 'Retro Gaming',
     },
     {
@@ -797,7 +797,7 @@ export const testUsrCmts = [
         last_name: 'Chris',
         user_name: 'chris_dev',
         is_admin: true,
-        postId: 36,
+        post_id: 36,
         post_title: 'TypeScript is Essential',
     },
     {
@@ -808,7 +808,7 @@ export const testUsrCmts = [
         last_name: 'Fan',
         user_name: 'movie_buff_99',
         is_admin: false,
-        postId: 37,
+        post_id: 37,
         post_title: 'Cinematography',
     },
     {
@@ -820,7 +820,7 @@ export const testUsrCmts = [
         last_name: 'Tara',
         user_name: 'tara_trips',
         is_admin: false,
-        postId: 38,
+        post_id: 38,
         post_title: 'Solo Travel in Japan',
     },
     {
@@ -831,7 +831,7 @@ export const testUsrCmts = [
         last_name: 'Wood',
         user_name: 'woody_diy',
         is_admin: false,
-        postId: 39,
+        post_id: 39,
         post_title: 'Woodworking Project',
     },
     {
@@ -842,7 +842,7 @@ export const testUsrCmts = [
         last_name: 'Mike',
         user_name: 'mike_breathe',
         is_admin: false,
-        postId: 40,
+        post_id: 40,
         post_title: 'Mindfulness',
     },
 ];

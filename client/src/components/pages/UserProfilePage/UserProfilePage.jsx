@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
+
 import { EditUserIcon, LocationIcon, BirthdayIcon } from '../../../assets/svgIcon';
 import PageLayout from '../../layout/PageLayout/PageLayout';
 import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
@@ -9,7 +11,11 @@ import noAvatar from '../../../assets/img/no_avatar.jpg';
 import './UserProfilePage.scss';
 
 const UserProfilePage = () => {
-    const [showModal, setShowModal] = useState(null);
+    // const [showModal, setShowModal] = useState(null);
+
+    const { showModal, modalBoxRef, openModal, closeModal } = useOpenCloseModal();
+
+    console.log('showModal in profile: ', showModal);
 
     const usrFirstName = 'Aurelia';
     const usrLastName = 'Kshlerin';
@@ -19,10 +25,15 @@ const UserProfilePage = () => {
         document.title = `Yook | ${usrUserName}'s profile`;
     }, []);
 
-    const closeModalBtnHandler = () => setShowModal(false);
+    const closeModalBtnHandler = () => closeModal();
 
     return (
-        <PageLayout showModal={showModal} closeModalBtnHandler={closeModalBtnHandler} modalType={'editUsrProfile'}>
+        <PageLayout
+            showModal={showModal}
+            closeModalBtnHandler={closeModalBtnHandler}
+            modalType={'editUsrProfile'}
+            modalBoxRef={modalBoxRef}
+        >
             <div className="userProfileWrapper">
                 <div className="usrProfileAvatarWrapper">
                     <UserAvatarImg imgSrc={noAvatar}></UserAvatarImg>
@@ -54,7 +65,7 @@ const UserProfilePage = () => {
                     </div>
                 </section>
 
-                <button className="usrProfileEditBtn" onClick={() => setShowModal(true)}>
+                <button className="usrProfileEditBtn" onClick={() => openModal()}>
                     <EditUserIcon></EditUserIcon>
                 </button>
             </div>

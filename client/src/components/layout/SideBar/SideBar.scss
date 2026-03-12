@@ -54,7 +54,11 @@
         }
     }
 
-    &:active {
+    &.active {
+        svg,
+        span {
+            color: $primary_color;
+        }
     }
 }
 

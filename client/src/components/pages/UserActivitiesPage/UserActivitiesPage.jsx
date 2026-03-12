@@ -4,6 +4,7 @@ import { PostsIcon, CommentsIcon } from '../../../assets/svgIcon';
 import PageLayout from '../../layout/PageLayout/PageLayout';
 import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
 import PostItem from '../../base/PostItem/PostItem';
+import CommentItem from '../../base/CommentItem/CommentItem';
 import noAvatar from '../../../assets/img/no_avatar.jpg';
 
 import pageBaseStyles from '.././../../styles/modules/basePageStyles.module.scss';
@@ -65,7 +66,28 @@ const UserActivitiesPage = () => {
                             <CommentsIcon></CommentsIcon> Comments
                         </h2>
 
-                        <div className={`${pageBaseStyles.twoPartsSectionContentWrapper} activitiesWrapper`}></div>
+                        <div className={`${pageBaseStyles.twoPartsSectionContentWrapper} activitiesWrapper`}>
+                            {testUsrCmts.map((item) => {
+                                return (
+                                    <CommentItem
+                                        key={item.id}
+                                        showUserInfoInCommentItem={false}
+                                        showPostTitleInCommentItem={true}
+                                        // showUserInfoInCommentItem={true}
+                                        // showPostTitleInCommentItem={false}
+                                        usrAvatar={noAvatar}
+                                        usrFirstName={item.first_name}
+                                        usrLastName={item.last_name}
+                                        usrUserName={item.user_name}
+                                        isUsrAdmin={item.is_admin}
+                                        postId={item.post_id}
+                                        postTitle={item.post_title}
+                                        commentContent={item.comment}
+                                        commentDate={item.date}
+                                    ></CommentItem>
+                                );
+                            })}
+                        </div>
                     </section>
                 </section>
             </div>

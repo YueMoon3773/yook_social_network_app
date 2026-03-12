@@ -11,7 +11,7 @@ import MainBtn from './components/base/MainBtn/MainBtn';
 
 import './App.scss';
 
-import testImg from './assets/img/no_avatar.jpg';
+import noAvatar from './assets/img/no_avatar.jpg';
 import { testUsrPosts } from './utils/testDataArr';
 
 const breakpointColumnsObj = {
@@ -35,118 +35,125 @@ const postPerPageOptsList = [
 const App = () => {
     const [showHelperAddPostBtn, setShowHelperAddPostBtn] = useState(false);
     const helperHoverTimer = useRef(null);
-    const [showModal, setShowModal] = useState(null);
+    // const [showModal, setShowModal] = useState(null);
+    // const modalBoxRef = useRef(null);
 
-    const modalBoxRef = useRef(null);
+    const { showModal, modalBoxRef, openModal, closeModal } = useOpenCloseModal();
+
+    console.log('showModal in home: ', showModal);
 
     useEffect(() => {
         document.title = 'Yook | Home';
     }, []);
 
-    useEffect(() => {
-        const checkClickOutsideModalBox = (e) => {
-            if (modalBoxRef.current && !modalBoxRef.current.contains(e.target) && showModal !== null) {
-                setShowModal(false);
-            }
-        };
+    // useEffect(() => {
+    //     const checkClickOutsideModalBox = (e) => {
+    //         if (modalBoxRef.current && !modalBoxRef.current.contains(e.target) && showModal !== null) {
+    //             setShowModal(false);
+    //         }
+    //     };
 
-        document.addEventListener('mousedown', checkClickOutsideModalBox);
+    //     document.addEventListener('mousedown', checkClickOutsideModalBox);
 
-        return () => {
-            document.removeEventListener('mousedown', checkClickOutsideModalBox);
-        };
-    }, [showModal]);
+    //     return () => {
+    //         document.removeEventListener('mousedown', checkClickOutsideModalBox);
+    //     };
+    // }, [showModal]);
 
-    const addPostOnClickHandler = () => setShowModal(true);
-    const closeModalBtnHandler = () => setShowModal(false);
+    // const addPostOnClickHandler = () => setShowModal(true);
+    // const closeModalBtnHandler = () => setShowModal(false);
+    // const addPostOnClickHandler = () => openModal();
+    const closeModalBtnHandler = () => closeModal();
 
     return (
-        <PageLayout
-            showModal={showModal}
-            closeModalBtnHandler={closeModalBtnHandler}
-            modalType="addPost"
-            modalBoxRef={modalBoxRef}
-        >
-            <div className="postsPageContent">
-                <section className="sortControllers">
-                    <SelectionController
-                        labelText={'Sort by:'}
-                        selectId={'sortBy'}
-                        selectOptionList={sortByOptsList}
-                    ></SelectionController>
-                    <SelectionController
-                        labelText={'Post per page:'}
-                        selectId={'postsPerPage'}
-                        selectOptionList={postPerPageOptsList}
-                    ></SelectionController>
-                </section>
+        <OpenCloseModalProvider>
+            <PageLayout
+                showModal={showModal}
+                closeModalBtnHandler={closeModalBtnHandler}
+                modalType="addPost"
+                modalBoxRef={modalBoxRef}
+            >
+                <div className="postsPageContent">
+                    <section className="sortControllers">
+                        <SelectionController
+                            labelText={'Sort by:'}
+                            selectId={'sortBy'}
+                            selectOptionList={sortByOptsList}
+                        ></SelectionController>
+                        <SelectionController
+                            labelText={'Post per page:'}
+                            selectId={'postsPerPage'}
+                            selectOptionList={postPerPageOptsList}
+                        ></SelectionController>
+                    </section>
 
-                <section className="postsWrapper">
-                    <Masonry
-                        breakpointCols={breakpointColumnsObj}
-                        className="masonryGrid"
-                        columnClassName="masonryGridColumn"
+                    <section className="postsWrapper">
+                        <Masonry
+                            breakpointCols={breakpointColumnsObj}
+                            className="masonryGrid"
+                            columnClassName="masonryGridColumn"
+                        >
+                            {testUsrPosts.map((item) => {
+                                return (
+                                    <PostItem
+                                        key={item.id}
+                                        showPostItemHeader={true}
+                                        usrAvatar={noAvatar}
+                                        usrFirstName={item.first_name}
+                                        usrLastName={item.last_name}
+                                        usrUserName={item.user_name}
+                                        isUsrAdmin={item.is_admin}
+                                        postId={item.id}
+                                        postTitle={item.post_title}
+                                        postContent={item.post_content}
+                                        numberPostComments={6}
+                                        postDate={'06:06 PM - 06/03/2026'}
+                                    ></PostItem>
+                                );
+                            })}
+                        </Masonry>
+                    </section>
+
+                    <section className="pageController">
+                        <p>
+                            Showing <span>1</span> - <span>40</span> of <span>40</span> posts
+                        </p>
+
+                        <div className="paginationControllers">
+                            <MainBtn btnClass={'prevBtn'} onClickHandler={() => {}}>
+                                <ArrowLeftIcon></ArrowLeftIcon>
+                                <span>Prev</span>
+                            </MainBtn>
+                            <MainBtn btnClass={'nextBtn'} onClickHandler={() => {}}>
+                                <span>Next</span>
+                                <ArrowRightIcon></ArrowRightIcon>
+                            </MainBtn>
+                        </div>
+                    </section>
+                </div>
+
+                <div className="addPostBtnWrapper">
+                    <button
+                        onMouseEnter={() => {
+                            helperHoverTimer.current = setTimeout(() => {
+                                setShowHelperAddPostBtn(true);
+                            }, 260);
+                        }}
+                        onMouseLeave={() => {
+                            clearTimeout(helperHoverTimer.current);
+                            setShowHelperAddPostBtn(false);
+                        }}
+                        onClick={() => openModal()}
+                        className="postPageAddPostBtn"
                     >
-                        {testUsrPosts.map((item) => {
-                            return (
-                                <PostItem
-                                    key={item.id}
-                                    showPostItemHeader={true}
-                                    usrAvatar={testImg}
-                                    usrFirstName={item.first_name}
-                                    usrLastName={item.last_name}
-                                    usrUserName={item.user_name}
-                                    isUsrAdmin={item.is_admin}
-                                    postId={item.id}
-                                    postTitle={item.post_title}
-                                    postContent={item.post_content}
-                                    numberPostComments={6}
-                                    postDate={'06:06 PM - 06/03/2026'}
-                                ></PostItem>
-                            );
-                        })}
-                    </Masonry>
-                </section>
-
-                <section className="pageController">
-                    <p>
-                        Showing <span>1</span> - <span>40</span> of <span>40</span> posts
-                    </p>
-
-                    <div className="paginationControllers">
-                        <MainBtn btnClass={'prevBtn'} onClickHandler={() => {}}>
-                            <ArrowLeftIcon></ArrowLeftIcon>
-                            <span>Prev</span>
-                        </MainBtn>
-                        <MainBtn btnClass={'nextBtn'} onClickHandler={() => {}}>
-                            <span>Next</span>
-                            <ArrowRightIcon></ArrowRightIcon>
-                        </MainBtn>
-                    </div>
-                </section>
-            </div>
-
-            <div className="addPostBtnWrapper">
-                <button
-                    onMouseEnter={() => {
-                        helperHoverTimer.current = setTimeout(() => {
-                            setShowHelperAddPostBtn(true);
-                        }, 260);
-                    }}
-                    onMouseLeave={() => {
-                        clearTimeout(helperHoverTimer.current);
-                        setShowHelperAddPostBtn(false);
-                    }}
-                    onClick={addPostOnClickHandler}
-                    className="postPageAddPostBtn"
-                >
-                    <PlusIcon></PlusIcon>
-                </button>
-                <span className={`addPostBtnHelper ${showHelperAddPostBtn === true ? 'show' : 'hidden'}`}>
-                    Add post
-                </span>
-            </div>
-        </PageLayout>
+                        <PlusIcon></PlusIcon>
+                    </button>
+                    <span className={`addPostBtnHelper ${showHelperAddPostBtn === true ? 'show' : 'hidden'}`}>
+                        Add post
+                    </span>
+                </div>
+            </PageLayout>
+        </OpenCloseModalProvider>
     );
 };
 

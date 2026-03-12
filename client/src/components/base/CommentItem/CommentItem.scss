@@ -1,0 +1,119 @@
+.commentItem {
+    padding: $postAndCommentItemPadding;
+
+    @include flexColumn;
+    gap: clamp($distance_md, 2rem, $distance_lg);
+    border-radius: $distance_sm;
+    box-shadow: 0 $distance_3sm $distance_ssm var(--out_focus_gray);
+    transition: $transition_md;
+    transition-delay: 160ms;
+
+    &:hover {
+        filter: brightness(1.03);
+        transform: translateY(-2px);
+        box-shadow: 0 $distance_ssm $distance_md var(--out_focus_gray);
+    }
+}
+
+.cmtItemHeader {
+    display: flex;
+    justify-content: space-between;
+    // justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    gap: clamp($distance_md, 1.6rem, 18px);
+
+    & > a {
+        @include flexCenter;
+        font-size: $fs_normal_ssm;
+        color: var(--text_color);
+        transition: $transition_md;
+
+        svg {
+            font-size: 1rem;
+            height: $fs_normal_md;
+            margin-right: 0.6em;
+        }
+
+        &:hover {
+            text-decoration: underline;
+            text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
+
+            svg {
+                text-decoration: underline;
+                text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
+            }
+        }
+    }
+}
+
+.cmtHeaderLeft {
+    flex: 1;
+    @include flexCenter;
+    justify-content: flex-start;
+    gap: clamp($distance_sm, 1rem, 12px);
+
+    .cmtAvatarImgWrapper {
+        flex-shrink: 0;
+        width: $postAndCommentItemAvatarWidth;
+        aspect-ratio: 1 / 1;
+        @include flexCenter;
+    }
+
+    a {
+        @include flexColumn;
+        align-items: flex-start;
+
+        span {
+            font-size: $fs_normal_ssm;
+            color: var(--text_color);
+            transition: $transition_md;
+        }
+
+        & > *:first-child {
+            font-weight: 560;
+        }
+
+        &:hover span {
+            text-decoration: underline;
+            text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
+        }
+    }
+}
+
+.cmtHeaderRight {
+    @include flexCenter;
+    cursor: default;
+
+    span {
+        display: block;
+        font-size: $fs_normal_3sm;
+        font-weight: 500;
+        color: var(--text_color);
+        padding: 0.2em 0.46em;
+        background-color: $primary_color;
+        border-radius: $distance_ssm;
+        transition: $transition_md;
+    }
+}
+
+.cmtItemBody {
+    p {
+        font-size: $fs_normal_3sm;
+        color: var(--text_color);
+        transition: $transition_md;
+        max-width: 75ch;
+    }
+}
+
+.cmtItemFooter {
+    @include flexCenter;
+    justify-content: flex-end;
+
+    .cmtDate {
+        font-size: $fs_normal_3sm;
+        color: var(--text_color);
+        transition: $transition_md;
+    }
+}
