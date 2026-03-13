@@ -26,11 +26,7 @@ const routes = [
     },
     {
         path: '/user/activities',
-        element: (
-            <OpenCloseModalProvider>
-                <UserActivitiesPage />
-            </OpenCloseModalProvider>
-        ),
+        element: <UserActivitiesPage />,
         errorElement: <ErrorPage />,
     },
 ];

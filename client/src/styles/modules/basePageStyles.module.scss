@@ -65,9 +65,11 @@
     height: auto;
     border: 3px solid $primary_light_color;
     border-radius: 999px;
+    transition: $transition_md;
 
     &:hover {
-        border-color: $primary_darker_color;
+        border-color: $primary_lighter_color;
+        // border-color: $primary_darker_color;
     }
 }
 

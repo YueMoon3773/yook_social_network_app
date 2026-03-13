@@ -11,11 +11,7 @@ import noAvatar from '../../../assets/img/no_avatar.jpg';
 import './UserProfilePage.scss';
 
 const UserProfilePage = () => {
-    // const [showModal, setShowModal] = useState(null);
-
-    const { showModal, modalBoxRef, openModal, closeModal } = useOpenCloseModal();
-
-    console.log('showModal in profile: ', showModal);
+    const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
 
     const usrFirstName = 'Aurelia';
     const usrLastName = 'Kshlerin';
@@ -23,6 +19,7 @@ const UserProfilePage = () => {
 
     useEffect(() => {
         document.title = `Yook | ${usrUserName}'s profile`;
+        resetModalState();
     }, []);
 
     const closeModalBtnHandler = () => closeModal();

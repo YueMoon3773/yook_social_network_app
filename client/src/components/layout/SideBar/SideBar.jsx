@@ -1,7 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { useTheme } from '../../../hooks/useTheme';
-import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
 
 import { HomeIcon, UserProfileIcon, ActivitiesIcon, DarkModeIcon, LightModeIcon } from '../../../assets/svgIcon';
 
@@ -10,32 +9,19 @@ import './SideBar.scss';
 
 const SideBar = () => {
     const { theme, toggleTheme } = useTheme();
-    const { resetModalState } = useOpenCloseModal();
 
     return (
         <aside className={`nav_controllers ${pageBaseStyles.sideBar}`}>
             <section className="nav_links_wrapper">
-                <NavLink
-                    to="/home"
-                    className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
-                    onClick={() => resetModalState()}
-                >
+                <NavLink to="/home" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
                     <HomeIcon></HomeIcon>
                     <span>Home</span>
                 </NavLink>
-                <NavLink
-                    to="/user/profile"
-                    className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
-                    onClick={() => resetModalState()}
-                >
+                <NavLink to="/user/profile" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
                     <UserProfileIcon></UserProfileIcon>
                     <span>Profile</span>
                 </NavLink>
-                <NavLink
-                    to="/user/activities"
-                    className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
-                    onClick={() => resetModalState()}
-                >
+                <NavLink to="/user/activities" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
                     <ActivitiesIcon></ActivitiesIcon>
                     <span>Activities</span>
                 </NavLink>
