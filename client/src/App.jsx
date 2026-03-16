@@ -75,7 +75,6 @@ const App = () => {
                             return (
                                 <PostItem
                                     key={item.id}
-                                    showPostItemHeader={true}
                                     usrAvatar={noAvatar}
                                     usrFirstName={item.first_name}
                                     usrLastName={item.last_name}
@@ -86,6 +85,9 @@ const App = () => {
                                     postContent={item.post_content}
                                     numberPostComments={6}
                                     postDate={'06:06 PM - 06/03/2026'}
+                                    showPostItemHeader={true}
+                                    isPostTitleClickable={true}
+                                    isNumberPostCommentsClickable={true}
                                 ></PostItem>
                             );
                         })}

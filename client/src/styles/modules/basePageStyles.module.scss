@@ -60,6 +60,17 @@
     }
 }
 
+.mainPrimaryColorBtn {
+    color: var(--text_color);
+    background-color: $primary_color;
+    transition: $transition_md;
+
+    &:hover {
+        color: var(--hover_text_color);
+        background-color: $primary_dark_color;
+    }
+}
+
 .userAvatar {
     width: 100%;
     height: auto;
@@ -115,4 +126,11 @@
     overflow-y: auto;
     max-height: 760px;
     z-index: 50;
+}
+
+.logInAndRegisterFormWrapper {
+    // padding: clamp();
+    padding: $login_register_form_padding;
+    background-color: $snow_white_color;
+    border-radius: $distance_md;
 }

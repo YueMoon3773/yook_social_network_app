@@ -1,0 +1,15 @@
+.logInPage {
+    @include flexCenter;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: clamp(140px, 16rem, 180px);
+
+    background-color: $login_register_bgc;
+}
+
+.logInForm {
+    flex-shrink: 1;
+    min-width: 32%;
+    @include flexColumn;
+    gap: $login_register_form_gap;
+}

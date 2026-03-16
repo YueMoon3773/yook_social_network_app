@@ -69,6 +69,8 @@
         font-weight: 500;
         color: var(--text_color);
         padding: 0.2em 0.46em;
+        text-align: center;
+
         background-color: $primary_color;
         border-radius: $distance_ssm;
         transition: $transition_md;
@@ -80,16 +82,20 @@
     align-items: flex-start;
     gap: clamp($distance_ssm, 0.66rem, $distance_sm);
 
-    a,
+    .postItemTitle,
     p {
         font-size: $fs_normal_3sm;
         color: var(--text_color);
         transition: $transition_md;
     }
 
-    a {
+    .postItemTitle {
         font-size: $fs_normal_md;
         font-weight: 600;
+    }
+
+    a.postItemTitle {
+        cursor: pointer;
         &:hover {
             text-decoration: underline;
             text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
@@ -118,7 +124,11 @@
         font-weight: 560;
         background-color: var(--out_focus_gray);
         border-radius: $distance_ssm;
+        cursor: default;
+    }
 
+    a.numberPostComments {
+        cursor: pointer;
         &:hover {
             color: var(--hover_text_color);
             background-color: var(--in_focus_gray);

@@ -49,12 +49,14 @@ const UserActivitiesPage = () => {
                                 return (
                                     <PostItem
                                         key={item.id}
-                                        showPostItemHeader={false}
                                         postId={item.id}
                                         postTitle={item.post_title}
                                         postContent={item.post_content}
                                         numberPostComments={6}
                                         postDate={'06:06 PM - 06/03/2026'}
+                                        showPostItemHeader={false}
+                                        isPostTitleClickable={true}
+                                        isNumberPostCommentsClickable={true}
                                     ></PostItem>
                                 );
                             })}
@@ -73,8 +75,6 @@ const UserActivitiesPage = () => {
                                         key={item.id}
                                         showUserInfoInCommentItem={false}
                                         showPostTitleInCommentItem={true}
-                                        // showUserInfoInCommentItem={true}
-                                        // showPostTitleInCommentItem={false}
                                         usrAvatar={noAvatar}
                                         usrFirstName={item.first_name}
                                         usrLastName={item.last_name}

@@ -1,0 +1,84 @@
+.registerPage {
+    @include flexColumn;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    background-color: $login_register_bgc;
+
+    form {
+        @include flexColumn;
+        gap: $login_register_form_gap;
+    }
+}
+
+.firstLastNameWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $login_register_form_gap;
+    flex-wrap: wrap;
+
+    & > * {
+        flex: 1;
+    }
+}
+
+.inpAndHelperTextWrapper {
+    p {
+        font-size: $fs_normal_4sm;
+        color: rgba($color: $black_text, $alpha: 0.56);
+        font-weight: 600;
+        margin-top: 0.36em;
+    }
+}
+
+.isAdminInpsWrapper {
+    @include displayGrid;
+    grid-template-columns: 1fr 2fr;
+    gap: $login_register_form_gap;
+
+    p {
+        display: none;
+    }
+
+    .registerAdminSecretKey[disabled] {
+        pointer-events: none;
+        background-color: rgba($color: $gray_color, $alpha: 0.86);
+        border-color: transparent;
+    }
+
+    &:has(#isAdminToggleBtn:checked) p {
+        display: block;
+    }
+}
+
+.controllersWrapper {
+    @include flexColumn;
+    align-items: center;
+    gap: clamp(10px, 1.2rem, $distance_md);
+    margin-top: -0.6em;
+
+    .registerSubmitBtn {
+        width: 100%;
+        font-size: $fs_normal_md;
+        font-weight: 800;
+        color: $white_text;
+
+        &:hover {
+            color: $black_text;
+        }
+    }
+
+    a {
+        text-align: center;
+        font-size: $fs_normal_sm;
+        color: $blue_color;
+        font-weight: 460;
+        transition: $transition_md;
+
+        &:hover {
+            color: $primary_dark_color;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+.viewPostPageContent {
+    height: 100%;
+}
+
+.postDetailSection {
+    gap: clamp($distance_xl, 3.6rem, $distance_xxl);
+}
+
+.formCmtForPost {
+    @include flexColumn;
+    align-items: flex-end;
+    gap: clamp($distance_md, 2rem, $distance_lg);
+}
+
+.cmtForPost {
+    width: 100%;
+    resize: none;
+    font-size: $fs_normal_md;
+    color: $black_text;
+    padding: 0.6em;
+    height: clamp(120px, 14rem, 160px);
+
+    outline: 1px solid var(--out_focus_gray);
+    border-radius: $distance_sm;
+    border: 2px solid transparent;
+    transition: $transition_md;
+
+    &:active,
+    &:focus {
+        border-color: $primary_color;
+    }
+}
+
+.addCmtBtn {
+    font-size: $fs_normal_md;
+    font-weight: 600;
+}
+
+.postCommentsSection {
+}

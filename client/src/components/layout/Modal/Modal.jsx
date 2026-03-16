@@ -61,15 +61,15 @@ const Modal = ({ showModal = null, modalType = 'addPost', modalBoxRef, closeModa
                     {modalType === 'editUsrProfile' && (
                         <div className="editUsrProfileModalBody">
                             <MainInp
-                                inpLabel={'First name *'}
+                                inpLabel={'First name*'}
                                 inpId={'usrProfileFirstName'}
                                 inpClass={'usrProfileFirstName'}
                                 onChangeHandler={() => {}}
                             ></MainInp>
                             <MainInp
-                                inpLabel={'Last name *'}
-                                inpId={'usrProfileLAstName'}
-                                inpClass={'usrProfileLAstName'}
+                                inpLabel={'Last name*'}
+                                inpId={'usrProfileLastName'}
+                                inpClass={'usrProfileLastName'}
                                 onChangeHandler={() => {}}
                             ></MainInp>
                             <MainInp
@@ -103,7 +103,7 @@ const Modal = ({ showModal = null, modalType = 'addPost', modalBoxRef, closeModa
                 </section>
 
                 <section className="modalFooter">
-                    <MainBtn btnClass={'submitPostBtn'} onClickHandler={() => {}}>
+                    <MainBtn isBtnPrimaryColor={true} btnClass={'modalFooterSubmitBtn'} onClickHandler={() => {}}>
                         {modalType === 'addPost' && 'Post'}
                         {modalType === 'editUsrProfile' && 'Update'}
                     </MainBtn>

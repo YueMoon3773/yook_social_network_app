@@ -4,6 +4,9 @@ import App from '../App';
 import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
 import UserProfilePage from '../components/pages/UserProfilePage/UserProfilePage';
 import UserActivitiesPage from '../components/pages/UserActivitiesPage/UserActivitiesPage';
+import ViewPostPage from '../components/pages/ViewPostPage/ViewPostPage';
+import UserRegisterPage from '../components/pages/UserRegisterPage/UserRegisterPage';
+import UserLogInPage from '../components/pages/UserLogInPage/UserLogInPage';
 
 const routes = [
     {
@@ -13,6 +16,16 @@ const routes = [
                 <App />
             </OpenCloseModalProvider>
         ),
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/user/register',
+        element: <UserRegisterPage />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/user/log-in',
+        element: <UserLogInPage />,
         errorElement: <ErrorPage />,
     },
     {
@@ -27,6 +40,11 @@ const routes = [
     {
         path: '/user/activities',
         element: <UserActivitiesPage />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/post',
+        element: <ViewPostPage />,
         errorElement: <ErrorPage />,
     },
 ];

@@ -82,6 +82,10 @@ $page_content_main_padding: $distance_lg;
 $post_masonry_gap: clamp(16px, 2rem, 24px);
 $postAndCommentItemPadding: 20px;
 $postAndCommentItemAvatarWidth: clamp(42px, 14%, 50px);
+
+$login_register_bgc: #3d1b00;
+$login_register_form_padding: $distance_xxl $distance_xxxl $distance_xl;
+$login_register_form_gap: clamp(24px, 2.6rem, 28px);
 /* =============================================== */
 /* THEME SET UP  */
 /* =============================================== */

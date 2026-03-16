@@ -7,12 +7,13 @@ import './MainInp.scss';
 const mainInpSchema = z.object({
     inpType: z.string().default('text'),
     inpClass: z.string().optional(),
+    isDisabled: z.boolean().optional(),
     inpLabel: z.string(),
     inpId: z.string(),
     onChangeHandler: z.function(),
 });
 
-const MainInp = ({ inpType = 'text', inpLabel, inpId, inpClass, onChangeHandler }) => {
+const MainInp = ({ inpType = 'text', inpLabel, inpId, inpClass, onChangeHandler, isDisabled = false }) => {
     return (
         <div className="mainInpWrapper">
             <input
@@ -22,6 +23,7 @@ const MainInp = ({ inpType = 'text', inpLabel, inpId, inpClass, onChangeHandler 
                 className={`mainInpStyle ${inpClass}`}
                 onChange={onChangeHandler}
                 placeholder={inpLabel}
+                disabled={isDisabled}
             />
             <label className="mainInpLabel" htmlFor={inpId}>
                 {inpLabel}

@@ -1,0 +1,32 @@
+.logInRegisterLogoWrapper {
+    @include flexColumn;
+    align-items: flex-start;
+    gap: clamp($distance_md, 1.66rem, 20px);
+
+    h1 {
+        @include flexCenter;
+        font-size: $fs_heading_md;
+        color: $white_text;
+        margin: 0;
+
+        cursor: default;
+        transition: $transition_md;
+
+        img {
+            width: clamp(42px, 4.6rem, 50px);
+            border-radius: calc($distance_sm / 100 * 160);
+            margin-right: 0.26em;
+        }
+
+        &:hover {
+            letter-spacing: 0.03em;
+            filter: drop-shadow(0 0 $distance_ssm $light_red_color);
+        }
+    }
+
+    p {
+        font-size: $fs_normal_lg;
+        color: $white_text;
+        font-weight: 500;
+    }
+}

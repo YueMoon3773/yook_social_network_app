@@ -18,6 +18,7 @@
         border-radius: $distance_sm;
         border: $thick_border_light_gray;
         outline: none;
+        transition: $transition_md;
 
         &::placeholder {
             color: transparent;
@@ -30,7 +31,7 @@
 
         &:not(:placeholder-shown) {
             & ~ label {
-                transform: translateY(-80%) translateX(-6%) scale(0.86);
+                transform: translateY(-76%) translateX(-6%) scale(0.86);
                 color: $primary_color;
                 font-weight: 600;
             }

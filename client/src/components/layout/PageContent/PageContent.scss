@@ -1,5 +1,6 @@
 .contentWrapper {
     overflow-y: auto;
+    @include flexColumn;
 
     .pageMaker {
         width: 100%;
@@ -11,4 +12,6 @@
 .contentSection {
     font-size: 1rem;
     padding: $page_content_main_padding;
+    // height: 100%;
+    flex: 1;
 }

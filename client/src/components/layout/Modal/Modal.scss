@@ -1,5 +1,7 @@
 $modalWrapperAnimationTime: 360ms;
 $modalAnimationTime: 260ms;
+$modalRowGap: clamp(24px, 2.6rem, 28px);
+$modalColumnGap: clamp(24px, 2.6rem, 30px);
 
 .modalWrapper {
     position: absolute;
@@ -121,7 +123,7 @@ $modalAnimationTime: 260ms;
     .editUsrProfileModalBody {
         height: 100%;
         padding: min($distance_xl, 3.2rem) min($distance_xxl, 4rem) 0;
-        row-gap: clamp(30px, 3.2rem, 36px);
+        row-gap: calc($modalRowGap * 1.2);
     }
 
     .addPostModalBody {
@@ -144,7 +146,11 @@ $modalAnimationTime: 260ms;
         @include displayGrid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: 0.6fr 0.6fr 2.5fr 0.6fr 0.6fr;
-        column-gap: clamp(20px, 2.4rem, 26px);
+        column-gap: $modalColumnGap;
+
+        & > * {
+            align-self: center;
+        }
 
         & > *:nth-child(3),
         & > *:nth-child(4),
@@ -165,16 +171,8 @@ $modalAnimationTime: 260ms;
     align-items: stretch;
 }
 
-.submitPostBtn {
+.modalFooterSubmitBtn {
     width: 100%;
     font-size: $fs_normal_md;
     font-weight: 700;
-    color: var(--text_color);
-    background-color: $primary_color;
-    transition: $transition_md;
-
-    &:hover {
-        color: var(--hover_text_color);
-        background-color: $primary_dark_color;
-    }
 }

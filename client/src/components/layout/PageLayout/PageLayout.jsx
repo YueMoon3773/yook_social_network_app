@@ -18,14 +18,13 @@ const pageLayoutSchema = z.object({
     showModal: z.boolean().nullable().optional(),
     closeModalBtnHandler: z.function().optional(),
     modalType: z.string().optional(),
-    modalBoxRef: z.unknown(),
+    modalBoxRef: z.unknown().optional(),
     children: z.unknown().optional(),
 });
 
 const PageLayout = ({ showModal = null, closeModalBtnHandler, modalType, modalBoxRef, children }) => {
     const { theme } = useTheme();
     const { headerPassedTopPage, pageMaker, observerRoot } = useHeaderPassedTopPage();
-
 
     return (
         <div className={`${pageBaseStyles.page}`} data-theme={theme}>

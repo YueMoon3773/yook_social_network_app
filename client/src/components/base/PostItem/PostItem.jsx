@@ -8,7 +8,6 @@ import UserAvatarImg from '../UserAvatarImg/UserAvatarImg';
 import './PostItem.scss';
 
 const postItemSchema = z.looseObject({
-    showPostItemHeader: z.boolean(),
     usrAvatar: z.string().optional(),
     usrFirstName: z.string().optional(),
     usrLastName: z.string().optional(),
@@ -19,10 +18,12 @@ const postItemSchema = z.looseObject({
     postContent: z.string(),
     numberPostComments: z.string().or(z.number()),
     postDate: z.string(),
+    showPostItemHeader: z.boolean(),
+    isPostTitleClickable: z.boolean().optional(),
+    isNumberPostCommentsClickable: z.boolean().optional(),
 });
 
 const PostItem = ({
-    showPostItemHeader,
     usrAvatar,
     usrFirstName,
     usrLastName,
@@ -33,6 +34,9 @@ const PostItem = ({
     postContent,
     numberPostComments,
     postDate,
+    showPostItemHeader = true,
+    isPostTitleClickable = false,
+    isNumberPostCommentsClickable = true,
 }) => {
     return (
         <div className="postItem">
@@ -52,14 +56,26 @@ const PostItem = ({
             )}
 
             <section className="postItemBody">
-                <Link to={`/post/${postId}`}>{postTitle}</Link>
+                {isPostTitleClickable === true ? (
+                    <Link className="postItemTitle" to={`/post/${postId}`}>
+                        {postTitle}
+                    </Link>
+                ) : (
+                    <span className="postItemTitle">{postTitle}</span>
+                )}
                 <p>{postContent}</p>
             </section>
 
             <section className="postItemFooter">
-                <Link to={`/post/${postId}`} className="numberPostComments">
-                    {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
-                </Link>
+                {isNumberPostCommentsClickable === true ? (
+                    <Link to={`/post/${postId}`} className="numberPostComments">
+                        {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
+                    </Link>
+                ) : (
+                    <span className="numberPostComments">
+                        {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
+                    </span>
+                )}
                 <span className="postDate">{postDate}</span>
             </section>
         </div>

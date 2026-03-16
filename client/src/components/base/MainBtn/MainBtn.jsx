@@ -6,13 +6,20 @@ import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './MainBtn.scss';
 
 const btnSchema = z.object({
+    isBtnPrimaryColor: z.boolean().optional(),
     btnClass: z.string().optional(),
     onClickHandler: z.function(),
     children: z.unknown().optional(),
 });
 
-const MainBtn = ({ btnClass, onClickHandler, children }) => {
-    return <button className={`${pageBaseStyles.mainBtn} btn ${btnClass}`}>{children}</button>;
+const MainBtn = ({ isBtnPrimaryColor = false, btnClass, onClickHandler, children }) => {
+    return (
+        <button
+            className={`${pageBaseStyles.mainBtn} btn ${isBtnPrimaryColor === true ? pageBaseStyles.mainPrimaryColorBtn : ''} ${btnClass ? btnClass : ''}`}
+        >
+            {children}
+        </button>
+    );
 };
 
 // export default MainBtn;
