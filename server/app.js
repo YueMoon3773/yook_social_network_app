@@ -3,17 +3,33 @@ const path = require('node:path');
 const cors = require('cors');
 require('dotenv').config();
 
+/* =================================================================== */
+/* IMPORT FOR PASSPORT + SESSION SET UP */
+/* =================================================================== */
+const pool = require('./db/pool');
+const session = require('express-session');
+const passport = require('passport');
+const pgSession = require('connect-pg-simple')(session);
+
+/* =================================================================== */
 /* IMPORT FOR SET UP DB */
+/* =================================================================== */
 // const populateDb = require('./db/populateDb');
 
+/* =================================================================== */
 /* IMPORT ROUTES */
+/* =================================================================== */
 const mainRouter = require('./routes/mainRouter');
 
+/* =================================================================== */
 /* App setup */
+/* =================================================================== */
 const app = express();
 const BE_PORT = process.env.BE_PORT || 6600;
 
+/* =================================================================== */
 /* Set up to communicate with FE */
+/* =================================================================== */
 const allowedOrigins = ['http://localhost:3300', 'http://127.0.0.1:3300', `${process.env.FE_URL}`].filter(Boolean);
 const corsOptions = {
     origin: (origin, callback) => {
@@ -29,7 +45,9 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+/* =================================================================== */
 /* Populate DB */
+/* =================================================================== */
 // const setupDB = async () => {
 //     if (process.env.POPULATE_DB === 'true') {
 //         try {
@@ -48,22 +66,49 @@ app.use(cors(corsOptions));
 //     await setupDB();
 // })();
 
+/* =================================================================== */
 /* Set up static directory */
+/* =================================================================== */
 // const publicPath = path.join(__dirname, 'public');
 // app.use(express.static(publicPath));
 
-/* Set up views directory */
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-
+/* =================================================================== */
 /* Use middleware to get post req, take all data from url and convert to an encoded object to use in req */
+/* =================================================================== */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+/* =================================================================== */
+/* SESSION + PASSPORT SET UP */
+/* =================================================================== */
+const sessionStore = new pgSession({
+    pool,
+    createTableIfMissing: true,
+});
+app.use(
+    session({
+        secret: `${process.env.SESSION_SECRET_KEY}`,
+        resave: false,
+        saveUninitialized: false,
+        store: sessionStore,
+        cookie: {
+            maxAge: 3 * 24 * 60 * 60 * 1000,
+        },
+    }),
+);
+
+require('./config/passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
+/* =================================================================== */
 /* Routes logic handle */
+/* =================================================================== */
 app.use('/', mainRouter);
 
+/* =================================================================== */
 /* Handle Errors */
+/* =================================================================== */
 app.use((err, req, res, next) => {
     const errStatusCode = err.status || err.statusCode || 500;
     const errMsg = err.message;

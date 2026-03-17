@@ -12,8 +12,8 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
         max-width: 30%;
         @include flexCenter;
         justify-content: flex-start;
-        gap: clamp($distance_md, 2rem, $distance_lg);
         flex-wrap: wrap;
+        gap: clamp($distance_md, 2rem, $distance_lg);
 
         padding: $activitiesProfileBoxPadding;
         border-radius: $distance_md;
@@ -26,8 +26,25 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
             box-shadow: 0 $distance_ssm $distance_md var(--out_focus_gray);
         }
 
+        @media (max-width: 1200px) {
+            max-width: 36%;
+        }
+
+        @media (max-width: 768px) {
+            max-width: 40%;
+            gap: clamp($distance_sm, 1rem, 14px);
+        }
+
         .basicInfoLeft {
             max-width: 25%;
+
+            @media (max-width: 1200px) {
+                max-width: 30%;
+            }
+
+            @media (max-width: 768px) {
+                width: 50%;
+            }
         }
 
         .usrActivitiesAvatarWrapper {
@@ -38,10 +55,25 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
             @include flexColumn;
             gap: clamp($distance_sm, 1.2rem, $distance_md);
 
+            @media (max-width: 1024px) {
+            }
+
+            @media (max-width: 768px) {
+                gap: clamp($distance_ssm, 0.8rem, $distance_sm);
+            }
+
             span {
                 font-size: $fs_normal_md;
                 color: var(--text_color);
                 transition: $transition_md;
+
+                @media (max-width: 1024px) {
+                    font-size: $fs_normal_ssm;
+                }
+
+                @media (max-width: 768px) {
+                    font-size: $fs_normal_3sm;
+                }
             }
 
             & > *:last-child {

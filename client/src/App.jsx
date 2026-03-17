@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Masonry from 'react-masonry-css';
 
-import { useOpenCloseModal, OpenCloseModalProvider } from './hooks/useOpenCloseModal';
+import { useOpenCloseModal } from './hooks/useOpenCloseModal';
 
 import { ArrowRightIcon, ArrowLeftIcon, PlusIcon } from './assets/svgIcon';
 import PageLayout from './components/layout/PageLayout/PageLayout';
@@ -16,8 +16,8 @@ import { testUsrPosts } from './utils/testDataArr';
 
 const breakpointColumnsObj = {
     default: 3,
-    1100: 2,
-    700: 1,
+    1200: 2,
+    860: 1,
 };
 
 const sortByOptsList = [

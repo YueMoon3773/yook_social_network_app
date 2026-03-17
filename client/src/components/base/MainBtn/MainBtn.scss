@@ -18,10 +18,26 @@
         span {
             font-size: $fs_normal_md;
             font-weight: 560;
+
+            @media (max-width: 1024px) {
+                font-size: $fs_normal_sm;
+            }
+
+            @media (max-width: 768px) {
+                font-size: $fs_normal_ssm;
+            }
         }
 
         svg {
             height: $fs_heading_ssm;
+
+            @media (max-width: 1024px) {
+                height: $fs_normal_xl;
+            }
+
+            @media (max-width: 768px) {
+                height: $fs_normal_lg;
+            }
         }
 
         &:hover {

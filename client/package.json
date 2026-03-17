@@ -1,5 +1,5 @@
 {
-    "name": "client",
+    "name": "yook_social_network_app_client",
     "private": true,
     "version": "0.0.0",
     "type": "module",

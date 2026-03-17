@@ -24,6 +24,14 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
 
 .usrProfileAvatarWrapper {
     width: clamp(160px, 16%, 200px);
+
+    @media (max-width: 1024px) {
+        width: clamp(120px, 12%, 160px);
+    }
+
+    @media (max-width: 768px) {
+        width: clamp(90px, 10%, 120px);
+    }
 }
 
 .usrProfileNamesWrapper {
@@ -35,10 +43,25 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
         font-size: $fs_normal_md;
         color: var(--text_color);
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_ssm;
+        }
     }
 
     & > *:last-child {
         color: var(--in_focus_gray);
+    }
+
+    @media (max-width: 1024px) {
+    }
+
+    @media (max-width: 768px) {
+        gap: clamp($distance_3sm, 0.46em, 6px);
     }
 }
 
@@ -54,6 +77,14 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
             font-size: $fs_normal_md;
             color: var(--text_color);
             transition: $transition_md;
+
+            @media (max-width: 1024px) {
+                font-size: $fs_normal_sm;
+            }
+
+            @media (max-width: 768px) {
+                font-size: $fs_normal_ssm;
+            }
         }
     }
 
@@ -61,6 +92,14 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
         @include flexCenter;
         flex-wrap: wrap;
         gap: clamp($distance_xl, 3.6rem, $distance_xxl);
+
+        @media (max-width: 1024px) {
+            gap: clamp($distance_md, 2.6rem, $distance_lg);
+        }
+
+        @media (max-width: 768px) {
+            gap: clamp(10px, 1.6rem, $distance_md);
+        }
 
         div {
             @include flexCenter;
@@ -72,10 +111,26 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
             font-size: $fs_normal_md;
             color: var(--text_color);
             transition: $transition_md;
+
+            @media (max-width: 1024px) {
+                font-size: $fs_normal_sm;
+            }
+
+            @media (max-width: 768px) {
+                font-size: $fs_normal_ssm;
+            }
         }
 
         svg {
             height: $fs_heading_3sm;
+
+            @media (max-width: 1024px) {
+                height: $fs_normal_xl;
+            }
+
+            @media (max-width: 768px) {
+                height: $fs_normal_lg;
+            }
         }
     }
 }
@@ -98,6 +153,24 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
         height: $fs_heading_sm;
         color: var(--text_color);
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            height: $fs_heading_ssm;
+        }
+
+        @media (max-width: 768px) {
+            height: $fs_heading_3sm;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        padding: 1em;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.8em;
+        border-radius: 8px;
     }
 
     &:hover {

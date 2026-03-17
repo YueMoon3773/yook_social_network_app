@@ -5,6 +5,14 @@
     gap: clamp(140px, 16rem, 180px);
 
     background-color: $login_register_bgc;
+
+    @media (max-width: 1024px) {
+        gap: clamp(100px, 1rem, 140px);
+    }
+
+    @media (max-width: 768px) {
+        gap: clamp(36px, 0.46rem, 60px);
+    }
 }
 
 .logInForm {
@@ -12,4 +20,12 @@
     min-width: 32%;
     @include flexColumn;
     gap: $login_register_form_gap;
+
+    @media (max-width: 1024px) {
+        gap: calc($login_register_form_gap * 0.92);
+    }
+
+    @media (max-width: 768px) {
+        gap: calc($login_register_form_gap * 0.86);
+    }
 }

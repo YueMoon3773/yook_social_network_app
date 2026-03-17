@@ -12,9 +12,28 @@ $toggleBtnHeight: $distance_lg;
     @include flexCenter;
     gap: clamp($distance_ssm, 0.66rem, 10px);
 
+    @media (max-width: 1024px) {
+        gap: clamp(2px, 0.36rem, 6px);
+    }
+
+    @media (max-width: 768px) {
+    }
+
     & > label {
         font-size: $fs_normal_md;
         color: $black_text;
+
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_3sm;
+        }
+
+        @media (max-width: 480px) {
+            font-size: $fs_normal_4sm;
+        }
     }
 }
 

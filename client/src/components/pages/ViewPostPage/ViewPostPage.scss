@@ -19,11 +19,20 @@
     color: $black_text;
     padding: 0.6em;
     height: clamp(120px, 14rem, 160px);
+    background-color: $snow_white_color;
 
     outline: 1px solid var(--out_focus_gray);
     border-radius: $distance_sm;
     border: 2px solid transparent;
     transition: $transition_md;
+
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_sm;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_ssm;
+    }
 
     &:active,
     &:focus {
@@ -34,6 +43,14 @@
 .addCmtBtn {
     font-size: $fs_normal_md;
     font-weight: 600;
+
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_sm;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_ssm;
+    }
 }
 
 .postCommentsSection {

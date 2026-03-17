@@ -23,6 +23,15 @@
     padding: $fs_normal_md calc($page_content_main_padding * 1.06);
 
     transition: $transition_md;
+
+    @media (max-width: 1024px) {
+        padding: calc($fs_normal_md * 0.86) calc($page_content_main_padding * 1.06);
+    }
+
+    @media (max-width: 768px) {
+        padding: calc($fs_normal_md * 0.76) calc($page_content_main_padding * 1.06);
+        gap: clamp(12px, 2.6em, 30px);
+    }
 }
 
 .pageContent {
@@ -39,6 +48,14 @@
     padding: $page_content_main_padding;
     padding-left: calc($fs_heading_lg * 1.06);
     position: sticky;
+
+    @media (max-width: 1024px) {
+        padding-left: calc($fs_heading_lg * 0.76);
+    }
+
+    @media (max-width: 768px) {
+        padding-left: calc($fs_heading_lg * 0.56);
+    }
 }
 
 .footer {
@@ -111,10 +128,26 @@
     border-bottom: $thin_border_light_gray;
     cursor: default;
 
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_md;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_sm;
+    }
+
     svg {
         height: $fs_heading_ssm;
         color: var(--text_color);
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            height: $fs_heading_3sm;
+        }
+
+        @media (max-width: 768px) {
+            height: $fs_normal_xl;
+        }
     }
 }
 
@@ -130,7 +163,17 @@
 
 .logInAndRegisterFormWrapper {
     // padding: clamp();
-    padding: $login_register_form_padding;
     background-color: $snow_white_color;
+    padding: $login_register_form_padding_normal;
     border-radius: $distance_md;
+
+    @media (max-width: 1024px) {
+        padding: $login_register_form_padding_tablet;
+        border-radius: calc($distance_md * 0.9);
+    }
+
+    @media (max-width: 768px) {
+        padding: $login_register_form_padding_mobile;
+        border-radius: calc($distance_md * 0.86);
+    }
 }

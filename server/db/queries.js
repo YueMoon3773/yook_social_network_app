@@ -6,12 +6,28 @@ const getAllData = async () => {
     return rows;
 };
 
-const getDataByCondition = async (condition) => {
-    const { rows } = await pool.query(`SELECT * FROM ${process.env.DB_TABLE_NAME} WHERE id = $1`, [condition]);
-    return rows;
+const getUserByUserName = async (userName) => {
+    const { rows } = await pool.query(
+        `
+        SELECT * FROM users WHERE user_name = $1;
+    `,
+        [userName],
+    );
+    return rows[0];
+};
+
+const getUserById = async (id) => {
+    const { rows } = await pool.query(
+        `
+        SELECT * FROM users WHERE id = $1;
+    `,
+        [id],
+    );
+    return rows[0];
 };
 
 module.exports = {
     getAllData,
-    getDataByCondition,
+    getUserByUserName,
+    getUserById,
 };

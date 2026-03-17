@@ -6,9 +6,24 @@
 
     background-color: $login_register_bgc;
 
+    @media (max-width: 1024px) {
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 $distance_lg;
+    }
+
     form {
         @include flexColumn;
         gap: $login_register_form_gap;
+
+        @media (max-width: 1024px) {
+            gap: calc($login_register_form_gap * 0.92);
+        }
+
+        @media (max-width: 768px) {
+            gap: calc($login_register_form_gap * 0.86);
+        }
     }
 }
 
@@ -30,6 +45,14 @@
         color: rgba($color: $black_text, $alpha: 0.56);
         font-weight: 600;
         margin-top: 0.36em;
+
+        @media (max-width: 1024px) {
+            font-size: calc($fs_normal_4sm * 0.86);
+        }
+
+        @media (max-width: 768px) {
+            font-size: calc($fs_normal_4sm * 0.76);
+        }
     }
 }
 
@@ -38,8 +61,22 @@
     grid-template-columns: 1fr 2fr;
     gap: $login_register_form_gap;
 
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
     p {
         display: none;
+    }
+
+    .isAdminInpsWrapper {
+        input {
+            &::placeholder {
+                @media (max-width: 768px) {
+                    font-size: $fs_normal_4sm;
+                }
+            }
+        }
     }
 
     .registerAdminSecretKey[disabled] {
@@ -65,6 +102,14 @@
         font-weight: 800;
         color: $white_text;
 
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_ssm;
+        }
+
         &:hover {
             color: $black_text;
         }
@@ -76,6 +121,14 @@
         color: $blue_color;
         font-weight: 460;
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_ssm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_3sm;
+        }
 
         &:hover {
             color: $primary_dark_color;

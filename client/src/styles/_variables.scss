@@ -62,6 +62,9 @@ $distance_3sm: 4px;
 /* =============================================== */
 /* WEB OWN VARIABLES SET UP  */
 /* =============================================== */
+$breakpoint_tablet: 1024px;
+$breakpoint_mobile: 768px;
+
 $transition_md: all 360ms ease-in-out;
 
 $thin_border_light_gray: 1px solid
@@ -84,7 +87,9 @@ $postAndCommentItemPadding: 20px;
 $postAndCommentItemAvatarWidth: clamp(42px, 14%, 50px);
 
 $login_register_bgc: #3d1b00;
-$login_register_form_padding: $distance_xxl $distance_xxxl $distance_xl;
+$login_register_form_padding_normal: $distance_xxl $distance_xxxl $distance_xl;
+$login_register_form_padding_tablet: $distance_xl $distance_xxl $distance_lg;
+$login_register_form_padding_mobile: $distance_lg $distance_lg $distance_md;
 $login_register_form_gap: clamp(24px, 2.6rem, 28px);
 /* =============================================== */
 /* THEME SET UP  */

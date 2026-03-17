@@ -8,6 +8,14 @@
     transition: $transition_md;
     transition-delay: 160ms;
 
+    @media (max-width: 1024px) {
+        gap: clamp(10px, 1.4rem, $distance_md);
+    }
+
+    @media (max-width: 768px) {
+        gap: clamp($distance_ssm, 1rem, 10px);
+    }
+
     &:hover {
         filter: brightness(1.03);
         transform: translateY(-2px);
@@ -46,6 +54,13 @@
             }
         }
     }
+
+    @media (max-width: 1024px) {
+        gap: clamp($distance_sm, 1.2rem, 14px);
+    }
+
+    @media (max-width: 768px) {
+    }
 }
 
 .cmtHeaderLeft {
@@ -59,6 +74,14 @@
         width: $postAndCommentItemAvatarWidth;
         aspect-ratio: 1 / 1;
         @include flexCenter;
+
+        @media (max-width: 1024px) {
+            width: calc($postAndCommentItemAvatarWidth * 0.96);
+        }
+
+        @media (max-width: 768px) {
+            width: calc($postAndCommentItemAvatarWidth * 0.86);
+        }
     }
 
     a {
@@ -69,6 +92,10 @@
             font-size: $fs_normal_ssm;
             color: var(--text_color);
             transition: $transition_md;
+
+            @media (max-width: 768px) {
+                font-size: calc($fs_normal_ssm * 0.76);
+            }
         }
 
         & > *:first-child {
@@ -95,6 +122,14 @@
         background-color: $primary_color;
         border-radius: $distance_ssm;
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            font-size: calc($fs_normal_3sm * 0.96);
+        }
+
+        @media (max-width: 768px) {
+            font-size: calc($fs_normal_3sm * 0.86);
+        }
     }
 }
 
@@ -104,6 +139,14 @@
         color: var(--text_color);
         transition: $transition_md;
         max-width: 75ch;
+
+        @media (max-width: 1024px) {
+            font-size: calc($fs_normal_3sm * 0.92);
+        }
+
+        @media (max-width: 768px) {
+            font-size: calc($fs_normal_3sm * 0.86);
+        }
     }
 }
 
@@ -115,5 +158,13 @@
         font-size: $fs_normal_3sm;
         color: var(--text_color);
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            font-size: calc($fs_normal_3sm * 0.9);
+        }
+
+        @media (max-width: 768px) {
+            font-size: calc($fs_normal_3sm * 0.86);
+        }
     }
 }

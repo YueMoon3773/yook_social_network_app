@@ -3,7 +3,8 @@ import { useState, useEffect, useRef, useContext, createContext } from 'react';
 const OpenCloseModalContext = createContext(null);
 
 export const OpenCloseModalProvider = ({ children }) => {
-    const [showModal, setShowModal] = useState(null);
+    // const [showModal, setShowModal] = useState(null);
+    const [showModal, setShowModal] = useState(true);
     const modalBoxRef = useRef(null);
 
     const openModal = () => setShowModal(true);

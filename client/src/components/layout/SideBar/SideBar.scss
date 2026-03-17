@@ -32,17 +32,36 @@
 
     svg {
         height: $fs_heading_sm;
+
+        @media (max-width: 1024px) {
+            height: $fs_heading_ssm;
+        }
+
+        @media (max-width: 768px) {
+            height: $fs_heading_3sm;
+        }
     }
 
     span {
         font-size: $fs_normal_md;
         font-weight: 500;
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_ssm;
+        }
     }
 
     svg,
     span {
         color: var(--text_color);
         transition: $transition_md;
+    }
+
+    @media (max-width: 768px) {
+        gap: clamp(6px, 0.8rem, 12px);
     }
 
     &:hover {
@@ -66,6 +85,14 @@
     justify-content: flex-start;
     border-radius: $distance_sm;
     padding-left: 1.6em;
+
+    @media (max-width: 1024px) {
+        padding-left: 0.8em;
+    }
+
+    @media (max-width: 768px) {
+        padding-left: 0.2em;
+    }
 }
 
 .themeButton {
@@ -73,6 +100,24 @@
 
     svg {
         height: $fs_heading_md;
+
+        @media (max-width: 1024px) {
+            height: $fs_heading_ssm;
+        }
+
+        @media (max-width: 768px) {
+            height: $fs_heading_3sm;
+        }
+    }
+
+    span {
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_ssm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_3sm;
+        }
     }
 
     &:hover {

@@ -48,6 +48,22 @@
             font-weight: 600;
             color: var(--text_color);
             transition: $transition_md;
+
+            @media (max-width: 1024px) {
+                font-size: $fs_normal_sm;
+            }
+
+            @media (max-width: 768px) {
+                font-size: $fs_normal_ssm;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_ssm;
         }
     }
 }
@@ -59,6 +75,10 @@
 
     & > * {
         flex: 1;
+    }
+
+    @media (max-width: 768px) {
+        gap: clamp(20px, 2.6rem, 30px);
     }
 }
 
@@ -110,7 +130,7 @@
     right: 0;
 
     font-size: $fs_normal_md;
-    font-weight: 500;
+    font-weight: 560;
     color: var(--text_color);
     padding: 0.36em 0.8em;
     width: max-content;
@@ -124,6 +144,14 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_sm;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_ssm;
+    }
 
     &::after {
         position: absolute;

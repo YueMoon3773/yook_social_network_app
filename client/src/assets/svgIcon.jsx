@@ -14,6 +14,7 @@ export const MenuIcon = ({ iconClassName = '' }) => {
             <path d="M3 12h18" />
             <path d="M3 19h18" />
         </svg>
+        
     );
 };
 

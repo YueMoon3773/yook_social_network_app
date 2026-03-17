@@ -1,3 +1,6 @@
+$headerLogoImgWidth: clamp(50px, 5.2rem, 56px);
+$headerUserAvatarMaxWidth: max(42px, 4.6rem);
+
 .header {
     min-height: 110px;
     background-color: var(--bg_color);
@@ -17,6 +20,18 @@
     }
 }
 
+.showControllerBtnAndLogoWrapper {
+    @include flexCenter;
+
+    & > * {
+        flex-shrink: 1;
+    }
+
+    @media (max-width: 768px) {
+        gap: clamp($distance_lg, 2.6rem, 26px);
+    }
+}
+
 .headerLogo {
     @include flexCenter;
     gap: clamp($distance_3sm, 0.46rem, 8px);
@@ -24,12 +39,29 @@
 
     .logoImgWrapper {
         @include flexCenter;
-        border-radius: calc($distance_sm / 100 * 160);
+        border-radius: calc($distance_sm * 1.6);
         transition: $transition_md;
         overflow: hidden;
+
         img {
-            width: clamp(50px, 5.2rem, 56px);
+            width: $headerLogoImgWidth;
             height: auto;
+
+            @media (max-width: 1024px) {
+                width: calc($headerLogoImgWidth * 0.9);
+            }
+
+            @media (max-width: 768px) {
+                width: calc($headerLogoImgWidth * 0.96);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            border-radius: calc($distance_sm * 1.2);
+        }
+
+        @media (max-width: 768px) {
+            border-radius: calc($distance_sm);
         }
     }
 
@@ -38,6 +70,15 @@
         font-weight: 700;
         color: var(--text_color);
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            font-size: $fs_heading_ssm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_heading_3sm;
+            display: none;
+        }
     }
 
     &:hover {
@@ -49,12 +90,18 @@
             transform: scale(1.02);
             letter-spacing: 0.06em;
             filter: drop-shadow(0 0 $distance_ssm $red_color);
+
+            @media (max-width: 1024px) {
+                filter: drop-shadow(0 0 $distance_3sm $red_color);
+                letter-spacing: 0.03em;
+            }
         }
     }
 }
 
 .nav_button_show_controllers {
-    padding: min($distance_3sm, 0.4rem);
+    padding: min($distance_ssm, 0.6rem);
+    aspect-ratio: 1 / 1;
     @include flexCenter;
     outline: none;
     border: 3px solid var(--hover_text_color);
@@ -66,8 +113,16 @@
 
     cursor: pointer;
     svg {
+        height: $fs_heading_sm;
         color: var(--text_color);
         background-color: var(--bg_color);
+    }
+
+    @media (max-width: 1024px) {
+    }
+
+    @media (max-width: 768px) {
+        display: flex;
     }
 
     &:hover {
@@ -96,8 +151,16 @@
     border-radius: $distance_sm;
 
     .userAvatarWrapper {
-        max-width: max(42px, 4.6rem);
+        max-width: $headerUserAvatarMaxWidth;
         @include flexCenter;
+
+        @media (max-width: 1024px) {
+            max-width: calc($headerUserAvatarMaxWidth * 0.92);
+        }
+
+        @media (max-width: 768px) {
+            max-width: calc($headerUserAvatarMaxWidth * 0.86);
+        }
     }
 
     .userInfoWrapper {
@@ -109,6 +172,15 @@
             font-size: $fs_normal_md;
             font-weight: 600;
             transition: $transition_md;
+
+            @media (max-width: 1024px) {
+                font-size: $fs_normal_sm;
+            }
+
+            @media (max-width: 768px) {
+                font-size: $fs_normal_ssm;
+                font-weight: 500;
+            }
         }
 
         .userFullName {
@@ -118,6 +190,10 @@
         .userUserName {
             color: var(--out_focus_gray);
         }
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.56em 1.2em;
     }
 
     &:hover {
@@ -142,10 +218,19 @@
         color: var(--text_color);
         padding: 0.6em 1.2em;
         text-align: center;
-        // border: 2px solid;
         border: $thick_border_light_gray;
         border-radius: $distance_sm;
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_ssm;
+            font-weight: 500;
+            padding: 0.56em 1em;
+        }
 
         &:hover {
             filter: var(--text_hover_brightness);

@@ -18,6 +18,16 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
         grid-template-columns: 2fr 6fr 2fr;
         grid-template-rows: 1fr 3fr 1fr;
 
+        @media (max-width: 1024px) {
+            grid-template-columns: 1fr 6fr 1fr;
+            grid-template-rows: 1fr 4fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr 6fr 1fr;
+            grid-template-rows: 1fr 6fr 1fr;
+        }
+
         .modal {
             grid-row: 2 / 3;
             grid-column: 2 / 3;
@@ -94,6 +104,14 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
         font-weight: 900;
         color: var(--text_color);
         margin: 0;
+
+        @media (max-width: 1024px) {
+            font-size: $fs_heading_3sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_lg;
+        }
     }
 
     button {
@@ -108,6 +126,14 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
             height: $fs_heading_md;
             color: var(--text_color);
 
+            @media (max-width: 1024px) {
+                height: $fs_heading_sm;
+            }
+
+            @media (max-width: 768px) {
+                height: $fs_heading_ssm;
+            }
+
             path,
             line,
             polyline {
@@ -116,6 +142,14 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
             }
         }
     }
+
+    @media (max-width: 1024px) {
+        padding: min($distance_lg, 2.6rem) min($distance_xl, 3.6rem);
+    }
+
+    @media (max-width: 768px) {
+        padding: min($distance_md, 2rem) min($distance_lg, 3.3rem);
+    }
 }
 
 .modalBody {
@@ -123,7 +157,15 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
     .editUsrProfileModalBody {
         height: 100%;
         padding: min($distance_xl, 3.2rem) min($distance_xxl, 4rem) 0;
-        row-gap: calc($modalRowGap * 1.2);
+        row-gap: calc($modalRowGap * 1.26);
+
+        @media (max-width: 1024px) {
+            row-gap: calc($modalRowGap * 1.16);
+        }
+
+        @media (max-width: 768px) {
+            row-gap: calc($modalRowGap * 0.96);
+        }
     }
 
     .addPostModalBody {
@@ -147,6 +189,14 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: 0.6fr 0.6fr 2.5fr 0.6fr 0.6fr;
         column-gap: $modalColumnGap;
+
+        @media (max-width: 1024px) {
+            row-gap: calc($modalRowGap * 0.8);
+        }
+
+        @media (max-width: 768px) {
+            row-gap: calc($modalRowGap * 0.6);
+        }
 
         & > * {
             align-self: center;
@@ -175,4 +225,12 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
     width: 100%;
     font-size: $fs_normal_md;
     font-weight: 700;
+
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_sm;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_ssm;
+    }
 }

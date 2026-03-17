@@ -39,19 +39,21 @@ const Header = ({ expandHeaderBottomBorder }) => {
         <header
             className={`header ${pageBaseStyles.pageHeader} ${expandHeaderBottomBorder === true ? 'expanded' : ''}`}
         >
-            <button className="nav_button_show_controllers">
-                <MenuIcon></MenuIcon>
-            </button>
+            <div className="showControllerBtnAndLogoWrapper">
+                <button className="nav_button_show_controllers">
+                    <MenuIcon></MenuIcon>
+                </button>
 
-            <Link to="/" className="headerLogo">
-                <div className="logoImgWrapper">
-                    <img src={logoImg} alt="Logo image" />
-                </div>
-                <span>ooK</span>
-            </Link>
+                <Link to="/" className="headerLogo">
+                    <div className="logoImgWrapper">
+                        <img src={logoImg} alt="Logo image" />
+                    </div>
+                    <span>ooK</span>
+                </Link>
+            </div>
 
             <section ref={controllerDropDownRef} className="headerController">
-                <div className="userControllerWrapper">
+                {/* <div className="userControllerWrapper">
                     <div className="userController" onClick={() => setOpenUserDropDownController((prev) => !prev)}>
                         <div className="userAvatarWrapper">
                             <UserAvatarImg imgSrc={logoImg}></UserAvatarImg>
@@ -62,12 +64,12 @@ const Header = ({ expandHeaderBottomBorder }) => {
                         </div>
                     </div>
                     <UserControllerDropDown isOpen={openUserDropDownController}></UserControllerDropDown>
-                </div>
+                </div> */}
 
-                {/* <div className="logInAndRegisterControllerWrapper">
+                <div className="logInAndRegisterControllerWrapper">
                     <Link to="/user/log-in">Log in</Link>
                     <Link to="/user/register">Register</Link>
-                </div> */}
+                </div>
             </section>
         </header>
     );
