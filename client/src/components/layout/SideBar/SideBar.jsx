@@ -1,17 +1,23 @@
+import { z } from 'zod';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { useTheme } from '../../../hooks/useTheme';
+import ValidatedComponent from '../../../utils/validateComponentProps';
 
 import { HomeIcon, UserProfileIcon, ActivitiesIcon, DarkModeIcon, LightModeIcon } from '../../../assets/svgIcon';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './SideBar.scss';
 
-const SideBar = () => {
+const sideBarSchema = z.object({
+    showSideBarInMobileView: z.boolean().optional(),
+});
+
+const SideBar = ({ showSideBarInMobileView }) => {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <aside className={`nav_controllers ${pageBaseStyles.sideBar}`}>
+        <aside className={`${pageBaseStyles.sideBar} nav_controllers ${showSideBarInMobileView ? 'show' : ''}`}>
             <section className="nav_links_wrapper">
                 <NavLink to="/home" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
                     <HomeIcon></HomeIcon>
@@ -47,4 +53,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default ValidatedComponent(SideBar, sideBarSchema);

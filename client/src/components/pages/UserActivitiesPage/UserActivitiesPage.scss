@@ -35,6 +35,11 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
             gap: clamp($distance_sm, 1rem, 14px);
         }
 
+        @media (max-width: 600px) {
+            max-width: 80%;
+            gap: clamp($distance_md, 2rem, $distance_lg);
+        }
+
         .basicInfoLeft {
             max-width: 25%;
 
@@ -44,6 +49,10 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
 
             @media (max-width: 768px) {
                 width: 50%;
+            }
+
+            @media (max-width: 600px) {
+                max-width: 25%;
             }
         }
 
@@ -62,6 +71,10 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
                 gap: clamp($distance_ssm, 0.8rem, $distance_sm);
             }
 
+            @media (max-width: 600px) {
+                gap: clamp($distance_sm, 1.2rem, $distance_md);
+            }
+
             span {
                 font-size: $fs_normal_md;
                 color: var(--text_color);
@@ -73,6 +86,10 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
 
                 @media (max-width: 768px) {
                     font-size: $fs_normal_3sm;
+                }
+
+                @media (max-width: 600px) {
+                    font-size: $fs_normal_md;
                 }
             }
 
@@ -90,7 +107,7 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
 .usrPostsWrapper {
 }
 
-.activitiesSectionHeading {
+.activitiestwoPartsSectionHeading {
 }
 
 .activitiesWrapper {

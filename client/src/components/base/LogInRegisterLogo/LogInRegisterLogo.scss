@@ -12,10 +12,28 @@
         cursor: default;
         transition: $transition_md;
 
+        @media (max-width: 1024px) {
+            font-size: $fs_heading_sm;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_heading_ssm;
+        }
+
         img {
             width: clamp(42px, 4.6rem, 50px);
             border-radius: calc($distance_sm / 100 * 160);
             margin-right: 0.26em;
+
+            @media (max-width: 1024px) {
+                width: clamp(38px, 4.2rem, 46px);
+                border-radius: calc($distance_sm * 1.3);
+            }
+
+            @media (max-width: 768px) {
+                width: clamp(32px, 3.6rem, 40px);
+                border-radius: calc($distance_sm);
+            }
         }
 
         &:hover {
@@ -28,5 +46,13 @@
         font-size: $fs_normal_lg;
         color: $white_text;
         font-weight: 500;
+
+        @media (max-width: 1024px) {
+            font-size: $fs_normal_md;
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_sm;
+        }
     }
 }

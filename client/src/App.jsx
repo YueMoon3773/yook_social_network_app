@@ -17,7 +17,7 @@ import { testUsrPosts } from './utils/testDataArr';
 const breakpointColumnsObj = {
     default: 3,
     1200: 2,
-    860: 1,
+    740: 1,
 };
 
 const sortByOptsList = [

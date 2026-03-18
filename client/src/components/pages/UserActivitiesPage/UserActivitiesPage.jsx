@@ -40,8 +40,8 @@ const UserActivitiesPage = () => {
 
                 <section className={`${pageBaseStyles.twoPartsSectionWrapper} userActivitiesWrapper`}>
                     <section className="usrPostsWrapper">
-                        <h2 className={`${pageBaseStyles.sectionHeading} activitiesSectionHeading`}>
-                            <PostsIcon></PostsIcon> Comment
+                        <h2 className={`${pageBaseStyles.twoPartsSectionHeading} activitiestwoPartsSectionHeading`}>
+                            <PostsIcon></PostsIcon> Posts
                         </h2>
 
                         <div className={`${pageBaseStyles.twoPartsSectionContentWrapper} activitiesWrapper`}>
@@ -64,7 +64,7 @@ const UserActivitiesPage = () => {
                     </section>
 
                     <section className="usrCommentsWrapper">
-                        <h2 className={`${pageBaseStyles.sectionHeading} activitiesSectionHeading`}>
+                        <h2 className={`${pageBaseStyles.twoPartsSectionHeading} activitiestwoPartsSectionHeading`}>
                             <CommentsIcon></CommentsIcon> Comments
                         </h2>
 

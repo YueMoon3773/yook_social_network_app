@@ -1,11 +1,16 @@
 .contentWrapper {
     overflow-y: auto;
     @include flexColumn;
+    transition: $transition_md;
 
     .pageMaker {
         width: 100%;
         height: 1px;
         background-color: transparent;
+    }
+
+    &.sideBarShown {
+        filter: brightness(0.66) blur(6px);
     }
 }
 
@@ -14,4 +19,8 @@
     padding: $page_content_main_padding;
     // height: 100%;
     flex: 1;
+
+    @media (max-width: 460px) {
+        padding: $page_content_main_padding calc($page_content_main_padding * 0.86);
+    }
 }

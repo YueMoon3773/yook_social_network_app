@@ -72,5 +72,11 @@
         @media (max-width: 768px) {
             font-size: calc($inpFsz * 0.86);
         }
+
+        @media (max-width: 460px) {
+            padding: calc($inpDistanceTopBottom * 1.2) $inpDistanceLeftRight;
+            font-size: calc($inpFsz * 0.82);
+            white-space: nowrap;
+        }
     }
 }

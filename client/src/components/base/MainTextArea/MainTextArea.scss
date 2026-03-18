@@ -69,5 +69,11 @@
         @media (max-width: 768px) {
             font-size: calc($textAreaFsz * 0.86);
         }
+
+        @media (max-width: 460px) {
+            padding: calc($textAreaDistanceTopBottom * 1.2) $textAreaDistanceLeftRight;
+            font-size: calc($textAreaFsz * 0.82);
+            white-space: nowrap;
+        }
     }
 }

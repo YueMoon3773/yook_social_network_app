@@ -1,4 +1,5 @@
-import { z } from 'zod';
+import { useState } from 'react';
+import { set, z } from 'zod';
 
 import { useTheme } from '../../../hooks/useTheme';
 import { useHeaderPassedTopPage } from '../../../hooks/useHeaderPassedTopOfPage';
@@ -23,15 +24,21 @@ const pageLayoutSchema = z.object({
 });
 
 const PageLayout = ({ showModal = null, closeModalBtnHandler, modalType, modalBoxRef, children }) => {
+    const [showSideBar, setShowSideBar] = useState(false);
     const { theme } = useTheme();
     const { headerPassedTopPage, pageMaker, observerRoot } = useHeaderPassedTopPage();
 
+    const toggleShowSideBar = () => setShowSideBar((prev) => !prev);
+
     return (
         <div className={`${pageBaseStyles.page}`} data-theme={theme}>
-            <Header expandHeaderBottomBorder={headerPassedTopPage}></Header>
+            <Header
+                expandHeaderBottomBorder={headerPassedTopPage}
+                showSideBarBtnClickHandler={toggleShowSideBar}
+            ></Header>
             <main className={`${pageBaseStyles.pageContent}`}>
-                <SideBar></SideBar>
-                <PageContent pageMaker={pageMaker} observerRoot={observerRoot}>
+                <SideBar showSideBarInMobileView={showSideBar}></SideBar>
+                <PageContent pageMaker={pageMaker} observerRoot={observerRoot} showSideBarInMobileView={showSideBar}>
                     {children}
                 </PageContent>
             </main>

@@ -10,13 +10,14 @@ $toggleBtnHeight: $distance_lg;
 
 .toggleBtnWrapper {
     @include flexCenter;
-    gap: clamp($distance_ssm, 0.66rem, 10px);
+    gap: clamp($distance_sm, 0.86rem, 12px);
 
     @media (max-width: 1024px) {
-        gap: clamp(2px, 0.36rem, 6px);
+        // gap: clamp(2px, 0.36rem, 6px);
     }
 
     @media (max-width: 768px) {
+        flex-direction: column;
     }
 
     & > label {

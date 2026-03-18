@@ -15,14 +15,14 @@
 
     form {
         @include flexColumn;
-        gap: $login_register_form_gap;
+        gap: $login_register_form_gap_normal;
 
         @media (max-width: 1024px) {
-            gap: calc($login_register_form_gap * 0.92);
+            gap: calc($login_register_form_gap_normal * 0.92);
         }
 
         @media (max-width: 768px) {
-            gap: calc($login_register_form_gap * 0.86);
+            gap: calc($login_register_form_gap_normal * 0.86);
         }
     }
 }
@@ -31,7 +31,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: $login_register_form_gap;
+    gap: $login_register_form_gap_normal;
     flex-wrap: wrap;
 
     & > * {
@@ -59,21 +59,45 @@
 .isAdminInpsWrapper {
     @include displayGrid;
     grid-template-columns: 1fr 2fr;
-    gap: $login_register_form_gap;
+    gap: $login_register_form_gap_normal;
+
+    & > * {
+        justify-self: stretch;
+        align-self: center;
+    }
 
     @media (max-width: 1024px) {
         grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+        gap: $login_register_form_gap_mobile;
     }
 
     p {
         display: none;
     }
 
-    .isAdminInpsWrapper {
-        input {
-            &::placeholder {
+    label[for='registerAdminSecretKey'] {
+        @media (max-width: 768px) {
+            font-size: $fs_normal_3sm;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 460px) {
+            $inpDistanceTopBottom: 0.36em;
+            $inpDistanceLeftRight: 0.6em;
+
+            font-size: $fs_normal_4sm;
+            padding: calc($inpDistanceTopBottom * 1.66) $inpDistanceLeftRight;
+        }
+    }
+
+    input[id='registerAdminSecretKey'] {
+        &:not(:placeholder-shown) {
+            & ~ label {
                 @media (max-width: 768px) {
-                    font-size: $fs_normal_4sm;
+                    transform: translateY(-76%) translateX(-10%) scale(0.8);
                 }
             }
         }

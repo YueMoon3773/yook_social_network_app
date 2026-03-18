@@ -15,6 +15,11 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
     box-shadow: 0 $distance_3sm $distance_md var(--out_focus_gray);
     transition: $transition_md;
 
+    @media (max-width: 460px) {
+        width: 90%;
+        padding: 2.4rem;
+    }
+
     &:hover {
         filter: brightness(1.006);
         transform: translateY(-2px);

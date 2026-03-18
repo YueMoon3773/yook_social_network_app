@@ -90,7 +90,8 @@ $login_register_bgc: #3d1b00;
 $login_register_form_padding_normal: $distance_xxl $distance_xxxl $distance_xl;
 $login_register_form_padding_tablet: $distance_xl $distance_xxl $distance_lg;
 $login_register_form_padding_mobile: $distance_lg $distance_lg $distance_md;
-$login_register_form_gap: clamp(24px, 2.6rem, 28px);
+$login_register_form_gap_normal: clamp(24px, 2.6rem, 28px);
+$login_register_form_gap_mobile: clamp(10px, 1.6rem, 18px);
 /* =============================================== */
 /* THEME SET UP  */
 /* =============================================== */

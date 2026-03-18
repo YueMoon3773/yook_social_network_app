@@ -14,9 +14,10 @@ import './Header.scss';
 
 const headerSchema = z.object({
     expandHeaderBottomBorder: z.boolean(),
+    showSideBarBtnClickHandler: z.function(),
 });
 
-const Header = ({ expandHeaderBottomBorder }) => {
+const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler }) => {
     const [openUserDropDownController, setOpenUserDropDownController] = useState(false);
     const controllerDropDownRef = useRef(null);
 
@@ -40,7 +41,7 @@ const Header = ({ expandHeaderBottomBorder }) => {
             className={`header ${pageBaseStyles.pageHeader} ${expandHeaderBottomBorder === true ? 'expanded' : ''}`}
         >
             <div className="showControllerBtnAndLogoWrapper">
-                <button className="nav_button_show_controllers">
+                <button className="nav_button_show_controllers" onClick={showSideBarBtnClickHandler}>
                     <MenuIcon></MenuIcon>
                 </button>
 
@@ -53,7 +54,7 @@ const Header = ({ expandHeaderBottomBorder }) => {
             </div>
 
             <section ref={controllerDropDownRef} className="headerController">
-                {/* <div className="userControllerWrapper">
+                <div className="userControllerWrapper">
                     <div className="userController" onClick={() => setOpenUserDropDownController((prev) => !prev)}>
                         <div className="userAvatarWrapper">
                             <UserAvatarImg imgSrc={logoImg}></UserAvatarImg>
@@ -64,12 +65,12 @@ const Header = ({ expandHeaderBottomBorder }) => {
                         </div>
                     </div>
                     <UserControllerDropDown isOpen={openUserDropDownController}></UserControllerDropDown>
-                </div> */}
+                </div>
 
-                <div className="logInAndRegisterControllerWrapper">
+                {/* <div className="logInAndRegisterControllerWrapper">
                     <Link to="/user/log-in">Log in</Link>
                     <Link to="/user/register">Register</Link>
-                </div>
+                </div> */}
             </section>
         </header>
     );

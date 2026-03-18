@@ -42,6 +42,10 @@
     transition: $transition_md;
     position: relative;
     overflow: hidden;
+
+    @media (max-width: 860px) {
+        @include flexColumn;
+    }
 }
 
 .sideBar {
@@ -49,12 +53,22 @@
     padding-left: calc($fs_heading_lg * 1.06);
     position: sticky;
 
+    z-index: 200;
+
     @media (max-width: 1024px) {
         padding-left: calc($fs_heading_lg * 0.76);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 860px) {
         padding-left: calc($fs_heading_lg * 0.56);
+
+        position: absolute;
+        width: 66%;
+        top: 0;
+        bottom: 0;
+        left: -100%;
+        background-color: var(--bg_color);
+        transition: $transition_md;
     }
 }
 
@@ -66,7 +80,6 @@
 
 .mainBtn {
     border-radius: $distance_sm;
-    // font-size: $fs_normal_md;
     border: none;
     outline: none;
     background-color: var(--out_focus_gray);
@@ -108,10 +121,20 @@
 
     & > *:first-child {
         border-right: $thin_border_light_gray;
+
+        @media (max-width: 600px) {
+            border-right: none;
+        }
+    }
+
+    @media (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        gap: $distance_xl;
     }
 }
 
-.sectionHeading {
+.twoPartsSectionHeading {
     @include flexCenter;
 
     position: sticky;
@@ -136,6 +159,10 @@
         font-size: $fs_normal_sm;
     }
 
+    @media (max-width: 600px) {
+        font-size: $fs_normal_md;
+    }
+
     svg {
         height: $fs_heading_ssm;
         color: var(--text_color);
@@ -148,6 +175,10 @@
         @media (max-width: 768px) {
             height: $fs_normal_xl;
         }
+
+        @media (max-width: 600px) {
+            height: $fs_heading_ssm;
+        }
     }
 }
 
@@ -159,6 +190,10 @@
     overflow-y: auto;
     max-height: 760px;
     z-index: 50;
+
+    @media (max-width: 600px) {
+        max-height: 460px;
+    }
 }
 
 .logInAndRegisterFormWrapper {
