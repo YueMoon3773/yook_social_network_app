@@ -36,7 +36,7 @@ export const useOpenCloseModal = () => {
     const context = useContext(OpenCloseModalContext);
 
     if (!context) {
-        throw new Error('useOpenCloseModal must be used inside ThemeProvider');
+        throw new Error('useOpenCloseModal must be used inside OpenCloseModalProvider');
     }
 
     return context;

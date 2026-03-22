@@ -4,6 +4,7 @@ import { z } from 'zod';
 import ValidatedComponent from '../../../utils/validateComponentProps';
 
 import UserAvatarImg from '../UserAvatarImg/UserAvatarImg';
+import DeletePostCommentBtn from '../DeletePostCommentBtn/DeletePostCommentBtn';
 
 import './PostItem.scss';
 
@@ -21,6 +22,10 @@ const postItemSchema = z.looseObject({
     showPostItemHeader: z.boolean(),
     isPostTitleClickable: z.boolean().optional(),
     isNumberPostCommentsClickable: z.boolean().optional(),
+    isUserAuthenticated: z.boolean().default(false),
+    showBadgeHandler: z.function().optional(),
+    disableDeleteBtn: z.boolean().default(false).optional(),
+    deletePostBtnHandler: z.function().optional(),
 });
 
 const PostItem = ({
@@ -37,6 +42,10 @@ const PostItem = ({
     showPostItemHeader = true,
     isPostTitleClickable = false,
     isNumberPostCommentsClickable = true,
+    isUserAuthenticated = false,
+    showBadgeHandler,
+    disableDeleteBtn = true,
+    deletePostBtnHandler,
 }) => {
     return (
         <div className="postItem">
@@ -46,7 +55,15 @@ const PostItem = ({
                         <div className="postAvatarImgWrapper">
                             <UserAvatarImg imgSrc={usrAvatar}></UserAvatarImg>
                         </div>
-                        <Link to={`/user/${usrUserName}`}>
+                        <Link
+                            to={`/user/${usrUserName}`}
+                            onClick={(e) => {
+                                if (!isUserAuthenticated) {
+                                    e.preventDefault();
+                                    showBadgeHandler();
+                                }
+                            }}
+                        >
                             <span>{usrFirstName + ' ' + usrLastName}</span>
                             <span>{'@' + usrUserName}</span>
                         </Link>
@@ -57,7 +74,16 @@ const PostItem = ({
 
             <section className="postItemBody">
                 {isPostTitleClickable === true ? (
-                    <Link className="postItemTitle" to={`/post/${postId}`}>
+                    <Link
+                        className="postItemTitle"
+                        to={`/post/${postId}`}
+                        onClick={(e) => {
+                            if (!isUserAuthenticated) {
+                                e.preventDefault();
+                                showBadgeHandler();
+                            }
+                        }}
+                    >
                         {postTitle}
                     </Link>
                 ) : (
@@ -67,16 +93,33 @@ const PostItem = ({
             </section>
 
             <section className="postItemFooter">
-                {isNumberPostCommentsClickable === true ? (
-                    <Link to={`/post/${postId}`} className="numberPostComments">
-                        {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
-                    </Link>
-                ) : (
-                    <span className="numberPostComments">
-                        {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
-                    </span>
-                )}
-                <span className="postDate">{postDate}</span>
+                <div className="postItemFooterLeft">
+                    <span className="postDate">{postDate}</span>
+                    {isNumberPostCommentsClickable === true ? (
+                        <Link
+                            to={`/post/${postId}`}
+                            className="numberPostComments"
+                            onClick={(e) => {
+                                if (!isUserAuthenticated) {
+                                    e.preventDefault();
+                                    showBadgeHandler();
+                                }
+                            }}
+                        >
+                            {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
+                        </Link>
+                    ) : (
+                        <span className="numberPostComments">
+                            {`${numberPostComments} comment${numberPostComments > 1 ? 's' : ''}`}
+                        </span>
+                    )}
+                </div>
+                <div className="postItemFooterRight">
+                    <DeletePostCommentBtn
+                        isBtnDisabled={disableDeleteBtn}
+                        onClickHandler={deletePostBtnHandler}
+                    ></DeletePostCommentBtn>
+                </div>
             </section>
         </div>
     );

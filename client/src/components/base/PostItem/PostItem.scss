@@ -161,10 +161,19 @@
 }
 
 .postItemFooter {
-    @include flexCenter;
+    display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     flex-wrap: wrap;
     gap: clamp(10px, 1.4rem, $distance_md);
+    margin-top: 0.36em;
+}
+
+.postItemFooterLeft {
+    @include flexColumn;
+    align-items: flex-start;
+    gap: clamp(10px, 1.6rem, $distance_md);
+    gap: 10px;
 
     .numberPostComments,
     .postDate {
@@ -199,4 +208,8 @@
 
     .postDate {
     }
+}
+
+.postItemFooterRight {
+    @include flexCenter;
 }

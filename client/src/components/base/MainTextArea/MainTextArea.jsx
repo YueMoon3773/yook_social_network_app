@@ -8,16 +8,18 @@ const mainInpSchema = z.object({
     textAreaLabel: z.string(),
     textAreaId: z.string(),
     textAreaClass: z.string().optional(),
-    onChangeHandler: z.function(),
+    textAreValue: z.string().trim().nullable(),
+    onChangeHandler: z.function().nullable(),
 });
 
-const MainTextArea = ({ textAreaLabel, textAreaId, textAreaClass, onChangeHandler }) => {
+const MainTextArea = ({ textAreaLabel, textAreaId, textAreaClass, textAreValue, onChangeHandler }) => {
     return (
         <div className="mainTextAreaWrapper">
             <textarea
                 id={textAreaId}
                 name={textAreaId}
                 className={`mainTextAreaStyle ${textAreaClass}`}
+                value={textAreValue}
                 onChange={onChangeHandler}
                 placeholder={textAreaLabel}
             ></textarea>

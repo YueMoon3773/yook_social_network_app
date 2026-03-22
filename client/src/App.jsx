@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import Masonry from 'react-masonry-css';
 
 import { useOpenCloseModal } from './hooks/useOpenCloseModal';
+import { useAuthenticate } from './hooks/useAuthenticate';
+import { useShowBadge } from './hooks/useShowBadge';
 
 import { ArrowRightIcon, ArrowLeftIcon, PlusIcon } from './assets/svgIcon';
 import PageLayout from './components/layout/PageLayout/PageLayout';
@@ -37,12 +39,40 @@ const App = () => {
     const helperHoverTimer = useRef(null);
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
 
+    const { user, loading: userAuthenLoading } = useAuthenticate();
+    // console.log({ user });
+
+    const { isShowBadge, showBadge } = useShowBadge();
+    const [badgeType, setBadgeType] = useState(null);
+    const [badgeMsg, setBadgeMsg] = useState(null);
+    // console.log({ badgeType, badgeMsg });
+
+    const [postTitleValue, setPostTitleValue] = useState('');
+    const [postContentValue, setPostContentValue] = useState('');
+
+    // Set page title
     useEffect(() => {
         document.title = 'Yook | Home';
         resetModalState();
     }, []);
 
+    // Set badge info based on use authentication status
+    useEffect(() => {
+        if (user === null) {
+            setBadgeType('warning');
+            setBadgeMsg('Log in to see this content.');
+        } else {
+            setBadgeType('info');
+            setBadgeMsg(`You logged in as ${user.user_name} successfully`);
+            showBadge();
+        }
+    }, [user]);
+
     const closeModalBtnHandler = () => closeModal();
+
+    const postTitleOnChangeHandler = (e) => {};
+
+    const postContentOnChangeHandler = (e) => {};
 
     return (
         <PageLayout
@@ -50,6 +80,13 @@ const App = () => {
             closeModalBtnHandler={closeModalBtnHandler}
             modalType="addPost"
             modalBoxRef={modalBoxRef}
+            showBadge={isShowBadge}
+            badgeType={badgeType}
+            badgeMsg={badgeMsg}
+            postTitleValue={postTitleValue}
+            postTitleOnChangeHandler={postTitleOnChangeHandler}
+            postContentValue={postContentValue}
+            postContentOnChangeHandler={postContentOnChangeHandler}
         >
             <div className="postsPageContent">
                 <section className="sortControllers">
@@ -88,6 +125,10 @@ const App = () => {
                                     showPostItemHeader={true}
                                     isPostTitleClickable={true}
                                     isNumberPostCommentsClickable={true}
+                                    isUserAuthenticated={!!user}
+                                    showBadgeHandler={showBadge}
+                                    disableDeleteBtn={true}
+                                    deletePostBtnHandler={() => {}}
                                 ></PostItem>
                             );
                         })}
@@ -100,11 +141,27 @@ const App = () => {
                     </p>
 
                     <div className="paginationControllers">
-                        <MainBtn btnClass={'prevBtn'} onClickHandler={() => {}}>
+                        <MainBtn
+                            btnClass={'prevBtn'}
+                            onClickHandler={(e) => {
+                                if (user === null) {
+                                    e.preventDefault();
+                                    showBadge();
+                                }
+                            }}
+                        >
                             <ArrowLeftIcon></ArrowLeftIcon>
                             <span>Prev</span>
                         </MainBtn>
-                        <MainBtn btnClass={'nextBtn'} onClickHandler={() => {}}>
+                        <MainBtn
+                            btnClass={'nextBtn'}
+                            onClickHandler={(e) => {
+                                if (user === null) {
+                                    e.preventDefault();
+                                    showBadge();
+                                }
+                            }}
+                        >
                             <span>Next</span>
                             <ArrowRightIcon></ArrowRightIcon>
                         </MainBtn>
@@ -123,7 +180,14 @@ const App = () => {
                         clearTimeout(helperHoverTimer.current);
                         setShowHelperAddPostBtn(false);
                     }}
-                    onClick={() => openModal()}
+                    onClick={(e) => {
+                        if (user === null) {
+                            e.preventDefault();
+                            showBadge();
+                        } else {
+                            openModal();
+                        }
+                    }}
                     className="postPageAddPostBtn"
                 >
                     <PlusIcon></PlusIcon>

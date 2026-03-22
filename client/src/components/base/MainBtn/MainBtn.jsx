@@ -16,6 +16,7 @@ const MainBtn = ({ isBtnPrimaryColor = false, btnClass, onClickHandler, children
     return (
         <button
             className={`${pageBaseStyles.mainBtn} btn ${isBtnPrimaryColor === true ? pageBaseStyles.mainPrimaryColorBtn : ''} ${btnClass ? btnClass : ''}`}
+            onClick={onClickHandler}
         >
             {children}
         </button>

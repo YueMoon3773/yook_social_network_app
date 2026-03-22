@@ -1,9 +1,20 @@
 .viewPostPageContent {
     height: 100%;
+
+    @media (max-width: 600px) {
+        gap: $distance_ssm;
+    }
 }
 
 .postDetailSection {
     gap: clamp($distance_xl, 3.6rem, $distance_xxl);
+    max-height: none;
+    height: max-content;
+
+    @media (max-width: 600px) {
+        max-height: none;
+        height: max-content;
+    }
 }
 
 .formCmtForPost {

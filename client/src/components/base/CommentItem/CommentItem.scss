@@ -33,15 +33,26 @@
     gap: clamp($distance_md, 1.6rem, 18px);
 
     & > a {
+        width: 100%;
+        text-align: left;
         @include flexCenter;
-        font-size: $fs_normal_ssm;
+        justify-content: flex-start;
         color: var(--text_color);
         transition: $transition_md;
 
         svg {
+            display: block;
             font-size: 1rem;
-            height: $fs_normal_md;
+            color: var(--text_color);
+            height: $fs_normal_xl;
+            min-height: calc($fs_normal_xl * 0.9);
             margin-right: 0.6em;
+            flex-shrink: 0;
+        }
+
+        span {
+            font-size: $fs_normal_ssm;
+            color: var(--text_color);
         }
 
         &:hover {
@@ -151,9 +162,15 @@
 }
 
 .cmtItemFooter {
-    @include flexCenter;
-    justify-content: flex-end;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: clamp(10px, 1.4rem, $distance_md);
+    margin-top: -0.6em;
+}
 
+.cmtItemFooterLeft {
     .cmtDate {
         font-size: $fs_normal_3sm;
         color: var(--text_color);
@@ -167,4 +184,8 @@
             font-size: calc($fs_normal_3sm * 0.86);
         }
     }
+}
+
+.cmtItemFooterRight {
+    @include flexCenter;
 }

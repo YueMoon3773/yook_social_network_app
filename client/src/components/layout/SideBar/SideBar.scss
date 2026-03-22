@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: stretch;
     border-right: $thick_border_light_gray;
+    transition: $transition_md;
 
     @media (max-width: 860px) {
         &.show {

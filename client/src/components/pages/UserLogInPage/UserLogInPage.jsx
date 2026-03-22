@@ -7,11 +7,23 @@ import MainBtn from '../../base/MainBtn/MainBtn';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserLogInPage.scss';
+import { set } from 'zod';
 
 const UserLogInPage = () => {
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+
     useEffect(() => {
         document.title = 'Yook | Log in';
     }, []);
+
+    const userNameOnChangeHandler = (e) => {
+        setUserName(e.target.value);
+    };
+
+    const passwordOnChangeHandler = (e) => {
+        setPassword(e.target.value);
+    };
 
     return (
         <div className={`${pageBaseStyles.page} logInPage`}>
@@ -22,7 +34,8 @@ const UserLogInPage = () => {
                     inpLabel={'User name*'}
                     inpId={'registerUserName'}
                     inpClass={'registerUserName'}
-                    onChangeHandler={() => {}}
+                    inpValue={userName}
+                    onChangeHandler={userNameOnChangeHandler}
                 ></MainInp>
 
                 <MainInp
@@ -30,7 +43,8 @@ const UserLogInPage = () => {
                     inpId={'registerPassword'}
                     inpClass={'registerPassword'}
                     inpType={'password'}
-                    onChangeHandler={() => {}}
+                    inpValue={password}
+                    onChangeHandler={passwordOnChangeHandler}
                 ></MainInp>
 
                 <div className="controllersWrapper">

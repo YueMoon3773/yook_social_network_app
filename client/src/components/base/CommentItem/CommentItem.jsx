@@ -5,6 +5,7 @@ import ValidatedComponent from '../../../utils/validateComponentProps';
 
 import { GoToPostIcon } from '../../../assets/svgIcon';
 import UserAvatarImg from '../UserAvatarImg/UserAvatarImg';
+import DeletePostCommentBtn from '../DeletePostCommentBtn/DeletePostCommentBtn';
 
 import './CommentItem.scss';
 
@@ -20,6 +21,8 @@ const commentItemSchema = z.object({
     postTitle: z.string().optional(),
     commentContent: z.string(),
     commentDate: z.string(),
+    disableDeleteBtn: z.boolean().default(false).optional(),
+    deletePostBtnHandler: z.function().optional(),
 });
 
 const CommentItem = ({
@@ -34,6 +37,8 @@ const CommentItem = ({
     postTitle,
     commentContent,
     commentDate,
+    disableDeleteBtn = true,
+    deletePostBtnHandler,
 }) => {
     if (
         (showUserInfoInCommentItem && showPostTitleInCommentItem) ||
@@ -61,7 +66,7 @@ const CommentItem = ({
                     {showPostTitleInCommentItem && (
                         <Link to={`/post/${postId}`}>
                             <GoToPostIcon></GoToPostIcon>
-                            {` ${postTitle}`}
+                            <span>{` ${postTitle}`}</span>
                         </Link>
                     )}
                 </section>
@@ -71,7 +76,15 @@ const CommentItem = ({
                 </section>
 
                 <section className="cmtItemFooter">
-                    <span className="cmtDate">{commentDate}</span>
+                    <div className="cmtItemFooterLeft">
+                        <span className="cmtDate">{commentDate}</span>
+                    </div>
+                    <div className="cmtItemFooterRight">
+                        <DeletePostCommentBtn
+                            isBtnDisabled={disableDeleteBtn}
+                            onClickHandler={deletePostBtnHandler}
+                        ></DeletePostCommentBtn>
+                    </div>
                 </section>
             </div>
         );

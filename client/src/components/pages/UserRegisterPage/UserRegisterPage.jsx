@@ -8,13 +8,46 @@ import RoundToggleButton from '../../base/RoundToggleButton/RoundToggleButton';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserRegisterPage.scss';
+import { set } from 'zod';
 
 const UserRegisterPage = () => {
     const [secretKeyInpDisabled, setSecretKeyInpDisabled] = useState(true);
 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [retypePassword, setRetypePassword] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [adminSecretKey, setAdminSecretKey] = useState('');
+
     useEffect(() => {
         document.title = 'Yook | Register';
     }, []);
+
+    const firstNameOnChangeHandler = (e) => {
+        setFirstName(e.target.value);
+    };
+
+    const lastNameOnChangeHandler = (e) => {
+        setLastName(e.target.value);
+    };
+
+    const userNameOnChangeHandler = (e) => {
+        setUserName(e.target.value);
+    };
+
+    const passwordOnChangeHandler = (e) => {
+        setPassword(e.target.value);
+    };
+
+    const retypePasswordOnChangeHandler = (e) => {
+        setRetypePassword(e.target.value);
+    };
+
+    const adminSecretKeyOnChangeHandler = (e) => {
+        setAdminSecretKey(e.target.value);
+    };
 
     return (
         <div className={`${pageBaseStyles.page} registerPage`}>
@@ -26,13 +59,15 @@ const UserRegisterPage = () => {
                         inpLabel={'First name*'}
                         inpId={'registerFirstName'}
                         inpClass={'registerFirstName'}
-                        onChangeHandler={() => {}}
+                        inpValue={firstName}
+                        onChangeHandler={firstNameOnChangeHandler}
                     ></MainInp>
                     <MainInp
                         inpLabel={'Last name*'}
                         inpId={'registerLastName'}
                         inpClass={'registerLastName'}
-                        onChangeHandler={() => {}}
+                        inpValue={lastName}
+                        onChangeHandler={lastNameOnChangeHandler}
                     ></MainInp>
                 </div>
 
@@ -41,7 +76,8 @@ const UserRegisterPage = () => {
                         inpLabel={'User name*'}
                         inpId={'registerUserName'}
                         inpClass={'registerUserName'}
-                        onChangeHandler={() => {}}
+                        inpValue={userName}
+                        onChangeHandler={userNameOnChangeHandler}
                     ></MainInp>
                     <p className="helperText">* Must be 3-16 characters long and contain only letters and numbers.</p>
                 </div>
@@ -52,7 +88,8 @@ const UserRegisterPage = () => {
                         inpId={'registerPassword'}
                         inpClass={'registerPassword'}
                         inpType={'password'}
-                        onChangeHandler={() => {}}
+                        inpValue={password}
+                        onChangeHandler={passwordOnChangeHandler}
                     ></MainInp>
                     <p className="helperText">
                         * Must be 8–32 characters long, including at least one uppercase, one lowercase, a number, and a
@@ -65,7 +102,8 @@ const UserRegisterPage = () => {
                     inpId={'registerRetypePassword'}
                     inpClass={'registerRetypePassword'}
                     inpType={'password'}
-                    onChangeHandler={() => {}}
+                    inpValue={retypePassword}
+                    onChangeHandler={retypePasswordOnChangeHandler}
                 ></MainInp>
 
                 <div className="isAdminInpsWrapper">
@@ -73,7 +111,12 @@ const UserRegisterPage = () => {
                         showToggleLabel={true}
                         toggleBtnLabel={'Are you an admin?'}
                         toggleBtnId={'isAdminToggleBtn'}
-                        onClickHandler={() => setSecretKeyInpDisabled((prev) => !prev)}
+                        onClickHandler={() =>
+                            setIsAdmin((prev) => {
+                                if (prev) setAdminSecretKey('');
+                                return !prev;
+                            })
+                        }
                     ></RoundToggleButton>
 
                     <div className="inpAndHelperTextWrapper">
@@ -82,8 +125,9 @@ const UserRegisterPage = () => {
                             inpId={'registerAdminSecretKey'}
                             inpClass={'registerAdminSecretKey'}
                             inpType={'password'}
-                            onChangeHandler={() => {}}
-                            isDisabled={secretKeyInpDisabled}
+                            inpValue={adminSecretKey}
+                            onChangeHandler={adminSecretKeyOnChangeHandler}
+                            isDisabled={!isAdmin}
                         ></MainInp>
                         <p className="helperText">* Hint: secret key starts with "Yue".</p>
                     </div>

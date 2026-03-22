@@ -1,0 +1,38 @@
+.deletePostCmtBtn {
+    aspect-ratio: 1 / 1;
+    @include flexCenter;
+    padding: 0.26em 0.36em 0.86em;
+    transition: $transition_md;
+
+    svg {
+        height: $fs_heading_sm;
+        color: var(--text_color);
+        transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            height: $fs_heading_ssm;
+        }
+
+        @media (max-width: 768px) {
+            height: $fs_heading_3sm;
+        }
+    }
+
+    &:hover {
+        background-color: $light_red_color;
+
+        svg {
+            color: $white_text;
+        }
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        background-color: rgba($color: $gray_color, $alpha: 0.3);
+
+        svg {
+            color: rgba($color: $dark_gray_color, $alpha: 0.5);
+        }
+    }
+}

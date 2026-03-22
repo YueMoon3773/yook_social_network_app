@@ -1,11 +1,6 @@
 const pool = require('./pool');
 require('dotenv').config();
 
-const getAllData = async () => {
-    const { rows } = await pool.query(`SELECT * FROM ${process.env.DB_TABLE_NAME}`);
-    return rows;
-};
-
 const getUserByUserName = async (userName) => {
     const { rows } = await pool.query(
         `
@@ -27,7 +22,6 @@ const getUserById = async (id) => {
 };
 
 module.exports = {
-    getAllData,
     getUserByUserName,
     getUserById,
 };

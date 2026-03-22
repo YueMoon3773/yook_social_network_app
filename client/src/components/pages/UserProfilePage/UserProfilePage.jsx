@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
@@ -9,9 +9,17 @@ import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
 import noAvatar from '../../../assets/img/no_avatar.jpg';
 
 import './UserProfilePage.scss';
+import { set } from 'zod';
 
 const UserProfilePage = () => {
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
+
+    const [profileFirstNameValue, setProfileFirstNameValue] = useState('');
+    const [profileLastNameValue, setProfileLastNameValue] = useState('');
+    const [profileAvatarUrlValue, setProfileAvatarUrlValue] = useState('');
+    const [profileBioValue, setProfileBioValue] = useState('');
+    const [profileLocationValue, setProfileLocationValue] = useState('');
+    const [profileBirthdayValue, setProfileBirthdayValue] = useState('');
 
     const usrFirstName = 'Aurelia';
     const usrLastName = 'Kshlerin';
@@ -24,12 +32,48 @@ const UserProfilePage = () => {
 
     const closeModalBtnHandler = () => closeModal();
 
+    const profileFirstNameOnChangeHandler = (e) => {
+        setProfileFirstNameValue(e.target.value);
+    };
+
+    const profileLastNameOnChangeHandler = (e) => {
+        setProfileLastNameValue(e.target.value);
+    };
+
+    const profileAvatarUrlOnChangeHandler = (e) => {
+        setProfileAvatarUrlValue(e.target.value);
+    };
+
+    const profileBioOnChangeHandler = (e) => {
+        setProfileBioValue(e.target.value);
+    };
+
+    const profileLocationOnChangeHandler = (e) => {
+        setProfileLocationValue(e.target.value);
+    };
+
+    const profileBirthdayOnChangeHandler = (e) => {
+        setProfileBirthdayValue(e.target.value);
+    };
+
     return (
         <PageLayout
             showModal={showModal}
             closeModalBtnHandler={closeModalBtnHandler}
             modalType={'editUsrProfile'}
             modalBoxRef={modalBoxRef}
+            profileFirstNameValue={profileFirstNameValue}
+            profileFirstNameOnChangeHandler={profileFirstNameOnChangeHandler}
+            profileLastNameValue={profileLastNameValue}
+            profileLastNameOnChangeHandler={profileLastNameOnChangeHandler}
+            profileAvatarUrlValue={profileAvatarUrlValue}
+            profileAvatarUrlOnChangeHandler={profileAvatarUrlOnChangeHandler}
+            profileBioValue={profileBioValue}
+            profileBioOnChangeHandler={profileBioOnChangeHandler}
+            profileLocationValue={profileLocationValue}
+            profileLocationOnChangeHandler={profileLocationOnChangeHandler}
+            profileBirthdayValue={profileBirthdayValue}
+            profileBirthdayOnChangeHandler={profileBirthdayOnChangeHandler}
         >
             <div className="userProfileWrapper">
                 <div className="usrProfileAvatarWrapper">

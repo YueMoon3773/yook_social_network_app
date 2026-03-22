@@ -10,7 +10,7 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
     bottom: 0;
     right: 0;
     backdrop-filter: blur($distance_sm) brightness(60%);
-    z-index: 150;
+    z-index: 200;
 
     @include displayGrid;
 
@@ -61,6 +61,23 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
         visibility: visible;
         pointer-events: auto;
     }
+
+    &.errorModalWrapper {
+        @include flexCenter;
+    }
+}
+
+h1.modalErrorMsg {
+    max-width: 60%;
+    font-size: $fs_normal_lg;
+    color: $red_color;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 auto;
+    text-shadow:
+        0 0 2px var(--text_color),
+        0 0 1px var(--text_color),
+        0 0 1px var(--text_color);
 }
 
 .modal {
@@ -85,13 +102,13 @@ $modalColumnGap: clamp(24px, 2.6rem, 30px);
 
     &.show {
         transform-origin: bottom center;
-        animation: modalZoomInAppear $modalAnimationTime ease-in-out both;
+        animation: modalZoomInAppear $modalAnimationTime cubic-bezier(0.43, 0.14, 0.55, 0.86) both;
         animation-delay: calc($modalWrapperAnimationTime * 0.66);
     }
 
     &.hidden {
         transform-origin: top center;
-        animation: modalZoomOutDisappear $modalAnimationTime ease-in-out both;
+        animation: modalZoomOutDisappear $modalAnimationTime cubic-bezier(0.43, 0.14, 0.55, 0.86) both;
         pointer-events: none;
     }
 }

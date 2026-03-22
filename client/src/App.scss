@@ -107,10 +107,26 @@
 
     cursor: pointer;
 
+    @media (max-width: 1024px) {
+        padding: 1em;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.8;
+    }
+
     svg {
         height: $fs_heading_md;
         color: var(--text_color);
         transition: $transition_md;
+
+        @media (max-width: 1024px) {
+            height: $fs_heading_sm;
+        }
+
+        @media (max-width: 768px) {
+            height: $fs_heading_ssm;
+        }
     }
 
     &:hover {

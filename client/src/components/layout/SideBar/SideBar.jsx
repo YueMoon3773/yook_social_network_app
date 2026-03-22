@@ -3,6 +3,8 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { useTheme } from '../../../hooks/useTheme';
 import ValidatedComponent from '../../../utils/validateComponentProps';
+import { useAuthenticate } from '../../../hooks/useAuthenticate';
+import { useShowBadge } from '../../../hooks/useShowBadge';
 
 import { HomeIcon, UserProfileIcon, ActivitiesIcon, DarkModeIcon, LightModeIcon } from '../../../assets/svgIcon';
 
@@ -10,24 +12,48 @@ import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './SideBar.scss';
 
 const sideBarSchema = z.object({
+    sideBarRef: z.unknown().optional(),
     showSideBarInMobileView: z.boolean().optional(),
 });
 
-const SideBar = ({ showSideBarInMobileView }) => {
+const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
     const { theme, toggleTheme } = useTheme();
+    const { user } = useAuthenticate();
+    const { showBadge } = useShowBadge();
 
     return (
-        <aside className={`${pageBaseStyles.sideBar} nav_controllers ${showSideBarInMobileView ? 'show' : ''}`}>
+        <aside
+            ref={sideBarRef}
+            className={`${pageBaseStyles.sideBar} nav_controllers ${showSideBarInMobileView ? 'show' : ''}`}
+        >
             <section className="nav_links_wrapper">
                 <NavLink to="/home" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
                     <HomeIcon></HomeIcon>
                     <span>Home</span>
                 </NavLink>
-                <NavLink to="/user/profile" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
+                <NavLink
+                    to="/user/profile"
+                    className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
+                    onClick={(e) => {
+                        if (user === null) {
+                            e.preventDefault();
+                            showBadge();
+                        }
+                    }}
+                >
                     <UserProfileIcon></UserProfileIcon>
                     <span>Profile</span>
                 </NavLink>
-                <NavLink to="/user/activities" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
+                <NavLink
+                    to="/user/activities"
+                    className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
+                    onClick={(e) => {
+                        if (user === null) {
+                            e.preventDefault();
+                            showBadge();
+                        }
+                    }}
+                >
                     <ActivitiesIcon></ActivitiesIcon>
                     <span>Activities</span>
                 </NavLink>

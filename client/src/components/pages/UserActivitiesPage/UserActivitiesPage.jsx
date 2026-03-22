@@ -40,7 +40,7 @@ const UserActivitiesPage = () => {
 
                 <section className={`${pageBaseStyles.twoPartsSectionWrapper} userActivitiesWrapper`}>
                     <section className="usrPostsWrapper">
-                        <h2 className={`${pageBaseStyles.twoPartsSectionHeading} activitiestwoPartsSectionHeading`}>
+                        <h2 className={`${pageBaseStyles.twoPartsSectionHeading} activitiesTwoPartsSectionHeading`}>
                             <PostsIcon></PostsIcon> Posts
                         </h2>
 
@@ -57,6 +57,8 @@ const UserActivitiesPage = () => {
                                         showPostItemHeader={false}
                                         isPostTitleClickable={true}
                                         isNumberPostCommentsClickable={true}
+                                        disableDeleteBtn={true}
+                                        deletePostBtnHandler={() => {}}
                                     ></PostItem>
                                 );
                             })}
@@ -64,7 +66,7 @@ const UserActivitiesPage = () => {
                     </section>
 
                     <section className="usrCommentsWrapper">
-                        <h2 className={`${pageBaseStyles.twoPartsSectionHeading} activitiestwoPartsSectionHeading`}>
+                        <h2 className={`${pageBaseStyles.twoPartsSectionHeading} activitiesTwoPartsSectionHeading`}>
                             <CommentsIcon></CommentsIcon> Comments
                         </h2>
 
@@ -84,6 +86,8 @@ const UserActivitiesPage = () => {
                                         postTitle={item.post_title}
                                         commentContent={item.comment}
                                         commentDate={item.date}
+                                        disableDeleteBtn={true}
+                                        deletePostBtnHandler={() => {}}
                                     ></CommentItem>
                                 );
                             })}

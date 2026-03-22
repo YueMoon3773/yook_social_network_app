@@ -1,4 +1,6 @@
 import { OpenCloseModalProvider } from '../hooks/useOpenCloseModal';
+import { AuthenticateUserProvider } from '../hooks/useAuthenticate';
+import { ShowBadgeProvider } from '../hooks/useShowBadge';
 
 import App from '../App';
 import ErrorPage from '../components/pages/ErrorPage/ErrorPage';
@@ -12,40 +14,96 @@ const routes = [
     {
         path: '/',
         element: (
-            <OpenCloseModalProvider>
-                <App />
-            </OpenCloseModalProvider>
+            <AuthenticateUserProvider>
+                <OpenCloseModalProvider>
+                    <ShowBadgeProvider>
+                        <App />
+                    </ShowBadgeProvider>
+                </OpenCloseModalProvider>
+            </AuthenticateUserProvider>
         ),
-        errorElement: <ErrorPage />,
+        errorElement: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
     },
     {
         path: '/user/register',
         element: <UserRegisterPage />,
-        errorElement: <ErrorPage />,
+        errorElement: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
     },
     {
         path: '/user/log-in',
         element: <UserLogInPage />,
-        errorElement: <ErrorPage />,
+        errorElement: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
     },
     {
         path: '/user/profile',
         element: (
-            <OpenCloseModalProvider>
-                <UserProfilePage />
-            </OpenCloseModalProvider>
+            <AuthenticateUserProvider>
+                <OpenCloseModalProvider>
+                    <ShowBadgeProvider>
+                        <UserProfilePage />
+                    </ShowBadgeProvider>
+                </OpenCloseModalProvider>
+            </AuthenticateUserProvider>
         ),
-        errorElement: <ErrorPage />,
+        errorElement: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
     },
     {
         path: '/user/activities',
-        element: <UserActivitiesPage />,
-        errorElement: <ErrorPage />,
+        element: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <UserActivitiesPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
+        errorElement: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
     },
     {
         path: '/post',
-        element: <ViewPostPage />,
-        errorElement: <ErrorPage />,
+        element: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ViewPostPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
+        errorElement: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
     },
 ];
 

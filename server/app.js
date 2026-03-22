@@ -20,6 +20,7 @@ const pgSession = require('connect-pg-simple')(session);
 /* IMPORT ROUTES */
 /* =================================================================== */
 const mainRouter = require('./routes/mainRouter');
+const userRouter = require('./routes/userRouter');
 
 /* =================================================================== */
 /* App setup */
@@ -42,6 +43,7 @@ const corsOptions = {
 
         return callback(new Error(`CORS blocked: ${origin}`));
     },
+    credentials: true, // for authentication
 };
 app.use(cors(corsOptions));
 
@@ -84,6 +86,7 @@ app.use(express.json());
 const sessionStore = new pgSession({
     pool,
     createTableIfMissing: true,
+    pruneSessionInterval: 30 * 60, // Delete expired session rows stored in postgres every 30 min
 });
 app.use(
     session({
@@ -101,10 +104,16 @@ require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
+// app.use((req, res, next) => {
+//     res.locals.user = req.user;
+//     next();
+// });
+
 /* =================================================================== */
 /* Routes logic handle */
 /* =================================================================== */
 app.use('/', mainRouter);
+app.use('/user', userRouter);
 
 /* =================================================================== */
 /* Handle Errors */
@@ -124,5 +133,5 @@ app.use((req, res) => {
 
 app.listen(BE_PORT, (err) => {
     if (err) console.log(err);
-    console.log(`Listen on PORT: ${process.env.BE_PORT}`);
+    console.log(`Listen on PORT: ${BE_PORT}`);
 });

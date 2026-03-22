@@ -10,10 +10,11 @@ const mainInpSchema = z.object({
     isDisabled: z.boolean().optional(),
     inpLabel: z.string(),
     inpId: z.string(),
-    onChangeHandler: z.function(),
+    inpValue: z.string().trim().nullable(),
+    onChangeHandler: z.function().nullable(),
 });
 
-const MainInp = ({ inpType = 'text', inpLabel, inpId, inpClass, onChangeHandler, isDisabled = false }) => {
+const MainInp = ({ inpType = 'text', inpLabel, inpId, inpClass, inpValue, onChangeHandler, isDisabled = false }) => {
     return (
         <div className="mainInpWrapper">
             <input
@@ -21,6 +22,7 @@ const MainInp = ({ inpType = 'text', inpLabel, inpId, inpClass, onChangeHandler,
                 name={inpId}
                 type={inpType}
                 className={`mainInpStyle ${inpClass}`}
+                value={inpValue}
                 onChange={onChangeHandler}
                 placeholder={inpLabel}
                 disabled={isDisabled}

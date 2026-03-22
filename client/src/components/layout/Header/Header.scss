@@ -60,7 +60,7 @@ $headerUserAvatarMaxWidth: max(42px, 4.6rem);
             }
 
             @media (max-width: 460px) {
-                width: calc($headerLogoImgWidth * 0.86);
+                width: calc($headerLogoImgWidth * 0.8);
             }
         }
 
@@ -120,13 +120,19 @@ $headerUserAvatarMaxWidth: max(42px, 4.6rem);
     display: none;
 
     cursor: pointer;
+
+    @media (max-width: 460px) {
+        padding: 5px;
+    }
+
     svg {
         height: $fs_heading_sm;
         color: var(--text_color);
         background-color: var(--bg_color);
+        transition: $transition_md;
 
         @media (max-width: 460px) {
-            height: $fs_heading_3sm;
+            height: $fs_normal_xl;
         }
     }
 
