@@ -7,10 +7,10 @@ const userAuthenticateActiveSession = (req, res) => {
         const { password, ...rest } = req.user;
         return res.json({ user: rest });
     } else {
-        // return res.json({
-        //     user: { id: 1, first_name: 'River', last_name: 'Powlowski', user_name: 'kafolan_ruy' },
-        // });
-        return res.status(401).json({ user: null });
+        return res.json({
+            user: { id: 1, first_name: 'River', last_name: 'Powlowski', user_name: 'kafolan_ruy' },
+        });
+        // return res.status(401).json({ user: null });
     }
 };
 

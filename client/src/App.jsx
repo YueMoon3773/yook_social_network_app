@@ -40,7 +40,7 @@ const App = () => {
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
 
     const { user, loading: userAuthenLoading } = useAuthenticate();
-    // console.log({ user });
+    console.log({ user, userAuthenLoading });
 
     const { isShowBadge, showBadge } = useShowBadge();
     const [badgeType, setBadgeType] = useState(null);
@@ -70,9 +70,13 @@ const App = () => {
 
     const closeModalBtnHandler = () => closeModal();
 
-    const postTitleOnChangeHandler = (e) => {};
+    const postTitleOnChangeHandler = (e) => {
+        setPostTitleValue(e.target.value);
+    };
 
-    const postContentOnChangeHandler = (e) => {};
+    const postContentOnChangeHandler = (e) => {
+        setPostContentValue(e.target.value);
+    };
 
     return (
         <PageLayout
@@ -122,6 +126,8 @@ const App = () => {
                                     postContent={item.post_content}
                                     numberPostComments={6}
                                     postDate={'06:06 PM - 06/03/2026'}
+                                    isSkeletonLoading={true}
+                                    // isSkeletonLoading={false}
                                     showPostItemHeader={true}
                                     isPostTitleClickable={true}
                                     isNumberPostCommentsClickable={true}

@@ -32,6 +32,11 @@
     font-size: 1rem;
     gap: clamp($distance_md, 1.6rem, 18px);
 
+    & > .skeletonTitle {
+        width: 100%;
+        font-size: $fs_normal_ssm;
+    }
+
     & > a {
         width: 100%;
         text-align: left;
@@ -93,8 +98,15 @@
         @media (max-width: 768px) {
             width: calc($postAndCommentItemAvatarWidth * 0.86);
         }
+
+        .skeleton {
+            border-radius: 999px;
+            width: 100%;
+            height: 100%;
+        }
     }
 
+    .skeletonNames,
     a {
         @include flexColumn;
         align-items: flex-start;
@@ -112,11 +124,17 @@
         & > *:first-child {
             font-weight: 560;
         }
+    }
 
+    a {
         &:hover span {
             text-decoration: underline;
             text-underline-offset: clamp(2px, 0.4rem, $distance_3sm);
         }
+    }
+
+    .skeletonNames {
+        gap: $distance_3sm;
     }
 }
 
@@ -145,6 +163,7 @@
 }
 
 .cmtItemBody {
+    .skeleton,
     p {
         font-size: $fs_normal_3sm;
         color: var(--text_color);
@@ -157,6 +176,23 @@
 
         @media (max-width: 768px) {
             font-size: calc($fs_normal_3sm * 0.86);
+        }
+    }
+
+    .skeletonContent {
+        width: 100%;
+        @include flexColumn;
+        align-items: flex-start;
+        gap: $distance_3sm;
+        margin-top: 0.6em;
+
+        .skeleton {
+            width: 100%;
+            height: 50% !important;
+        }
+
+        & > *:last-child {
+            width: 60%;
         }
     }
 }

@@ -54,6 +54,8 @@ const UserActivitiesPage = () => {
                                         postContent={item.post_content}
                                         numberPostComments={6}
                                         postDate={'06:06 PM - 06/03/2026'}
+                                        isSkeletonLoading={true}
+                                        // isSkeletonLoading={false}
                                         showPostItemHeader={false}
                                         isPostTitleClickable={true}
                                         isNumberPostCommentsClickable={true}
@@ -86,6 +88,8 @@ const UserActivitiesPage = () => {
                                         postTitle={item.post_title}
                                         commentContent={item.comment}
                                         commentDate={item.date}
+                                        // isSkeletonLoading={true}
+                                        isSkeletonLoading={false}
                                         disableDeleteBtn={true}
                                         deletePostBtnHandler={() => {}}
                                     ></CommentItem>

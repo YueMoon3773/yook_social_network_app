@@ -7,11 +7,10 @@ import { GoToPostIcon } from '../../../assets/svgIcon';
 import UserAvatarImg from '../UserAvatarImg/UserAvatarImg';
 import DeletePostCommentBtn from '../DeletePostCommentBtn/DeletePostCommentBtn';
 
+import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './CommentItem.scss';
 
 const commentItemSchema = z.object({
-    showUserInfoInCommentItem: z.boolean(),
-    showPostTitleInCommentItem: z.boolean(),
     usrAvatar: z.string().optional(),
     usrFirstName: z.string().optional(),
     usrLastName: z.string().optional(),
@@ -21,13 +20,14 @@ const commentItemSchema = z.object({
     postTitle: z.string().optional(),
     commentContent: z.string(),
     commentDate: z.string(),
+    isSkeletonLoading: z.boolean(),
+    showUserInfoInCommentItem: z.boolean(),
+    showPostTitleInCommentItem: z.boolean(),
     disableDeleteBtn: z.boolean().default(false).optional(),
     deletePostBtnHandler: z.function().optional(),
 });
 
 const CommentItem = ({
-    showUserInfoInCommentItem,
-    showPostTitleInCommentItem,
     usrAvatar,
     usrFirstName,
     usrLastName,
@@ -37,6 +37,9 @@ const CommentItem = ({
     postTitle,
     commentContent,
     commentDate,
+    isSkeletonLoading,
+    showUserInfoInCommentItem,
+    showPostTitleInCommentItem,
     disableDeleteBtn = true,
     deletePostBtnHandler,
 }) => {
@@ -53,17 +56,43 @@ const CommentItem = ({
                         <>
                             <div className="cmtHeaderLeft">
                                 <div className="cmtAvatarImgWrapper">
-                                    <UserAvatarImg imgSrc={usrAvatar}></UserAvatarImg>
+                                    {isSkeletonLoading ? (
+                                        <div className={`${pageBaseStyles.skeletonLoading} skeleton`}></div>
+                                    ) : (
+                                        <UserAvatarImg imgSrc={usrAvatar}></UserAvatarImg>
+                                    )}
                                 </div>
-                                <Link to={`/user/${usrUserName}`}>
-                                    <span>{usrFirstName + ' ' + usrLastName}</span>
-                                    <span>{'@' + usrUserName}</span>
-                                </Link>
+
+                                {isSkeletonLoading ? (
+                                    <div className="skeletonNames">
+                                        <div className={`${pageBaseStyles.skeletonLoading}`}>
+                                            <span>Skeleton user full Name</span>
+                                        </div>
+                                        <div className={`${pageBaseStyles.skeletonLoading}`}>
+                                            <span>Skeleton user Name</span>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <Link to={`/user/${usrUserName}`}>
+                                        <span>{usrFirstName + ' ' + usrLastName}</span>
+                                        <span>{'@' + usrUserName}</span>
+                                    </Link>
+                                )}
                             </div>
-                            <div className="cmtHeaderRight">{isUsrAdmin && <span>Admin</span>}</div>
+                            <div className="cmtHeaderRight">
+                                {isSkeletonLoading === true && (
+                                    <span className={`${pageBaseStyles.skeletonLoading} skeleton`}>Admin</span>
+                                )}
+                                {isUsrAdmin === true && isSkeletonLoading === false && <span>Admin</span>}
+                            </div>
                         </>
                     )}
-                    {showPostTitleInCommentItem && (
+
+                    {isSkeletonLoading === true && (
+                        <div className={`${pageBaseStyles.skeletonLoading} skeletonTitle`}>Skeleton long title</div>
+                    )}
+
+                    {showPostTitleInCommentItem === true && isSkeletonLoading === false && (
                         <Link to={`/post/${postId}`}>
                             <GoToPostIcon></GoToPostIcon>
                             <span>{` ${postTitle}`}</span>
@@ -72,18 +101,34 @@ const CommentItem = ({
                 </section>
 
                 <section className="cmtItemBody">
-                    <p>{commentContent}</p>
+                    {isSkeletonLoading ? (
+                        <div className="skeletonContent">
+                            <div className={`${pageBaseStyles.skeletonLoading} skeleton`}>skeleton content</div>
+                            <div className={`${pageBaseStyles.skeletonLoading} skeleton`}>skeleton content</div>
+                            <div className={`${pageBaseStyles.skeletonLoading} skeleton`}>skeleton content</div>
+                        </div>
+                    ) : (
+                        <p>{commentContent}</p>
+                    )}
                 </section>
 
                 <section className="cmtItemFooter">
                     <div className="cmtItemFooterLeft">
-                        <span className="cmtDate">{commentDate}</span>
+                        {isSkeletonLoading ? (
+                            <span className={`${pageBaseStyles.skeletonLoading}`}>skeleton post long date</span>
+                        ) : (
+                            <span className="cmtDate">{commentDate}</span>
+                        )}
                     </div>
                     <div className="cmtItemFooterRight">
-                        <DeletePostCommentBtn
-                            isBtnDisabled={disableDeleteBtn}
-                            onClickHandler={deletePostBtnHandler}
-                        ></DeletePostCommentBtn>
+                        {isSkeletonLoading ? (
+                            <div className={`${pageBaseStyles.skeletonLoading}`}></div>
+                        ) : (
+                            <DeletePostCommentBtn
+                                isBtnDisabled={disableDeleteBtn}
+                                onClickHandler={deletePostBtnHandler}
+                            ></DeletePostCommentBtn>
+                        )}
                     </div>
                 </section>
             </div>

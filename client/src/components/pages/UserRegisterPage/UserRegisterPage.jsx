@@ -8,11 +8,8 @@ import RoundToggleButton from '../../base/RoundToggleButton/RoundToggleButton';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserRegisterPage.scss';
-import { set } from 'zod';
 
 const UserRegisterPage = () => {
-    const [secretKeyInpDisabled, setSecretKeyInpDisabled] = useState(true);
-
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
@@ -79,7 +76,9 @@ const UserRegisterPage = () => {
                         inpValue={userName}
                         onChangeHandler={userNameOnChangeHandler}
                     ></MainInp>
-                    <p className="helperText">* Must be 3-16 characters long and contain only letters and numbers.</p>
+                    <p className="helperText">
+                        * Must be 3-16 characters long and contain only letters, numbers and underscore.
+                    </p>
                 </div>
 
                 <div className="inpAndHelperTextWrapper">

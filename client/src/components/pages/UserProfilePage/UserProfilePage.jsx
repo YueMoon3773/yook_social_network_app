@@ -1,7 +1,8 @@
-import { useState, useEffect, use } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Navigate } from 'react-router-dom';
 
 import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
+import { useAuthenticate } from '../../../hooks/useAuthenticate';
 
 import { EditUserIcon, LocationIcon, BirthdayIcon } from '../../../assets/svgIcon';
 import PageLayout from '../../layout/PageLayout/PageLayout';
@@ -9,10 +10,10 @@ import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
 import noAvatar from '../../../assets/img/no_avatar.jpg';
 
 import './UserProfilePage.scss';
-import { set } from 'zod';
 
 const UserProfilePage = () => {
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
+    const { user, loading: userAuthenLoading } = useAuthenticate();
 
     const [profileFirstNameValue, setProfileFirstNameValue] = useState('');
     const [profileLastNameValue, setProfileLastNameValue] = useState('');
@@ -20,6 +21,7 @@ const UserProfilePage = () => {
     const [profileBioValue, setProfileBioValue] = useState('');
     const [profileLocationValue, setProfileLocationValue] = useState('');
     const [profileBirthdayValue, setProfileBirthdayValue] = useState('');
+    console.log({ profileBirthdayValue });
 
     const usrFirstName = 'Aurelia';
     const usrLastName = 'Kshlerin';
