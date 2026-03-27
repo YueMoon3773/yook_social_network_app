@@ -10,18 +10,32 @@ const AuthenticateUserProvider = ({ children }) => {
 
     // when web app start, connect to BE and check for "active session"
     useEffect(() => {
-        fetch(`${beUrl}/user/authenticate/me`, {
-            credentials: 'include', // makes BE send cookie with the res
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setUser(data.user || null);
-                setLoading(false);
+        // fetch(`${beUrl}/user/authenticate/me`, {
+        //     credentials: 'include', // makes BE send cookie with the res
+        // })
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         setUser(data.user || null);
+        //         setLoading(false);
+        //     })
+        //     .catch(() => {
+        //         setUser(null);
+        //         setLoading(false);
+        //     });
+        setTimeout(() => {
+            fetch(`${beUrl}/user/authenticate/me`, {
+                credentials: 'include', // makes BE send cookie with the res
             })
-            .catch(() => {
-                setUser(null);
-                setLoading(false);
-            });
+                .then((res) => res.json())
+                .then((data) => {
+                    setUser(data.user || null);
+                    // setLoading(false);
+                })
+                .catch(() => {
+                    setUser(null);
+                    // setLoading(false);
+                });
+        }, 1600);
     }, []);
 
     const logIn = async (userName, pwd) => {

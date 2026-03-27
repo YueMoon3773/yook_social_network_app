@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 const { Client } = require('pg');
 require('dotenv').config();
-import { createSQL, insertSQL } from './seedSql';
+const { createTablesSQL, insertToTablesSQL } = require('./seedSql');
 
 async function populateDb() {
     console.log('PREPARING DB...');
@@ -14,10 +14,10 @@ async function populateDb() {
     await client.connect();
     console.log('CONNECTED TO DB');
 
-    await client.query(createSQL);
+    await client.query(createTablesSQL);
     console.log('CREATED TABLES');
 
-    await client.query(insertSQL);
+    await client.query(insertToTablesSQL);
     console.log('INSERTED DATA INTO TABLES');
 
     await client.end();

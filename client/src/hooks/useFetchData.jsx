@@ -46,20 +46,20 @@ export const useFetchGetData = (rawUrl) => {
             })
             .then((res) => {
                 setData(res);
-                setLoading(false);
+                // setLoading(false);
             })
             .catch((err) => {
                 if (err.name !== 'AbortError') {
                     setError(err);
                     setLoading(false);
                 }
+            })
+            .finally(() => {
+                // setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1600);
             });
-        // .finally(() => {
-        //     setLoading(false);
-        //     // setTimeout(() => {
-        //     //     setLoading(false);
-        //     // }, 160);
-        // });
 
         return () => controller.abort();
     }, [urlToFetch, refreshKey]);

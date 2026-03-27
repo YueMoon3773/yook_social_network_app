@@ -29,6 +29,7 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
 
 .usrProfileAvatarWrapper {
     width: clamp(160px, 16%, 200px);
+    aspect-ratio: 1 / 1;
 
     @media (max-width: 1024px) {
         width: clamp(120px, 12%, 160px);
@@ -36,6 +37,12 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
 
     @media (max-width: 768px) {
         width: clamp(90px, 10%, 120px);
+    }
+
+    .skeletonImage {
+        width: 100%;
+        height: 100%;
+        border-radius: 999px;
     }
 }
 
@@ -71,11 +78,15 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
 }
 
 .usrProfileInfoWrapper {
+    width: 100%;
     @include flexColumn;
     align-items: center;
     gap: clamp($distance_md, 2rem, $distance_lg);
 
     .usrProfileInfoTop {
+        width: 100%;
+
+        .usrProfileSkeletonContent,
         p {
             text-align: justify;
             max-width: 75ch;
@@ -89,6 +100,24 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
 
             @media (max-width: 768px) {
                 font-size: $fs_normal_ssm;
+            }
+        }
+
+        .usrProfileSkeletonContentWrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: stretch;
+            gap: $distance_ssm;
+
+            .usrProfileSkeletonContent {
+                width: 100%;
+                max-width: none;
+            }
+
+            & > *:last-child {
+                width: 76%;
             }
         }
     }
@@ -111,6 +140,7 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
             gap: clamp($distance_ssm, 0.6rem, $distance_sm);
         }
 
+        .skeletonInfoBtm,
         svg,
         span {
             font-size: $fs_normal_md;

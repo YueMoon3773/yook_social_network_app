@@ -21,6 +21,7 @@ const pgSession = require('connect-pg-simple')(session);
 /* =================================================================== */
 const mainRouter = require('./routes/mainRouter');
 const userRouter = require('./routes/userRouter');
+const postRouter = require('./routes/postRoutes');
 
 /* =================================================================== */
 /* App setup */
@@ -114,6 +115,7 @@ app.use(passport.session());
 /* =================================================================== */
 app.use('/', mainRouter);
 app.use('/user', userRouter);
+app.use('/post', postRouter);
 
 /* =================================================================== */
 /* Handle Errors */
@@ -127,9 +129,9 @@ app.use((err, req, res, next) => {
     res.status(errStatusCode).json({ errStatusCode, message: errMsg });
 });
 
-app.use((req, res) => {
-    res.status(404).render('404', { pageTitle: 'Error' });
-});
+// app.use((req, res) => {
+//     res.status(404).render('404', { pageTitle: 'Error' });
+// });
 
 app.listen(BE_PORT, (err) => {
     if (err) console.log(err);

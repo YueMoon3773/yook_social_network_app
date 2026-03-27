@@ -31,6 +31,23 @@ const routes = [
         ),
     },
     {
+        path: '/error',
+        element: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
+        errorElement: (
+            <AuthenticateUserProvider>
+                <ShowBadgeProvider>
+                    <ErrorPage />
+                </ShowBadgeProvider>
+            </AuthenticateUserProvider>
+        ),
+    },
+    {
         path: '/user/register',
         element: <UserRegisterPage />,
         errorElement: (

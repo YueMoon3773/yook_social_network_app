@@ -1,9 +1,9 @@
-import ValidatedComponent from '../../../utils/validateComponentProps';
+import z from 'zod';
 
 import { InfoIcon, WarningIcon, ErrorIcon } from '../../../assets/svgIcon';
+import ValidatedComponent from '../../../utils/validateComponentProps';
 
 import './InfoBadge.scss';
-import z from 'zod';
 
 const infoBadgeSchema = z.object({
     badgeType: z.string().trim().optional(),

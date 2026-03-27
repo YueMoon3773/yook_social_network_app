@@ -8,13 +8,21 @@ const selectionControllerSchema = z.object({
     labelText: z.string(),
     selectId: z.string(),
     selectOptionList: z.array(z.looseObject({})).min(1, 'Array options can not be empty.'),
+    selectValue: z.string(),
+    selectOnChangeHandler: z.function(),
 });
 
-const SelectionController = ({ labelText, selectId, selectOptionList }) => {
+const SelectionController = ({ labelText, selectId, selectOptionList, selectValue, selectOnChangeHandler }) => {
     return (
         <label htmlFor={selectId} className="sortControllerLabel">
             {labelText}
-            <select name={selectId} id={selectId} className="sortSelection">
+            <select
+                name={selectId}
+                id={selectId}
+                className="sortSelection"
+                value={selectValue}
+                onChange={selectOnChangeHandler}
+            >
                 {selectOptionList.map((option) => {
                     return (
                         <option key={option.content} value={option.value}>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
+import { format } from 'date-fns';
 
 import ValidatedComponent from '../../../utils/validateComponentProps';
 
@@ -15,11 +16,11 @@ const postItemSchema = z.looseObject({
     usrLastName: z.string().optional(),
     usrUserName: z.string().optional(),
     isUsrAdmin: z.boolean().optional(),
-    postId: z.string().or(z.number()),
-    postTitle: z.string(),
-    postContent: z.string(),
-    numberPostComments: z.string().or(z.number()),
-    postDate: z.string(),
+    postId: z.string().or(z.number()).optional(),
+    postTitle: z.string().optional(),
+    postContent: z.string().optional(),
+    numberPostComments: z.string().or(z.number()).optional(),
+    postDate: z.string().optional(),
     isSkeletonLoading: z.boolean(),
     showPostItemHeader: z.boolean(),
     isPostTitleClickable: z.boolean().optional(),
@@ -50,6 +51,13 @@ const PostItem = ({
     disableDeleteBtn = true,
     deletePostBtnHandler,
 }) => {
+    let date;
+    let displayDate;
+    if (postDate !== undefined) {
+        date = new Date(postDate);
+        displayDate = format(date, 'MMM d, yyyy HH:mm');
+    }
+
     return (
         <div className="postItem">
             {showPostItemHeader && (
@@ -138,7 +146,7 @@ const PostItem = ({
                     {isSkeletonLoading ? (
                         <span className={`${pageBaseStyles.skeletonLoading}`}>skeleton post long date</span>
                     ) : (
-                        <span className="postDate">{postDate}</span>
+                        <span className="postDate">{displayDate}</span>
                     )}
 
                     {isSkeletonLoading ? (

@@ -1,6 +1,6 @@
 const db = require('../db/queries');
 
-const userAuthenticateActiveSession = (req, res) => {
+const userAuthenticateActiveSession = async (req, res) => {
     // console.log(req.user);
 
     if (req.user) {
@@ -10,6 +10,7 @@ const userAuthenticateActiveSession = (req, res) => {
         return res.json({
             user: { id: 1, first_name: 'River', last_name: 'Powlowski', user_name: 'kafolan_ruy' },
         });
+
         // return res.status(401).json({ user: null });
     }
 };

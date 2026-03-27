@@ -9,6 +9,7 @@ import PageLayout from '../../layout/PageLayout/PageLayout';
 import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
 import noAvatar from '../../../assets/img/no_avatar.jpg';
 
+import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserProfilePage.scss';
 
 const UserProfilePage = () => {
@@ -58,62 +59,126 @@ const UserProfilePage = () => {
         setProfileBirthdayValue(e.target.value);
     };
 
-    return (
-        <PageLayout
-            showModal={showModal}
-            closeModalBtnHandler={closeModalBtnHandler}
-            modalType={'editUsrProfile'}
-            modalBoxRef={modalBoxRef}
-            profileFirstNameValue={profileFirstNameValue}
-            profileFirstNameOnChangeHandler={profileFirstNameOnChangeHandler}
-            profileLastNameValue={profileLastNameValue}
-            profileLastNameOnChangeHandler={profileLastNameOnChangeHandler}
-            profileAvatarUrlValue={profileAvatarUrlValue}
-            profileAvatarUrlOnChangeHandler={profileAvatarUrlOnChangeHandler}
-            profileBioValue={profileBioValue}
-            profileBioOnChangeHandler={profileBioOnChangeHandler}
-            profileLocationValue={profileLocationValue}
-            profileLocationOnChangeHandler={profileLocationOnChangeHandler}
-            profileBirthdayValue={profileBirthdayValue}
-            profileBirthdayOnChangeHandler={profileBirthdayOnChangeHandler}
-        >
-            <div className="userProfileWrapper">
-                <div className="usrProfileAvatarWrapper">
-                    <UserAvatarImg imgSrc={noAvatar}></UserAvatarImg>
+    if (user === null && userAuthenLoading === false) {
+        return (
+            <Navigate
+                to="/user/log-in"
+                state={{
+                    unauthorizedUsrToLogIn: true,
+                    badgeType: 'warning',
+                    badgeMsg: 'Please log in to access the previous content.',
+                }}
+            ></Navigate>
+        );
+    } else {
+        return (
+            <PageLayout
+                showModal={showModal}
+                closeModalBtnHandler={closeModalBtnHandler}
+                modalType={'editUsrProfile'}
+                modalBoxRef={modalBoxRef}
+                profileFirstNameValue={profileFirstNameValue}
+                profileFirstNameOnChangeHandler={profileFirstNameOnChangeHandler}
+                profileLastNameValue={profileLastNameValue}
+                profileLastNameOnChangeHandler={profileLastNameOnChangeHandler}
+                profileAvatarUrlValue={profileAvatarUrlValue}
+                profileAvatarUrlOnChangeHandler={profileAvatarUrlOnChangeHandler}
+                profileBioValue={profileBioValue}
+                profileBioOnChangeHandler={profileBioOnChangeHandler}
+                profileLocationValue={profileLocationValue}
+                profileLocationOnChangeHandler={profileLocationOnChangeHandler}
+                profileBirthdayValue={profileBirthdayValue}
+                profileBirthdayOnChangeHandler={profileBirthdayOnChangeHandler}
+            >
+                <div className="userProfileWrapper">
+                    <div className="usrProfileAvatarWrapper">
+                        {userAuthenLoading ? (
+                            <div className={`${pageBaseStyles.skeletonLoading} skeletonImage`}></div>
+                        ) : (
+                            <UserAvatarImg imgSrc={noAvatar}></UserAvatarImg>
+                        )}
+                    </div>
+
+                    <section className="usrProfileNamesWrapper">
+                        {userAuthenLoading ? (
+                            <>
+                                <span className={`${pageBaseStyles.skeletonLoading}`}>Skeleton user full name</span>
+                                <span className={`${pageBaseStyles.skeletonLoading}`}>skeleton user name</span>
+                            </>
+                        ) : (
+                            <>
+                                <span>{usrFirstName + ' ' + usrLastName}</span>
+                                <span>{'@' + usrUserName}</span>
+                            </>
+                        )}
+                    </section>
+
+                    <section className="usrProfileInfoWrapper">
+                        <div className="usrProfileInfoTop">
+                            {userAuthenLoading ? (
+                                <div className="usrProfileSkeletonContentWrapper">
+                                    <div className={`${pageBaseStyles.skeletonLoading} usrProfileSkeletonContent`}>
+                                        Skeleton content
+                                    </div>
+                                    <div className={`${pageBaseStyles.skeletonLoading} usrProfileSkeletonContent`}>
+                                        Skeleton content
+                                    </div>
+                                    <div className={`${pageBaseStyles.skeletonLoading} usrProfileSkeletonContent`}>
+                                        Skeleton content
+                                    </div>
+                                    <div className={`${pageBaseStyles.skeletonLoading} usrProfileSkeletonContent`}>
+                                        Skeleton content
+                                    </div>
+                                    <div className={`${pageBaseStyles.skeletonLoading} usrProfileSkeletonContent`}>
+                                        Skeleton content
+                                    </div>
+                                </div>
+                            ) : (
+                                <p>
+                                    Similique rerum corporis at. In consequatur ad maxime non sed aut deserunt.
+                                    Necessitatibus voluptatum id odit et corporis et ad. Voluptatum autem et quibusdam
+                                    aliquid eos quae eum voluptatem.
+                                </p>
+                            )}
+                        </div>
+
+                        <div className="usrProfileInfoBottom">
+                            <div className="infoBttmLeft">
+                                {userAuthenLoading ? (
+                                    <div className={`${pageBaseStyles.skeletonLoading} skeletonInfoBtm`}>
+                                        Skeleton location
+                                    </div>
+                                ) : (
+                                    <>
+                                        <LocationIcon></LocationIcon>
+                                        <span>Lake Samir, Cook Islands</span>
+                                    </>
+                                )}
+                            </div>
+                            <div className="infoBttmRight">
+                                {userAuthenLoading ? (
+                                    <div className={`${pageBaseStyles.skeletonLoading} skeletonInfoBtm`}>
+                                        Skeleton birthday
+                                    </div>
+                                ) : (
+                                    <>
+                                        <BirthdayIcon></BirthdayIcon>
+                                        <span>Fri Apr 25 2025</span>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </section>
+
+                    {!userAuthenLoading && (
+                        <button className="usrProfileEditBtn" onClick={() => openModal()}>
+                            <EditUserIcon></EditUserIcon>
+                        </button>
+                    )}
                 </div>
-
-                <section className="usrProfileNamesWrapper">
-                    <span>{usrFirstName + ' ' + usrLastName}</span>
-                    <span>{'@' + usrUserName}</span>
-                </section>
-
-                <section className="usrProfileInfoWrapper">
-                    <div className="usrProfileInfoTop">
-                        <p>
-                            Similique rerum corporis at. In consequatur ad maxime non sed aut deserunt. Necessitatibus
-                            voluptatum id odit et corporis et ad. Voluptatum autem et quibusdam aliquid eos quae eum
-                            voluptatem.
-                        </p>
-                    </div>
-
-                    <div className="usrProfileInfoBottom">
-                        <div className="infoBttmLeft">
-                            <LocationIcon></LocationIcon>
-                            <span>Lake Samir, Cook Islands</span>
-                        </div>
-                        <div className="infoBttmRight">
-                            <BirthdayIcon></BirthdayIcon>
-                            <span>Fri Apr 25 2025</span>
-                        </div>
-                    </div>
-                </section>
-
-                <button className="usrProfileEditBtn" onClick={() => openModal()}>
-                    <EditUserIcon></EditUserIcon>
-                </button>
-            </div>
-        </PageLayout>
-    );
+            </PageLayout>
+        );
+    }
 };
 
 export default UserProfilePage;

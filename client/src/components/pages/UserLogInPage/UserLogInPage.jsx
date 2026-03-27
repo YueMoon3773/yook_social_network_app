@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
+import InfoBadge from '../../base/InfoBadge/InfoBadge';
 import LogInRegisterLogo from '../../base/LogInRegisterLogo/LogInRegisterLogo';
 import MainInp from '../../base/MainInp/MainInp';
 import MainBtn from '../../base/MainBtn/MainBtn';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserLogInPage.scss';
-import { set } from 'zod';
 
 const UserLogInPage = () => {
+    const location = useLocation();
+    const redirectedUnauthorized = location.state?.unauthorizedUsrToLogIn;
+    console.log('redirect unauthorized: ', redirectedUnauthorized);
+
+    const [badgeType, setBadgeType] = useState(location.state?.badgeType);
+    const [badgeMsg, setBadgeMsg] = useState(location.state?.badgeMsg);
+
+    console.log({ badgeType, badgeMsg });
+
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,6 +36,10 @@ const UserLogInPage = () => {
 
     return (
         <div className={`${pageBaseStyles.page} logInPage`}>
+            {redirectedUnauthorized && (
+                <InfoBadge showBadge={redirectedUnauthorized} badgeType={badgeType} badgeMsg={badgeMsg}></InfoBadge>
+            )}
+
             <LogInRegisterLogo showSlogan={true}></LogInRegisterLogo>
 
             <form action="" method="post" className={`${pageBaseStyles.logInAndRegisterFormWrapper} logInForm`}>
