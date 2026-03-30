@@ -4,9 +4,10 @@
     flex-wrap: wrap;
     gap: clamp(140px, 16rem, 180px);
 
-    background-color: $login_register_bgc;
+    background-color: $login_register_page_bgc;
 
     @media (max-width: 1024px) {
+        flex-direction: column;
         gap: clamp(100px, 1rem, 140px);
     }
 

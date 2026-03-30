@@ -4,10 +4,14 @@ const ShowBadgeContext = createContext(null);
 
 export const ShowBadgeProvider = ({ children }) => {
     const [isShowBadge, setIsShowBadge] = useState(false);
+    const [badgeType, setBadgeType] = useState(null);
+    const [badgeMsg, setBadgeMsg] = useState(null);
     const timerRef = useRef(null);
 
     const showBadge = () => {
-        setIsShowBadge(true);
+        setIsShowBadge((prev) => {
+            if (prev === false) return true;
+        });
 
         if (timerRef.current) {
             clearTimeout(timerRef.current);
@@ -20,7 +24,11 @@ export const ShowBadgeProvider = ({ children }) => {
         }, 3660);
     };
 
-    return <ShowBadgeContext.Provider value={{ isShowBadge, showBadge }}>{children}</ShowBadgeContext.Provider>;
+    return (
+        <ShowBadgeContext.Provider value={{ isShowBadge, showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg }}>
+            {children}
+        </ShowBadgeContext.Provider>
+    );
 };
 
 export const useShowBadge = () => {

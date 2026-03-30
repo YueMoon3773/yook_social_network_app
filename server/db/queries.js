@@ -21,6 +21,13 @@ const getUserById = async (id) => {
     return rows[0];
 };
 
+const insertNewUser = async () => {};
+
+const getPostQuantity = async () => {
+    const { rows } = await pool.query('SELECT COUNT(id) FROM posts');
+    return rows[0].count;
+};
+
 const getAllPostsAndTheirInfo = async () => {
     const { rows } = await pool.query(`
         SELECT 
@@ -81,6 +88,7 @@ const getSpecificNumberOfPostsAndTheirInfoFromBeginning = async (postQuantity) =
 module.exports = {
     getUserByUserName,
     getUserById,
+    getPostQuantity,
     getAllPostsAndTheirInfo,
     getSpecificNumberOfPostsAndTheirInfoFromBeginning,
 };

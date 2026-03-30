@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { useAuthenticate } from '../../../hooks/useAuthenticate';
 import ValidatedComponent from '../../../utils/validateComponentProps';
+import { useAuthenticate } from '../../../hooks/useAuthenticate';
+import { useShowBadge } from '../../../hooks/useShowBadge';
 
 import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
 import UserControllerDropDown from '../../base/UserControllerDropDown/UserControllerDropDown';
@@ -22,6 +23,8 @@ const headerSchema = z.object({
 const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSideBarBtnRef }) => {
     const [openUserDropDownController, setOpenUserDropDownController] = useState(false);
     const controllerDropDownRef = useRef(null);
+    const { showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
+
     const { user, loading: userAuthLoading } = useAuthenticate();
     // console.log({ user });
 
@@ -39,6 +42,16 @@ const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSide
             document.removeEventListener('mousedown', checkClickOutsideController);
         };
     }, []);
+
+    const logOutOnClickHandler = async () => {
+        try {
+            setBadgeType('error');
+            setBadgeMsg('Log out failed!');
+            showBadge();
+        } catch (err) {
+            console.log({ err });
+        }
+    };
 
     return (
         <header
@@ -66,14 +79,17 @@ const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSide
                     <div className="userControllerWrapper">
                         <div className="userController" onClick={() => setOpenUserDropDownController((prev) => !prev)}>
                             <div className="userAvatarWrapper">
-                                <UserAvatarImg imgSrc={logoImg}></UserAvatarImg>
+                                <UserAvatarImg imgSrc={user !== null ? user.avatar_url : logoImg}></UserAvatarImg>
                             </div>
                             <div className="userInfoWrapper">
                                 <span className="userFullName">{user.first_name + ' ' + user.last_name}</span>
                                 <span className="userUserName">{'@' + user.user_name}</span>
                             </div>
                         </div>
-                        <UserControllerDropDown isOpen={openUserDropDownController}></UserControllerDropDown>
+                        <UserControllerDropDown
+                            isOpen={openUserDropDownController}
+                            logOutOnClickHandler={logOutOnClickHandler}
+                        ></UserControllerDropDown>
                     </div>
                 )}
 

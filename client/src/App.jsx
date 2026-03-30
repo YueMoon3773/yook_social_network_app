@@ -37,62 +37,77 @@ const postPerPageOptsList = [
 const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const App = () => {
-    // Check user authentication
+    /* Check user authentication */
     const { user, loading: userAuthenLoading } = useAuthenticate();
     console.log({ user, userAuthenLoading });
 
-    // UI/UX variables + set up
+    /* UI/UX variables + set up */
     const [showHelperAddPostBtn, setShowHelperAddPostBtn] = useState(false);
     const helperHoverTimer = useRef(null);
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
 
-    const { isShowBadge, showBadge } = useShowBadge();
-    const [badgeType, setBadgeType] = useState(null);
-    const [badgeMsg, setBadgeMsg] = useState(null);
+    const { isShowBadge, showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
+    // const [badgeType, setBadgeType] = useState(null);
+    // const [badgeMsg, setBadgeMsg] = useState(null);
+    // console.table([isShowBadge, badgeType, badgeMsg]);
     // console.log({ badgeType, badgeMsg });
 
-    // Controller values
+    /* Controller values */
     const [postTitleValue, setPostTitleValue] = useState('');
     const [postContentValue, setPostContentValue] = useState('');
 
     const [sortByValue, setSortByValue] = useState(sortByOptsList[0].value);
-    const [postsPerPageValue, setPostsPerPageValue] = useState(postPerPageOptsList[0].value);
+    const [postsPerPageValue, setPostsPerPageValue] = useState('10');
 
     // console.log({ sortByValue, postsPerPageValue });
 
-    // Variables for fetching from API
-    const [apiUrl, setApiUrl] = useState(`${baseBeURL}/post/get-posts?postQuantity=10`);
+    /* Variables for fetching from API */
+    const [postApiUrl, setPostApiUrl] = useState(`${baseBeURL}/post/get-posts?postQuantity=10`);
+    const {
+        data: postData,
+        error: postError,
+        loading: postDataLoading,
+        refetch: refetchPosts,
+    } = useFetchGetData(postApiUrl);
+    const {
+        data: postQuantityData,
+        error: postQuantityError,
+        loading: postQuantityLoading,
+        refetch: refetchPostQuantity,
+        newFetchUrl,
+    } = useFetchGetData(`${baseBeURL}/post/get-post-quantity`);
+    // console.log({ postApiUrl });
+    console.log({ postData, postError, postDataLoading });
+    console.log({ postQuantityData, postQuantityError, postQuantityLoading });
 
-    const { data, error, loading: dataLoading, refetch } = useFetchGetData(apiUrl);
-    // console.log({ apiUrl });
-    console.log({ data, error, dataLoading });
-
-    // Set page title
+    /* Set page title */
     useEffect(() => {
         document.title = 'Yook | Home';
         resetModalState();
     }, []);
 
-    // Set badge info based on use authentication status
+    /* Set badge info based on use authentication status */
     useEffect(() => {
         if (user === null) {
             setBadgeType('warning');
             setBadgeMsg('Log in to see this content.');
+            setPostsPerPageValue('10');
         } else {
             setBadgeType('info');
             setBadgeMsg(`You logged in as ${user.user_name} successfully`);
+            setPostsPerPageValue(postPerPageOptsList[0].value);
             showBadge();
         }
     }, [user]);
 
-    // refetch 25 posts if user authentication session exist
+    /* Refetch 25 posts if user authentication session exist */
     useEffect(() => {
         if (user !== null) {
-            setApiUrl(`${baseBeURL}/post/get-posts?postQuantity=25`);
+            setPostApiUrl(`${baseBeURL}/post/get-posts?postQuantity=25`);
         }
     }, [user]);
 
-    // Handling user action functions
+    /* Handling user action functions */
     const closeModalBtnHandler = () => closeModal();
 
     const sortByOnChangeHandler = (e) => {
@@ -102,7 +117,7 @@ const App = () => {
         } else {
             const newSortByVal = e.target.value;
             setSortByValue(newSortByVal);
-            setApiUrl(`${baseBeURL}/post/get-posts?sortBy=${newSortByVal}&postQuantity=${postsPerPageValue}`);
+            setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${newSortByVal}&postQuantity=${postsPerPageValue}`);
         }
     };
 
@@ -113,7 +128,7 @@ const App = () => {
         } else {
             const newPostsPerPageVal = e.target.value;
             setPostsPerPageValue(newPostsPerPageVal);
-            setApiUrl(`${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postQuantity=${newPostsPerPageVal}`);
+            setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postQuantity=${newPostsPerPageVal}`);
         }
     };
 
@@ -125,8 +140,23 @@ const App = () => {
         setPostContentValue(e.target.value);
     };
 
-    if (error !== null && data === null && dataLoading === false) {
-        <Navigate to="/error"></Navigate>;
+    if (
+        postError !== null &&
+        postQuantityError !== null &&
+        postData === null &&
+        postQuantityData === null &&
+        postDataLoading === false &&
+        postQuantityLoading === false
+    ) {
+        return (
+            <Navigate
+                to="/error"
+                state={{
+                    errorIssue: true,
+                    errorMsg: "We can't get the info you requested currently. Please try again later.",
+                }}
+            ></Navigate>
+        );
     } else {
         return (
             <PageLayout
@@ -134,36 +164,39 @@ const App = () => {
                 closeModalBtnHandler={closeModalBtnHandler}
                 modalType="addPost"
                 modalBoxRef={modalBoxRef}
-                showBadge={isShowBadge}
-                badgeType={badgeType}
-                badgeMsg={badgeMsg}
+                // showBadge={isShowBadge}
+                // badgeType={badgeType}
+                // badgeMsg={badgeMsg}
                 postTitleValue={postTitleValue}
                 postTitleOnChangeHandler={postTitleOnChangeHandler}
                 postContentValue={postContentValue}
                 postContentOnChangeHandler={postContentOnChangeHandler}
             >
                 <div className="postsPageContent">
-                    {dataLoading === false && data !== null && (
-                        <section className="sortControllers">
-                            <SelectionController
-                                labelText={'Sort by:'}
-                                selectId={'sortBy'}
-                                selectOptionList={sortByOptsList}
-                                selectValue={sortByValue}
-                                selectOnChangeHandler={sortByOnChangeHandler}
-                            ></SelectionController>
-                            <SelectionController
-                                labelText={'Post per page:'}
-                                selectId={'postsPerPage'}
-                                selectOptionList={postPerPageOptsList}
-                                selectValue={postsPerPageValue}
-                                selectOnChangeHandler={postsPerPageOnChangeHandler}
-                            ></SelectionController>
-                        </section>
-                    )}
+                    {postDataLoading === false &&
+                        postQuantityLoading === false &&
+                        postData !== null &&
+                        postQuantityData !== null && (
+                            <section className="sortControllers">
+                                <SelectionController
+                                    labelText={'Sort by:'}
+                                    selectId={'sortBy'}
+                                    selectOptionList={sortByOptsList}
+                                    selectValue={sortByValue}
+                                    selectOnChangeHandler={sortByOnChangeHandler}
+                                ></SelectionController>
+                                <SelectionController
+                                    labelText={'Post per page:'}
+                                    selectId={'postsPerPage'}
+                                    selectOptionList={postPerPageOptsList}
+                                    selectValue={postsPerPageValue}
+                                    selectOnChangeHandler={postsPerPageOnChangeHandler}
+                                ></SelectionController>
+                            </section>
+                        )}
 
                     <section className="postsWrapper">
-                        {dataLoading === true && (
+                        {postDataLoading === true && (
                             <Masonry
                                 breakpointCols={breakpointColumnsObj}
                                 className="masonryGrid"
@@ -186,25 +219,25 @@ const App = () => {
                                 })}
                             </Masonry>
                         )}
-                        {dataLoading === false && data !== null && (
+                        {postDataLoading === false && postData !== null && (
                             <Masonry
                                 breakpointCols={breakpointColumnsObj}
                                 className="masonryGrid"
                                 columnClassName="masonryGridColumn"
                             >
-                                {data.posts.map((item) => {
+                                {postData.posts.map((item) => {
                                     return (
                                         <PostItem
-                                            key={item.id}
+                                            key={item.post_id}
                                             usrAvatar={item.avatar_url}
                                             usrFirstName={item.first_name}
                                             usrLastName={item.last_name}
                                             usrUserName={item.user_name}
                                             isUsrAdmin={item.is_admin}
-                                            postId={item.id}
+                                            postId={item.post_id}
                                             postTitle={item.post_title}
                                             postContent={item.post_content}
-                                            numberPostComments={6}
+                                            numberPostComments={item.number_comment}
                                             postDate={item.post_created_at}
                                             isSkeletonLoading={false}
                                             showPostItemHeader={true}
@@ -221,43 +254,48 @@ const App = () => {
                         )}
                     </section>
 
-                    {dataLoading === false && data !== null && (
-                        <section className="pageController">
-                            <p>
-                                Showing <span>1</span> - <span>40</span> of <span>40</span> posts
-                            </p>
+                    {postDataLoading === false &&
+                        postQuantityLoading === false &&
+                        postData !== null &&
+                        postQuantityData !== null && (
+                            <section className="pageController">
+                                <p>
+                                    Showing <span>{postData.posts.length - postsPerPageValue + 1}</span> -{' '}
+                                    <span>{postData.posts.length}</span> of <span>{postQuantityData.postQuantity}</span>{' '}
+                                    posts
+                                </p>
 
-                            <div className="paginationControllers">
-                                <MainBtn
-                                    btnClass={'prevBtn'}
-                                    onClickHandler={(e) => {
-                                        if (user === null) {
-                                            e.preventDefault();
-                                            showBadge();
-                                        }
-                                    }}
-                                >
-                                    <ArrowLeftIcon></ArrowLeftIcon>
-                                    <span>Prev</span>
-                                </MainBtn>
-                                <MainBtn
-                                    btnClass={'nextBtn'}
-                                    onClickHandler={(e) => {
-                                        if (user === null) {
-                                            e.preventDefault();
-                                            showBadge();
-                                        }
-                                    }}
-                                >
-                                    <span>Next</span>
-                                    <ArrowRightIcon></ArrowRightIcon>
-                                </MainBtn>
-                            </div>
-                        </section>
-                    )}
+                                <div className="paginationControllers">
+                                    <MainBtn
+                                        btnClass={'prevBtn'}
+                                        onClickHandler={(e) => {
+                                            if (user === null) {
+                                                e.preventDefault();
+                                                showBadge();
+                                            }
+                                        }}
+                                    >
+                                        <ArrowLeftIcon></ArrowLeftIcon>
+                                        <span>Prev</span>
+                                    </MainBtn>
+                                    <MainBtn
+                                        btnClass={'nextBtn'}
+                                        onClickHandler={(e) => {
+                                            if (user === null) {
+                                                e.preventDefault();
+                                                showBadge();
+                                            }
+                                        }}
+                                    >
+                                        <span>Next</span>
+                                        <ArrowRightIcon></ArrowRightIcon>
+                                    </MainBtn>
+                                </div>
+                            </section>
+                        )}
                 </div>
 
-                {dataLoading === false && data !== null && (
+                {postDataLoading === false && postData !== null && (
                     <div className="addPostBtnWrapper">
                         <button
                             onMouseEnter={() => {

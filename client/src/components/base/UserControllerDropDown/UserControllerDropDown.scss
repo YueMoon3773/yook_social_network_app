@@ -29,6 +29,7 @@
     .usrDropDownItem {
         font-size: 1rem;
 
+        span,
         a {
             display: block;
             font-size: $fs_normal_md;
@@ -71,6 +72,7 @@
 
     & > *:last-child {
         border-top: $thin_border_light_gray;
+        span,
         a {
             padding-bottom: $dropDownItemPaddingTopBottom;
 
@@ -85,8 +87,10 @@
 
         &:hover {
             background-color: $red_color;
+            span,
             a {
                 color: var(--hover_text_color);
+                cursor: pointer;
             }
         }
     }

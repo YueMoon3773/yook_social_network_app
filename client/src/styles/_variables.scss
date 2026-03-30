@@ -86,12 +86,20 @@ $post_masonry_gap: clamp(16px, 2rem, 24px);
 $postAndCommentItemPadding: 20px;
 $postAndCommentItemAvatarWidth: clamp(42px, 14%, 50px);
 
-$login_register_bgc: #3d1b00;
-$login_register_form_padding_normal: $distance_xxl $distance_xxxl $distance_xl;
-$login_register_form_padding_tablet: $distance_xl $distance_xxl $distance_lg;
-$login_register_form_padding_mobile: $distance_lg $distance_lg $distance_md;
+$login_register_page_bgc: #3d1b00;
+// $login_register_form_padding_normal: $distance_xxl $distance_xxxl $distance_xl;
+// $login_register_form_padding_tablet: $distance_xl $distance_xxl $distance_lg;
+// $login_register_form_padding_mobile: $distance_lg $distance_lg $distance_md;
+$login_register_form_padding_normal: calc($distance_xxl * 0.8) $distance_xxxl calc($distance_xl * 0.8);
+$login_register_form_padding_tablet: calc($distance_xl * 0.86) $distance_xxl calc($distance_lg * 0.8);
+$login_register_form_padding_mobile: calc($distance_lg * 1.16) $distance_lg calc($distance_md * 0.8);
+
 $login_register_form_gap_normal: clamp(24px, 2.6rem, 28px);
 $login_register_form_gap_mobile: clamp(10px, 1.6rem, 18px);
+
+$logInAndRegisterErrorBoxPaddingNormal: $distance_sm $distance_md;
+$logInAndRegisterErrorBoxPaddingTablet: $distance_ssm;
+$logInAndRegisterErrorBoxPaddingMobile: $distance_ssm;
 /* =============================================== */
 /* THEME SET UP  */
 /* =============================================== */

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import LogInRegisterLogo from '../../base/LogInRegisterLogo/LogInRegisterLogo';
+import ErrorBox from '../../base/ErrorBox/ErrorBox';
 import MainInp from '../../base/MainInp/MainInp';
 import MainBtn from '../../base/MainBtn/MainBtn';
 import RoundToggleButton from '../../base/RoundToggleButton/RoundToggleButton';
@@ -17,6 +18,8 @@ const UserRegisterPage = () => {
     const [retypePassword, setRetypePassword] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
     const [adminSecretKey, setAdminSecretKey] = useState('');
+
+    const [inpErrors, setInpErrors] = useState({});
 
     useEffect(() => {
         document.title = 'Yook | Register';
@@ -44,6 +47,10 @@ const UserRegisterPage = () => {
 
     const adminSecretKeyOnChangeHandler = (e) => {
         setAdminSecretKey(e.target.value);
+    };
+
+    const registerBtnOnClickHandler = async (e) => {
+        e.preventDefault();
     };
 
     return (
@@ -133,7 +140,11 @@ const UserRegisterPage = () => {
                 </div>
 
                 <div className="controllersWrapper">
-                    <MainBtn isBtnPrimaryColor={true} btnClass={'registerSubmitBtn'} onClickHandler={() => {}}>
+                    <MainBtn
+                        isBtnPrimaryColor={true}
+                        btnClass={'registerSubmitBtn'}
+                        onClickHandler={registerBtnOnClickHandler}
+                    >
                         Create account
                     </MainBtn>
 

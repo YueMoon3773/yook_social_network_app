@@ -64,7 +64,7 @@ const users = [
         first_name: 'Ethan',
         last_name: 'Cho',
         user_name: 'ethancho_',
-        avatar_url: 'https://res.cloudinary.com/dv2usnwu2/image/upload/v1774609111/sample_ava_5_aojk6a.jpg',
+        avatar_url: 'https://res.cloudinary.com/dv2usnwu2/image/upload/v1774609111/sample_ava_6_phlhkt.png',
         bio: 'music. sleep. repeat.',
         location: 'Seattle, WA',
         birthday_date: '2001-09-09',

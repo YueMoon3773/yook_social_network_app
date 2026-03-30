@@ -15,6 +15,7 @@ import './UserProfilePage.scss';
 const UserProfilePage = () => {
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
     const { user, loading: userAuthenLoading } = useAuthenticate();
+    console.log({ user, userAuthenLoading });
 
     const [profileFirstNameValue, setProfileFirstNameValue] = useState('');
     const [profileLastNameValue, setProfileLastNameValue] = useState('');
@@ -64,7 +65,7 @@ const UserProfilePage = () => {
             <Navigate
                 to="/user/log-in"
                 state={{
-                    unauthorizedUsrToLogIn: true,
+                    unAuthorizedUsrToLogIn: true,
                     badgeType: 'warning',
                     badgeMsg: 'Please log in to access the previous content.',
                 }}

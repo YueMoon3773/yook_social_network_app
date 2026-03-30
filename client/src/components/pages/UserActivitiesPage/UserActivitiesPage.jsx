@@ -31,7 +31,7 @@ const UserActivitiesPage = () => {
             <Navigate
                 to="/user/log-in"
                 state={{
-                    unauthorizedUsrToLogIn: true,
+                    unAuthorizedUsrToLogIn: true,
                     badgeType: 'warning',
                     badgeMsg: 'Please log in to access the previous content.',
                 }}
@@ -85,7 +85,7 @@ const UserActivitiesPage = () => {
                                             postTitle={item.post_title}
                                             postContent={item.post_content}
                                             numberPostComments={6}
-                                            postDate={'06:06 PM - 06/03/2026'}
+                                            postDate={new Date()}
                                             isSkeletonLoading={true}
                                             // isSkeletonLoading={false}
                                             showPostItemHeader={false}

@@ -125,8 +125,13 @@
 @keyframes skeletonLoading {
     0% {
         background-position: -600px 0;
+        opacity: 100%;
+    }
+    50% {
+        opacity: 30%;
     }
     100% {
         background-position: 600px 0;
+        opacity: 100%;
     }
 }

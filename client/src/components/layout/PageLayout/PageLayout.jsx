@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { useTheme } from '../../../hooks/useTheme';
 import { useHeaderPassedTopPage } from '../../../hooks/useHeaderPassedTopOfPage';
+import { useShowBadge } from '../../../hooks/useShowBadge';
 // import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
 
 import ValidatedComponent from '../../../utils/validateComponentProps';
@@ -21,9 +22,9 @@ const pageLayoutSchema = z.object({
     closeModalBtnHandler: z.function().optional(),
     modalType: z.string().optional(),
     modalBoxRef: z.unknown().optional(),
-    showBadge: z.boolean().nullable().optional(),
-    badgeType: z.string().trim().nullable().optional(),
-    badgeMsg: z.string().trim().nullable().optional(),
+    // showBadge: z.boolean().nullable().optional(),
+    // badgeType: z.string().trim().nullable().optional(),
+    // badgeMsg: z.string().trim().nullable().optional(),
     postTitleValue: z.string().trim().nullable().optional(),
     postTitleOnChangeHandler: z.function().nullable().optional(),
     postContentValue: z.string().trim().nullable().optional(),
@@ -48,9 +49,9 @@ const PageLayout = ({
     closeModalBtnHandler,
     modalType,
     modalBoxRef,
-    showBadge = false,
-    badgeType,
-    badgeMsg,
+    // showBadge = false,
+    // badgeType,
+    // badgeMsg,
     postTitleValue = null,
     postTitleOnChangeHandler = null,
     postContentValue = null,
@@ -75,6 +76,8 @@ const PageLayout = ({
     const [showSideBar, setShowSideBar] = useState(false);
     const sideBarRef = useRef(null);
     const showSideBarBtnRef = useRef(null);
+
+    const { isShowBadge, badgeType, badgeMsg } = useShowBadge();
 
     useEffect(() => {
         const checkIfUserClickOutsideSideBar = (e) => {
@@ -106,8 +109,8 @@ const PageLayout = ({
                 <PageContent pageMaker={pageMaker} observerRoot={observerRoot} showSideBarInMobileView={showSideBar}>
                     {children}
                 </PageContent>
-                {showBadge && badgeType && badgeMsg && (
-                    <InfoBadge showBadge={showBadge} badgeType={badgeType} badgeMsg={badgeMsg}></InfoBadge>
+                {isShowBadge && badgeType && badgeMsg && (
+                    <InfoBadge showBadge={isShowBadge} badgeType={badgeType} badgeMsg={badgeMsg}></InfoBadge>
                 )}
             </main>
             {showModal !== null && (

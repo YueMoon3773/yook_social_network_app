@@ -197,7 +197,6 @@
 }
 
 .logInAndRegisterFormWrapper {
-    // padding: clamp();
     background-color: $snow_white_color;
     padding: $login_register_form_padding_normal;
     border-radius: $distance_md;
@@ -230,4 +229,8 @@
         color: transparent !important;
         cursor: default !important;
     }
+}
+
+.logInAndRegisterErrorBox {
+    // background-color: rgba($color: $light_red_color, $alpha: 0.6);
 }

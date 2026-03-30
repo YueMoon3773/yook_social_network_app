@@ -29,11 +29,11 @@ const AuthenticateUserProvider = ({ children }) => {
                 .then((res) => res.json())
                 .then((data) => {
                     setUser(data.user || null);
-                    // setLoading(false);
+                    setLoading(false);
                 })
                 .catch(() => {
                     setUser(null);
-                    // setLoading(false);
+                    setLoading(false);
                 });
         }, 1600);
     }, []);

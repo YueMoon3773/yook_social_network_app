@@ -44,7 +44,7 @@ const corsOptions = {
 
         return callback(new Error(`CORS blocked: ${origin}`));
     },
-    credentials: true, // for authentication
+    credentials: true, // for authentication, allows cookies to be send cross-origin
 };
 app.use(cors(corsOptions));
 

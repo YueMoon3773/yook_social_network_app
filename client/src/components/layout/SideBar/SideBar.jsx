@@ -27,7 +27,7 @@ const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
             className={`${pageBaseStyles.sideBar} nav_controllers ${showSideBarInMobileView ? 'show' : ''}`}
         >
             <section className="nav_links_wrapper">
-                <NavLink to="/home" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
+                <NavLink to="/" className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}>
                     <HomeIcon></HomeIcon>
                     <span>Home</span>
                 </NavLink>

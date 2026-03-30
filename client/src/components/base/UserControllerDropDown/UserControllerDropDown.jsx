@@ -7,9 +7,10 @@ import './UserControllerDropDown.scss';
 
 const userControllerDropDownSchema = z.object({
     isOpen: z.boolean().default(false),
+    logOutOnClickHandler: z.function(),
 });
 
-const UserControllerDropDown = ({ isOpen = false }) => {
+const UserControllerDropDown = ({ isOpen = false, logOutOnClickHandler }) => {
     // console.log({ isOpen });
 
     return (
@@ -18,7 +19,7 @@ const UserControllerDropDown = ({ isOpen = false }) => {
                 <Link to="/user/profile">Profile</Link>
             </li>
             <li className="usrDropDownItem">
-                <Link to="/user/logout">Log out</Link>
+                <span onClick={logOutOnClickHandler}>Log out</span>
             </li>
         </ul>
     );

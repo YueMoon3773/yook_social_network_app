@@ -1,0 +1,41 @@
+.errorBox {
+    background-color: rgba($color: $light_red_color, $alpha: 0.1);
+    padding: $logInAndRegisterErrorBoxPaddingNormal;
+    border-radius: calc($distance_sm * 1.2);
+}
+
+.errorBoxHeading {
+    font-size: calc($fs_normal_md * 1.2);
+    color: $red_color;
+    font-weight: 600;
+
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_sm;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_ssm;
+    }
+}
+
+.errorsWrapper {
+    color: $red_color;
+    font-size: 1rem;
+    margin-top: 0.6em;
+}
+
+.errorItem {
+    font-size: $fs_normal_ssm;
+    color: $red_color;
+
+    list-style-position: inside !important;
+    list-style: disc;
+
+    @media (max-width: 1024px) {
+        font-size: calc($fs_normal_ssm * 0.9);
+    }
+
+    @media (max-width: 768px) {
+        font-size: calc($fs_normal_3sm * 0.86);
+    }
+}
