@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useAuthenticate } from '../../../hooks/useAuthenticate';
+import { useShowBadge } from '../../../hooks/useShowBadge';
 
 import { CommentsIcon } from '../../../assets/svgIcon';
 import PageLayout from '../../layout/PageLayout/PageLayout';
@@ -16,6 +17,8 @@ import './ViewPostPage.scss';
 import { testUsrPosts, testUsrCmts } from '../../../utils/testDataArr';
 
 const ViewPostPage = () => {
+    const { setBadgeType, setBadgeMsg } = useShowBadge();
+
     const { user, loading: userAuthenLoading } = useAuthenticate();
     console.log({ user, userAuthenLoading });
 
@@ -25,6 +28,9 @@ const ViewPostPage = () => {
     }, [postTitle]);
 
     if (user === null && userAuthenLoading === false) {
+        setBadgeType('waring');
+        setBadgeMsg('Please log in to access the previous content.');
+
         return (
             <Navigate
                 to="/user/log-in"

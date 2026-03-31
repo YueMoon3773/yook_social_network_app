@@ -63,6 +63,7 @@
         // left: $inpDistanceLeftRight;
         top: 0;
         left: 0;
+        user-select: none;
         transition: $transition_md;
 
         @media (max-width: 1024px) {

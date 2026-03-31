@@ -49,20 +49,25 @@ const AuthenticateUserProvider = ({ children }) => {
 
         const data = await res.json();
 
-        if (!res.ok) throw new Error(data.messages);
+        // if (!res.ok) throw new Error(data.msg);
 
         setUser(data.user);
-        return data.user;
+        return data;
     };
 
     const logOut = async () => {
-        await fetch(`${beUrl}/user/log-out`, {
+        const res = await fetch(`${beUrl}/user/log-out`, {
             mode: 'cors',
             method: 'POST',
             credentials: 'include',
         });
 
+        const data = await res.json();
+
+        // if (!res.ok) throw new Error(data.msg);
+
         setUser(null);
+        return data;
     };
 
     return (

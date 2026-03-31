@@ -46,7 +46,8 @@ const App = () => {
     const helperHoverTimer = useRef(null);
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
 
-    const { isShowBadge, showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
+    // const { isShowBadge, showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
+    const { showBadge, setBadgeType, setBadgeMsg } = useShowBadge();
     // const [badgeType, setBadgeType] = useState(null);
     // const [badgeMsg, setBadgeMsg] = useState(null);
     // console.table([isShowBadge, badgeType, badgeMsg]);
@@ -77,8 +78,8 @@ const App = () => {
         newFetchUrl,
     } = useFetchGetData(`${baseBeURL}/post/get-post-quantity`);
     // console.log({ postApiUrl });
-    console.log({ postData, postError, postDataLoading });
-    console.log({ postQuantityData, postQuantityError, postQuantityLoading });
+    // console.log({ postData, postError, postDataLoading });
+    // console.log({ postQuantityData, postQuantityError, postQuantityLoading });
 
     /* Set page title */
     useEffect(() => {
@@ -101,9 +102,12 @@ const App = () => {
     }, [user]);
 
     /* Refetch 25 posts if user authentication session exist */
+    /* Otherwise fetch 10 posts only */
     useEffect(() => {
         if (user !== null) {
             setPostApiUrl(`${baseBeURL}/post/get-posts?postQuantity=25`);
+        } else {
+            setPostApiUrl(`${baseBeURL}/post/get-posts?postQuantity=10`);
         }
     }, [user]);
 

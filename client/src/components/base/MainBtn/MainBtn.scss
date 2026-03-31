@@ -47,4 +47,34 @@
             }
         }
     }
+
+    &.btnLoading {
+        @include flexCenter;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        background: linear-gradient(90deg, $primary_color 25%, $primary_darker_color 50%, $primary_light_color 75%);
+        background-size: 600px 100%;
+        animation: btnSubmitLoading 2600ms infinite linear;
+
+        @media (max-width: 1024px) {
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            gap: 12px;
+        }
+    }
+}
+
+.loadingBtnImg {
+    height: $distance_lg;
+
+    @media (max-width: 1024px) {
+        height: 18px;
+    }
+
+    @media (max-width: 768px) {
+        height: 14px;
+    }
 }

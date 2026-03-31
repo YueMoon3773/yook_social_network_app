@@ -19,13 +19,14 @@ const headerSchema = z.object({
     expandHeaderBottomBorder: z.boolean(),
     showSideBarBtnClickHandler: z.function(),
 });
+const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSideBarBtnRef }) => {
     const [openUserDropDownController, setOpenUserDropDownController] = useState(false);
     const controllerDropDownRef = useRef(null);
     const { showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
 
-    const { user, loading: userAuthLoading } = useAuthenticate();
+    const { user, loading: userAuthLoading, logOut } = useAuthenticate();
     // console.log({ user });
 
     // Hide drop down when click outside header controller
@@ -45,9 +46,14 @@ const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSide
 
     const logOutOnClickHandler = async () => {
         try {
-            setBadgeType('error');
-            setBadgeMsg('Log out failed!');
-            showBadge();
+            const data = await logOut();
+
+            if (!data.ok) {
+                setBadgeType('error');
+                setBadgeMsg('Log out failed!');
+                showBadge();
+            } else {
+            }
         } catch (err) {
             console.log({ err });
         }
@@ -79,7 +85,7 @@ const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSide
                     <div className="userControllerWrapper">
                         <div className="userController" onClick={() => setOpenUserDropDownController((prev) => !prev)}>
                             <div className="userAvatarWrapper">
-                                <UserAvatarImg imgSrc={user !== null ? user.avatar_url : logoImg}></UserAvatarImg>
+                                <UserAvatarImg imgSrc={user.avatar_url}></UserAvatarImg>
                             </div>
                             <div className="userInfoWrapper">
                                 <span className="userFullName">{user.first_name + ' ' + user.last_name}</span>

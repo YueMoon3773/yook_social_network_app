@@ -61,6 +61,7 @@
         top: 0;
         left: 0;
         transition: $transition_md;
+        user-select: none;
 
         @media (max-width: 1024px) {
             font-size: calc($textAreaFsz * 0.92);

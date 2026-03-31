@@ -43,21 +43,21 @@ const bannedNames = [
 ];
 const bannedNamesRegex = new RegExp(`\\b(${bannedNames.join('|')})\\b`, 'i');
 
-export const firstNameInpSchema = z
+export const firstNameInpValidatorSchema = z
     .string()
     .trim()
     .min(1, 'First name must be at least 1 character')
     .max(30, 'First name must be at most 30 characters')
     .regex(/^[a-zA-Z]+$/, 'Only letters are allowed for first name');
 
-export const lastNameInpSchema = z
+export const lastNameInpValidatorSchema = z
     .string()
     .trim()
     .min(1, 'First name must be at least 1 character')
     .max(30, 'First name must be at most 30 characters')
     .regex(/^[a-zA-Z]+$/, 'Only letters are allowed for first name');
 
-export const userNameInpSchema = z
+export const userNameInpValidatorSchema = z
     .string()
     .trim()
     .min(3, 'User name must be at least 3 characters')
@@ -65,7 +65,7 @@ export const userNameInpSchema = z
     .refine((val) => !bannedNamesRegex.test(val), 'This user name is banned. Please try a different one')
     .regex(/^[a-zA-Z0-9_]+$/, 'Only letters, numbers, underscores are allowed for user name');
 
-export const passwordInpSchema = z
+export const passwordInpValidatorSchema = z
     .string()
     .min(8, 'Password must be at least 8 characters')
     .max(32, 'Password must be at most 32 characters')
@@ -74,21 +74,27 @@ export const passwordInpSchema = z
     .regex(/[0-9]/, 'Password must include at least one number')
     .regex(/[,.?/!@#$%^&*()\-_=+]/, 'Password must include at least one symbol (,.?/!@#$%^&*()-_=+)');
 
-export const bioInpSchema = z.string().trim().max(600, 'Bio must be at most 600 characters');
+export const isAdminInpValidatorSchema = z.boolean();
 
-export const postTitleInpSchema = z
+export const bioInpValidatorSchema = z.string().trim().max(600, 'Bio must be at most 600 characters').optional();
+
+// export const birthdayDateValidatorSchema = z.string().refine((val) => !isNaN(Date.parse(val)), 'Invalid date format');
+
+export const birthdayDateInpValidatorSchema = z.date({ message: 'Invalid date format' });
+
+export const postTitleInpValidatorSchema = z
     .string()
     .trim()
     .min(1, 'Post title must be at least 1 character')
     .max(100, 'Post title must be at most 100 characters');
 
-export const postContentInpSchema = z
+export const postContentInpValidatorSchema = z
     .string()
     .trim()
     .min(1, 'Post content must be at least 1 character')
     .max(1600, 'Post content must be at most 1600 characters');
 
-export const commentContentInpSchema = z
+export const commentContentInpValidatorSchema = z
     .string()
     .trim()
     .min(1, 'Comment content must be at least 1 character')

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { userNameInpSchema, passwordInpSchema } from '../../../utils/formInpsSchema';
+import { useAuthenticate } from '../../../hooks/useAuthenticate';
+import { userNameInpValidatorSchema, passwordInpValidatorSchema } from '../../../utils/formInpsValidatorSchema';
 
 import InfoBadge from '../../base/InfoBadge/InfoBadge';
 import LogInRegisterLogo from '../../base/LogInRegisterLogo/LogInRegisterLogo';
@@ -12,13 +13,14 @@ import MainBtn from '../../base/MainBtn/MainBtn';
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserLogInPage.scss';
 
-const baseBeURL = import.meta.env.VITE_API_BASE_URL;
+// const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const UserLogInPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const redirectedUnauthorized = location.state?.unAuthorizedUsrToLogIn;
     // console.log('redirect unauthorized: ', redirectedUnauthorized);
+    const { logIn } = useAuthenticate();
 
     const [badgeType, setBadgeType] = useState(location.state?.badgeType);
     const [badgeMsg, setBadgeMsg] = useState(location.state?.badgeMsg);
@@ -27,6 +29,7 @@ const UserLogInPage = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [inpErrors, setInpErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         document.title = 'Yook | Log in';
@@ -42,12 +45,13 @@ const UserLogInPage = () => {
 
     const logInBtnOnClickHandler = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         try {
             let userNameErrors = [];
             let pwdErrors = [];
-            const userNameErr = userNameInpSchema.safeParse(userName);
-            const pwdErr = passwordInpSchema.safeParse(password);
+            const userNameErr = userNameInpValidatorSchema.safeParse(userName);
+            const pwdErr = passwordInpValidatorSchema.safeParse(password);
 
             if (userNameErr.success === false) {
                 userNameErrors = userNameErr.error.issues.map((item) => item.message);
@@ -65,25 +69,33 @@ const UserLogInPage = () => {
                 pwdErrors,
             });
 
-            if (userNameErrors.length === 0 && pwdErrors.length === 0) {
-                const res = await fetch(`${baseBeURL}/user/log-in`, {
-                    mode: 'cors',
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify({ userName: userName, pwd: password }),
-                });
+            if (userNameErrors.length > 0 && pwdErrors.length > 0) {
+                setIsSubmitting(false);
+                return;
+            }
 
-                const data = await res.json();
-                console.log({ data });
+            // const res = await fetch(`${baseBeURL}/user/log-in`, {
+            //     mode: 'cors',
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     credentials: 'include',
+            //     body: JSON.stringify({ userName: userName, pwd: password }),
+            // });
 
-                if (!data.ok) {
-                    setInpErrors({ errors: [data.err[0]?.msg] });
-                } else {
-                    navigate('/');
-                }
+            // const data = await res.json();
+
+            const data = await logIn(userName, password);
+            console.log({ data });
+
+            if (!data.ok) {
+                setInpErrors({ errors: [data.err[0]?.msg] });
+                setIsSubmitting(false);
+            } else {
+                setIsSubmitting(false);
+                navigate('/');
             }
         } catch (err) {
+            setIsSubmitting(false);
             console.log('err: ', err);
         }
     };
@@ -123,6 +135,7 @@ const UserLogInPage = () => {
                 <div className="controllersWrapper">
                     <MainBtn
                         isBtnPrimaryColor={true}
+                        isBtnLoading={isSubmitting}
                         btnClass={'registerSubmitBtn'}
                         onClickHandler={logInBtnOnClickHandler}
                     >

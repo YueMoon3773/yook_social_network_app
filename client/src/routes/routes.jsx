@@ -60,7 +60,11 @@ const routes = [
     },
     {
         path: '/user/log-in',
-        element: <UserLogInPage />,
+        element: (
+            <AuthenticateUserProvider>
+                <UserLogInPage />
+            </AuthenticateUserProvider>
+        ),
         errorElement: (
             <AuthenticateUserProvider>
                 <ShowBadgeProvider>

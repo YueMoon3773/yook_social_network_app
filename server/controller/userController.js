@@ -39,10 +39,12 @@ const logInPost = async (req, res, next) => {
 const logOutPost = async (req, res, next) => {
     req.logout((err) => {
         if (err) {
-            return res.status(500).json({ ok: false, smsg: 'Log out failed!' });
+            return res.status(500).json({ ok: false, msg: 'Log out failed!' });
         }
         return res.json({ ok: true, msg: 'Logged out' });
     });
 };
+
+const userRegisterPost = async (req, res, next) => {};
 
 module.exports = { userAuthenticateActiveSession, logInPost, logOutPost };

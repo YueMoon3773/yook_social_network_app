@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 
-import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
 import { useAuthenticate } from '../../../hooks/useAuthenticate';
+import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
+import { useShowBadge } from '../../../hooks/useShowBadge';
 
 import { EditUserIcon, LocationIcon, BirthdayIcon } from '../../../assets/svgIcon';
 import PageLayout from '../../layout/PageLayout/PageLayout';
@@ -13,6 +14,7 @@ import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserProfilePage.scss';
 
 const UserProfilePage = () => {
+    const { setBadgeType, setBadgeMsg } = useShowBadge();
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
     const { user, loading: userAuthenLoading } = useAuthenticate();
     console.log({ user, userAuthenLoading });
@@ -61,6 +63,9 @@ const UserProfilePage = () => {
     };
 
     if (user === null && userAuthenLoading === false) {
+        setBadgeType('waring');
+        setBadgeMsg('Please log in to access the previous content.');
+
         return (
             <Navigate
                 to="/user/log-in"

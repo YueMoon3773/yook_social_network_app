@@ -135,3 +135,17 @@
         opacity: 100%;
     }
 }
+
+@keyframes btnSubmitLoading {
+    0% {
+        background-position: -600px 0;
+        opacity: 100%;
+    }
+    50% {
+        opacity: 75%;
+    }
+    100% {
+        background-position: 600px 0;
+        opacity: 100%;
+    }
+}
