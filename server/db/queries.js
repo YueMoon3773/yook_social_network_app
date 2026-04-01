@@ -21,10 +21,30 @@ const getUserById = async (id) => {
     return rows[0];
 };
 
-const insertNewUser = async () => {};
+// const getUserByUserName = async (userName) => {
+//     const { rows } = await pool.query(
+//         `
+//         SELECT * FROM users WHERE user_name = $1;
+//     `,
+//         [userName],
+//     );
+
+//     return rows[0];
+// };
+
+const insertNewUser = async (firstName, lastName, userName, pwd, isAdmin) => {
+    await pool.query(
+        `
+        INSERT INTO user 
+            (first_name, last_name, user_name, password, is_admin) VALUES
+            ($1, $2, $3, $4, $5);
+    `,
+        [firstName, lastName, userName, pwd, isAdmin],
+    );
+};
 
 const getPostQuantity = async () => {
-    const { rows } = await pool.query('SELECT COUNT(id) FROM posts');
+    const { rows } = await pool.query('SELECT COUNT(id) FROM posts;');
     return rows[0].count;
 };
 
@@ -88,6 +108,7 @@ const getSpecificNumberOfPostsAndTheirInfoFromBeginning = async (postQuantity) =
 module.exports = {
     getUserByUserName,
     getUserById,
+    insertNewUser,
     getPostQuantity,
     getAllPostsAndTheirInfo,
     getSpecificNumberOfPostsAndTheirInfoFromBeginning,

@@ -45,11 +45,14 @@ const UserLogInPage = () => {
 
     const logInBtnOnClickHandler = async (e) => {
         e.preventDefault();
+        e.stopPropagation();
         setIsSubmitting(true);
 
         try {
             let userNameErrors = [];
             let pwdErrors = [];
+            let errors = [];
+
             const userNameErr = userNameInpValidatorSchema.safeParse(userName);
             const pwdErr = passwordInpValidatorSchema.safeParse(password);
 
@@ -62,37 +65,32 @@ const UserLogInPage = () => {
             }
 
             // console.log({ userNameErr, pwdErr });
-            // console.log({ userNameErrors, pwdErrors });
+            console.log({ userNameErrors, pwdErrors });
 
             setInpErrors({
                 userNameErrors,
                 pwdErrors,
             });
 
-            if (userNameErrors.length > 0 && pwdErrors.length > 0) {
-                setIsSubmitting(false);
-                return;
-            }
+            if (userNameErrors.length === 0 && pwdErrors.length === 0) {
+                console.log({ userName, password });
 
-            // const res = await fetch(`${baseBeURL}/user/log-in`, {
-            //     mode: 'cors',
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     credentials: 'include',
-            //     body: JSON.stringify({ userName: userName, pwd: password }),
-            // });
+                const data = await logIn(userName, password);
+                console.log({ data });
 
-            // const data = await res.json();
+                if (!data.ok) {
+                    errors.push(data.err[0]?.msg);
+                    console.log({ errors });
 
-            const data = await logIn(userName, password);
-            console.log({ data });
-
-            if (!data.ok) {
-                setInpErrors({ errors: [data.err[0]?.msg] });
-                setIsSubmitting(false);
+                    setInpErrors({ errors });
+                    setIsSubmitting(false);
+                } else {
+                    setIsSubmitting(false);
+                    navigate('/');
+                }
             } else {
                 setIsSubmitting(false);
-                navigate('/');
+                return;
             }
         } catch (err) {
             setIsSubmitting(false);

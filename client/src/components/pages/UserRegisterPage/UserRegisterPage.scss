@@ -13,7 +13,7 @@
         padding: 0 $distance_lg;
     }
 
-    form {
+    form.registerForm {
         @include flexColumn;
         gap: $login_register_form_gap_normal;
 
@@ -36,6 +36,11 @@
 
     & > * {
         flex: 1;
+    }
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        gap: $login_register_form_gap_normal;
     }
 }
 
@@ -79,6 +84,7 @@
     }
 
     label[for='registerAdminSecretKey'] {
+        user-select: none;
         @media (max-width: 768px) {
             font-size: $fs_normal_3sm;
             white-space: nowrap;
@@ -107,6 +113,15 @@
         pointer-events: none;
         background-color: rgba($color: $gray_color, $alpha: 0.86);
         border-color: transparent;
+
+        & ~ button {
+            pointer-events: none;
+            cursor: default !important;
+
+            svg {
+                color: $dark_gray_color;
+            }
+        }
     }
 
     &:has(#isAdminToggleBtn:checked) p {

@@ -53,9 +53,9 @@ export const firstNameInpValidatorSchema = z
 export const lastNameInpValidatorSchema = z
     .string()
     .trim()
-    .min(1, 'First name must be at least 1 character')
-    .max(30, 'First name must be at most 30 characters')
-    .regex(/^[a-zA-Z]+$/, 'Only letters are allowed for first name');
+    .min(1, 'Last name must be at least 1 character')
+    .max(30, 'Last name must be at most 30 characters')
+    .regex(/^[a-zA-Z]+$/, 'Only letters are allowed for last name');
 
 export const userNameInpValidatorSchema = z
     .string()
@@ -74,7 +74,13 @@ export const passwordInpValidatorSchema = z
     .regex(/[0-9]/, 'Password must include at least one number')
     .regex(/[,.?/!@#$%^&*()\-_=+]/, 'Password must include at least one symbol (,.?/!@#$%^&*()-_=+)');
 
+export const retypePasswordMissingErrorMsg = 'Retype password field must be filled and match with password field';
+export const retypePasswordErrorMsg = "Retype password field didn't match password field";
+
 export const isAdminInpValidatorSchema = z.boolean();
+
+export const adminSecretKeyMissingErrorMsg = "Admin secret key field must be filled if you're admin";
+export const adminSecretKeyErrorMsg = 'Admin secret key is incorrect';
 
 export const bioInpValidatorSchema = z.string().trim().max(600, 'Bio must be at most 600 characters').optional();
 

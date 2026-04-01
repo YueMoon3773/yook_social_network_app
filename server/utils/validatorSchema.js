@@ -16,8 +16,7 @@ const commentMaxLength = 600;
 
 const firstNameValidatorSchema = [
     body('firstName')
-        .not()
-        .isEmpty()
+        .notEmpty()
         .withMessage('First name must be filled')
         .trim()
         .isLength({ min: firstLastNameMinLength, max: firstLastNameMaxLength })
@@ -26,8 +25,7 @@ const firstNameValidatorSchema = [
 
 const lastNameValidatorSchema = [
     body('lastName')
-        .not()
-        .isEmpty()
+        .notEmpty()
         .withMessage('Last name must be filled')
         .trim()
         .isLength({ min: firstLastNameMinLength, max: firstLastNameMaxLength })
@@ -36,8 +34,7 @@ const lastNameValidatorSchema = [
 
 const userNameValidatorSchema = [
     body('userName')
-        .not()
-        .isEmpty()
+        .notEmpty()
         .withMessage('User name must be filled')
         .trim()
         .isLength({ min: userNameMinLength, max: userNameMaxLength })
@@ -46,8 +43,7 @@ const userNameValidatorSchema = [
 
 const passwordValidatorSchema = [
     body('pwd')
-        .not()
-        .isEmpty()
+        .notEmpty()
         .withMessage('Password must be filled')
         .trim()
         .isLength({ min: passwordMinLength, max: passwordMaxLength })
@@ -76,8 +72,7 @@ const bioValidatorSchema = [
 
 const postTitleValidatorSchema = [
     body('postTitle')
-        .not()
-        .isEmpty()
+        .notEmpty()
         .withMessage('Post title must be filled')
         .isLength({ min: postTitleMinLength, max: postTitleMaxLength })
         .withMessage(`Post title must be between ${postTitleMinLength} and ${postTitleMaxLength} characters`),
@@ -85,8 +80,7 @@ const postTitleValidatorSchema = [
 
 const postContentValidatorSchema = [
     body('postContent')
-        .not()
-        .isEmpty()
+        .notEmpty()
         .withMessage('Post content must be filled')
         .isLength({ min: postContentMinLength, max: postContentMaxLength })
         .withMessage(`Post content must be between ${postContentMinLength} and ${postContentMaxLength} characters`),
@@ -94,8 +88,7 @@ const postContentValidatorSchema = [
 
 const commentContentValidatorSchema = [
     body('comment')
-        .not()
-        .isEmpty()
+        .notEmpty()
         .withMessage('Comment content must be filled')
         .isLength({ min: commentMinLength, max: commentMaxLength })
         .withMessage(`Comment content must be between ${commentMinLength} and ${commentMaxLength} characters`),

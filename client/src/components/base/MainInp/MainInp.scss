@@ -45,6 +45,12 @@
             }
         }
 
+        &[type='password']::-ms-reveal,
+        &[type='password']::-ms-clear {
+            // appearance: none;
+            display: none;
+        }
+
         // &:invalid {
         //     border-color: $red_color;
         // }
@@ -64,6 +70,7 @@
         top: 0;
         left: 0;
         user-select: none;
+        cursor: text;
         transition: $transition_md;
 
         @media (max-width: 1024px) {
@@ -78,6 +85,34 @@
             padding: calc($inpDistanceTopBottom * 1.2) $inpDistanceLeftRight;
             font-size: calc($inpFsz * 0.82);
             white-space: nowrap;
+        }
+    }
+
+    .showPwdBtn {
+        position: absolute;
+        right: $inpDistanceLeftRight;
+        padding-right: $inpDistanceLeftRight;
+        top: 50%;
+        transform: translateY(-50%);
+
+        @include flexCenter;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+
+        svg {
+            height: $fs_normal_lg;
+            color: $black_text;
+            transition: $transition_md;
+
+            @media (max-width: 1024px) {
+                height: $fs_normal_md;
+            }
+
+            @media (max-width: 768px) {
+                height: calc($fs_normal_md * 0.9);
+            }
         }
     }
 }

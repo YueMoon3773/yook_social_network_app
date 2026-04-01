@@ -13,7 +13,9 @@ const LogInAndRegisterErrorBox = ({ errors, children }) => {
     return (
         <div className="errorBox">
             <h4 className="errorBoxHeading">
-                {errors.errors.length > 0 ? 'Notice' : 'Please fix the below issue(s) before submitting'}
+                {errors && errors.errors && errors.errors?.length > 0
+                    ? 'Notice'
+                    : 'Please fix the below issue(s) before submitting'}
             </h4>
             <ul className="errorsWrapper">
                 {errors.firstNameErrors && errors.firstNameErrors.length !== 0 && (
@@ -96,6 +98,17 @@ const LogInAndRegisterErrorBox = ({ errors, children }) => {
                 {errors.commentContentErrors && errors.commentContentErrors.length !== 0 && (
                     <>
                         {errors.commentContentErrors.map((item, index) => {
+                            return (
+                                <li key={index} className="errorItem">
+                                    {item}
+                                </li>
+                            );
+                        })}
+                    </>
+                )}
+                {errors.otherErrors && errors.otherErrors.length !== 0 && (
+                    <>
+                        {errors.otherErrors.map((item, index) => {
                             return (
                                 <li key={index} className="errorItem">
                                     {item}
