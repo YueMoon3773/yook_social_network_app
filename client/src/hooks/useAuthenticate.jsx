@@ -8,8 +8,7 @@ const AuthenticateUserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // when web app start, connect to BE and check for "active session"
-    useEffect(() => {
+    const fetchUserInfo = async () => {
         // fetch(`${beUrl}/user/authenticate/me`, {
         //     credentials: 'include', // makes BE send cookie with the res
         // })
@@ -36,6 +35,11 @@ const AuthenticateUserProvider = ({ children }) => {
                     setLoading(false);
                 });
         }, 1600);
+    };
+
+    // when web app start, connect to BE and check for "active session"
+    useEffect(() => {
+        fetchUserInfo();
     }, []);
 
     const logIn = async (userName, pwd) => {
@@ -71,7 +75,9 @@ const AuthenticateUserProvider = ({ children }) => {
     };
 
     return (
-        <AuthenticateContext.Provider value={{ user, loading, logIn, logOut }}>{children}</AuthenticateContext.Provider>
+        <AuthenticateContext.Provider value={{ user, loading, logIn, logOut, fetchUserInfo }}>
+            {children}
+        </AuthenticateContext.Provider>
     );
 };
 

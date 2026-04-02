@@ -81,7 +81,8 @@ h1.modalErrorMsg {
 }
 
 .modal {
-    background-color: var(--bg_color);
+    // background-color: var(--bg_color);
+    background-color: $snow_white_color;
     border: $thick_border_light_gray;
     border-radius: $distance_lg;
 
@@ -181,6 +182,11 @@ h1.modalErrorMsg {
 }
 
 .modalBody {
+    @include flexColumn;
+    align-items: stretch;
+    gap: calc($modalRowGap * 1.26);
+    overflow-y: auto;
+
     .addPostModalBody,
     .editUsrProfileModalBody {
         height: 100%;

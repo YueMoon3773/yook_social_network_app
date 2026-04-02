@@ -73,11 +73,13 @@ const userRegisterPost = [
 
         const { firstName, lastName, userName, pwd, isAdmin } = matchedData(req);
 
-        const checkUserInDb = db.getUserByUserName(userName);
+        const checkUserInDb = await db.getUserByUserName(userName);
+        console.log({ checkUserInDb });
+
         if (checkUserInDb) {
             return res
                 .status(400)
-                .json({ ok: false, msg: `User name ${userName} is taken, please choose a different one` });
+                .json({ ok: false, msg: `User name "${userName}" is taken, please choose a different one` });
         }
 
         const hashedPwd = await bcrypt.hash(pwd, 16);
@@ -87,7 +89,7 @@ const userRegisterPost = [
             console.log({ firstName, lastName, userName, hashedPwd, isAdminDb });
 
             await db.insertNewUser(firstName, lastName, userName, hashedPwd, isAdminDb);
-            return res.status(201).json({ ok: false, msg: 'Account created successfully' });
+            return res.status(201).json({ ok: true, msg: 'Account created successfully' });
         } catch (err) {
             res.status(501).json({ ok: false, msg: 'Failed to create account. Please try again later' });
             console.log({ err });
@@ -97,4 +99,4 @@ const userRegisterPost = [
     },
 ];
 
-module.exports = { userAuthenticateActiveSession, logInPost, logOutPost };
+module.exports = { userAuthenticateActiveSession, logInPost, logOutPost, userRegisterPost };

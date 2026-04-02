@@ -26,6 +26,7 @@
     @media (max-width: 1024px) {
         gap: calc($login_register_form_gap_normal * 0.92);
         min-width: 50%;
+        overflow-y: auto;
     }
 
     @media (max-width: 768px) {

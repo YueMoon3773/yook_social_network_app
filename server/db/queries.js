@@ -8,6 +8,7 @@ const getUserByUserName = async (userName) => {
     `,
         [userName],
     );
+
     return rows[0];
 };
 
@@ -21,21 +22,26 @@ const getUserById = async (id) => {
     return rows[0];
 };
 
-// const getUserByUserName = async (userName) => {
-//     const { rows } = await pool.query(
-//         `
-//         SELECT * FROM users WHERE user_name = $1;
-//     `,
-//         [userName],
-//     );
-
-//     return rows[0];
-// };
+const updateUserInfo = async (id, firstName, lastName, avatarUrl, bio, location, birthdayDate) => {
+    await pool.update(
+        `
+        UPDATE users SET
+            first_name = $2,
+            last_name = $3,
+            avatar_url = $4,
+            bio = $5,
+            location = $6,
+            birthday_date = $7,
+        WHERE id = $1;
+    `,
+        [id, firstName, lastName, avatarUrl, bio, location, birthdayDate],
+    );
+};
 
 const insertNewUser = async (firstName, lastName, userName, pwd, isAdmin) => {
     await pool.query(
         `
-        INSERT INTO user 
+        INSERT INTO users 
             (first_name, last_name, user_name, password, is_admin) VALUES
             ($1, $2, $3, $4, $5);
     `,
@@ -109,6 +115,7 @@ module.exports = {
     getUserByUserName,
     getUserById,
     insertNewUser,
+    updateUserInfo,
     getPostQuantity,
     getAllPostsAndTheirInfo,
     getSpecificNumberOfPostsAndTheirInfoFromBeginning,

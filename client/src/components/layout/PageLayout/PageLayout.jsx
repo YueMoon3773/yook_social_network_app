@@ -16,31 +16,33 @@ import InfoBadge from '../../base/InfoBadge/InfoBadge';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './PageLayout.scss';
+import { fa } from 'zod/v4/locales';
 
 const pageLayoutSchema = z.object({
     showModal: z.boolean().nullable().optional(),
     closeModalBtnHandler: z.function().optional(),
     modalType: z.string().optional(),
     modalBoxRef: z.unknown().optional(),
-    // showBadge: z.boolean().nullable().optional(),
-    // badgeType: z.string().trim().nullable().optional(),
-    // badgeMsg: z.string().trim().nullable().optional(),
-    postTitleValue: z.string().trim().nullable().optional(),
-    postTitleOnChangeHandler: z.function().nullable().optional(),
-    postContentValue: z.string().trim().nullable().optional(),
-    postContentOnChangeHandler: z.function().nullable().optional(),
-    profileFirstNameValue: z.string().trim().nullable().optional(),
-    profileFirstNameOnChangeHandler: z.function().nullable().optional(),
-    profileLastNameValue: z.string().trim().nullable().optional(),
-    profileLastNameOnChangeHandler: z.function().nullable().optional(),
-    profileAvatarUrlValue: z.string().trim().nullable().optional(),
-    profileAvatarUrlOnChangeHandler: z.function().nullable().optional(),
-    profileBioValue: z.string().trim().nullable().optional(),
-    profileBioOnChangeHandler: z.function().nullable().optional(),
-    profileLocationValue: z.string().trim().nullable().optional(),
-    profileLocationOnChangeHandler: z.function().nullable().optional(),
-    profileBirthdayValue: z.string().trim().nullable().optional(),
-    profileBirthdayOnChangeHandler: z.function().nullable().optional(),
+    modalSubmitBtnHandler: z.function().optional(),
+    isSubmittingModal: z.boolean().nullable().optional(),
+    modalPostTitleValue: z.string().trim().nullable().optional(),
+    modalPostTitleOnChangeHandler: z.function().nullable().optional(),
+    modalPostContentValue: z.string().trim().nullable().optional(),
+    modalPostContentOnChangeHandler: z.function().nullable().optional(),
+    modalProfileFirstNameValue: z.string().trim().nullable().optional(),
+    modalProfileFirstNameOnChangeHandler: z.function().nullable().optional(),
+    modalProfileLastNameValue: z.string().trim().nullable().optional(),
+    modalProfileLastNameOnChangeHandler: z.function().nullable().optional(),
+    modalProfileAvatarUrlValue: z.string().trim().nullable().optional(),
+    modalProfileAvatarUrlOnChangeHandler: z.function().nullable().optional(),
+    modalProfileBioValue: z.string().trim().nullable().optional(),
+    modalProfileBioOnChangeHandler: z.function().nullable().optional(),
+    modalProfileLocationValue: z.string().trim().nullable().optional(),
+    modalProfileLocationOnChangeHandler: z.function().nullable().optional(),
+    modalProfileBirthdayValue: z.string().trim().nullable().optional(),
+    modalProfileBirthdayOnChangeHandler: z.function().nullable().optional(),
+    showErrorBoxInModal: z.boolean().nullable().optional(),
+    modalErrorObj: z.looseObject({}).nullable().optional(),
     children: z.unknown().optional(),
 });
 
@@ -49,25 +51,26 @@ const PageLayout = ({
     closeModalBtnHandler,
     modalType,
     modalBoxRef,
-    // showBadge = false,
-    // badgeType,
-    // badgeMsg,
-    postTitleValue = null,
-    postTitleOnChangeHandler = null,
-    postContentValue = null,
-    postContentOnChangeHandler = null,
-    profileFirstNameValue = null,
-    profileFirstNameOnChangeHandler = null,
-    profileLastNameValue = null,
-    profileLastNameOnChangeHandler = null,
-    profileAvatarUrlValue = null,
-    profileAvatarUrlOnChangeHandler = null,
-    profileBioValue = null,
-    profileBioOnChangeHandler = null,
-    profileLocationValue = null,
-    profileLocationOnChangeHandler = null,
-    profileBirthdayValue = null,
-    profileBirthdayOnChangeHandler = null,
+    modalSubmitBtnHandler,
+    isSubmittingModal = false,
+    modalPostTitleValue = null,
+    modalPostTitleOnChangeHandler = null,
+    modalPostContentValue = null,
+    modalPostContentOnChangeHandler = null,
+    modalProfileFirstNameValue = null,
+    modalProfileFirstNameOnChangeHandler = null,
+    modalProfileLastNameValue = null,
+    modalProfileLastNameOnChangeHandler = null,
+    modalProfileAvatarUrlValue = null,
+    modalProfileAvatarUrlOnChangeHandler = null,
+    modalProfileBioValue = null,
+    modalProfileBioOnChangeHandler = null,
+    modalProfileLocationValue = null,
+    modalProfileLocationOnChangeHandler = null,
+    modalProfileBirthdayValue = null,
+    modalProfileBirthdayOnChangeHandler = null,
+    showErrorBoxInModal = false,
+    modalErrorObj,
     children,
 }) => {
     const { theme } = useTheme();
@@ -119,22 +122,22 @@ const PageLayout = ({
                     closeModalBtnHandler={closeModalBtnHandler}
                     modalType={modalType}
                     modalBoxRef={modalBoxRef}
-                    postTitleValue={postTitleValue}
-                    postTitleOnChangeHandler={postTitleOnChangeHandler}
-                    postContentValue={postContentValue}
-                    postContentOnChangeHandler={postContentOnChangeHandler}
-                    profileFirstNameValue={profileFirstNameValue}
-                    profileFirstNameOnChangeHandler={profileFirstNameOnChangeHandler}
-                    profileLastNameValue={profileLastNameValue}
-                    profileLastNameOnChangeHandler={profileLastNameOnChangeHandler}
-                    profileAvatarUrlValue={profileAvatarUrlValue}
-                    profileAvatarUrlOnChangeHandler={profileAvatarUrlOnChangeHandler}
-                    profileBioValue={profileBioValue}
-                    profileBioOnChangeHandler={profileBioOnChangeHandler}
-                    profileLocationValue={profileLocationValue}
-                    profileLocationOnChangeHandler={profileLocationOnChangeHandler}
-                    profileBirthdayValue={profileBirthdayValue}
-                    profileBirthdayOnChangeHandler={profileBirthdayOnChangeHandler}
+                    postTitleValue={modalPostTitleValue}
+                    postTitleOnChangeHandler={modalPostTitleOnChangeHandler}
+                    postContentValue={modalPostContentValue}
+                    postContentOnChangeHandler={modalPostContentOnChangeHandler}
+                    profileFirstNameValue={modalProfileFirstNameValue}
+                    profileFirstNameOnChangeHandler={modalProfileFirstNameOnChangeHandler}
+                    profileLastNameValue={modalProfileLastNameValue}
+                    profileLastNameOnChangeHandler={modalProfileLastNameOnChangeHandler}
+                    profileAvatarUrlValue={modalProfileAvatarUrlValue}
+                    profileAvatarUrlOnChangeHandler={modalProfileAvatarUrlOnChangeHandler}
+                    profileBioValue={modalProfileBioValue}
+                    profileBioOnChangeHandler={modalProfileBioOnChangeHandler}
+                    profileLocationValue={modalProfileLocationValue}
+                    profileLocationOnChangeHandler={modalProfileLocationOnChangeHandler}
+                    profileBirthdayValue={modalProfileBirthdayValue}
+                    profileBirthdayOnChangeHandler={modalProfileBirthdayOnChangeHandler}
                 ></Modal>
             )}
         </div>

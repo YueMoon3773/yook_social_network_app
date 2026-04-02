@@ -97,9 +97,9 @@ $login_register_form_padding_mobile: calc($distance_lg * 1.16) $distance_lg calc
 $login_register_form_gap_normal: clamp(24px, 2.6rem, 28px);
 $login_register_form_gap_mobile: clamp(10px, 1.6rem, 18px);
 
-$logInAndRegisterErrorBoxPaddingNormal: $distance_sm $distance_md;
-$logInAndRegisterErrorBoxPaddingTablet: $distance_ssm;
-$logInAndRegisterErrorBoxPaddingMobile: $distance_ssm;
+$formErrorBoxPaddingNormal: $distance_sm $distance_md;
+$formErrorBoxPaddingTablet: $distance_ssm;
+$formErrorBoxPaddingMobile: $distance_ssm;
 /* =============================================== */
 /* THEME SET UP  */
 /* =============================================== */

@@ -6,7 +6,14 @@ import ValidatedComponent from '../../../utils/validateComponentProps';
 import { useAuthenticate } from '../../../hooks/useAuthenticate';
 import { useShowBadge } from '../../../hooks/useShowBadge';
 
-import { HomeIcon, UserProfileIcon, ActivitiesIcon, DarkModeIcon, LightModeIcon } from '../../../assets/svgIcon';
+import {
+    HomeIcon,
+    UserProfileIcon,
+    ActivitiesIcon,
+    DarkModeIcon,
+    LightModeIcon,
+    GithubIcon,
+} from '../../../assets/svgIcon';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './SideBar.scss';
@@ -74,6 +81,10 @@ const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
                         </>
                     )}
                 </button>
+                <Link to="https://github.com/YueMoon3773" target="_blank" rel="noopener noreferrer">
+                    <GithubIcon></GithubIcon>
+                    Developed by YueMoon
+                </Link>
             </section>
         </aside>
     );

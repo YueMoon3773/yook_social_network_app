@@ -19,8 +19,50 @@
 
 .nav_controller {
     width: 100%;
-    @include flexCenter;
-    justify-content: stretch;
+    @include flexColumn;
+    align-items: center;
+    gap: clamp(20px, 2.4rem, 26px);
+
+    a {
+        @include flexCenter;
+        font-size: $fs_normal_sm;
+        color: var(--text_color);
+        cursor: pointer;
+        transition: $transition_md;
+
+        svg {
+            font-size: 1rem;
+            height: $fs_normal_lg;
+            margin-right: 0.4em;
+            transition: $transition_md;
+
+            path,
+            line,
+            polyline {
+                fill: currentColor;
+            }
+
+            @media (max-width: 1024px) {
+                height: $fs_normal_md;
+            }
+
+            @media (max-width: 768px) {
+                height: $fs_normal_sm;
+            }
+        }
+
+        &:hover {
+            color: $primary_color;
+        }
+
+        @media (max-width: 1024px) {
+            font-size: calc($fs_normal_sm * 0.86);
+        }
+
+        @media (max-width: 768px) {
+            font-size: $fs_normal_ssm;
+        }
+    }
 }
 
 .nav_link,

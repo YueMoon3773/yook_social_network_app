@@ -1,6 +1,6 @@
 .errorBox {
     background-color: rgba($color: $light_red_color, $alpha: 0.1);
-    padding: $logInAndRegisterErrorBoxPaddingNormal;
+    padding: $formErrorBoxPaddingNormal;
     border-radius: calc($distance_sm * 1.2);
 }
 

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import ValidatedComponent from '../../../utils/validateComponentProps';
 
 import { CloseIconEmpty, CloseIconFill } from '../../../assets/svgIcon';
+import ErrorBox from '../../base/ErrorBox/ErrorBox';
 import MainInp from '../../base/MainInp/MainInp';
 import MainTextArea from '../../base/MainTextArea/MainTextArea';
 import MainBtn from '../../base/MainBtn/MainBtn';
@@ -15,6 +16,8 @@ const modalSchema = z.object({
     modalType: z.string().optional(),
     modalBoxRef: z.unknown(),
     closeModalBtnHandler: z.function().optional(),
+    submitBtnHandler: z.function().optional(),
+    isSubmitting: z.boolean().nullable().optional(),
     postTitleValue: z.string().trim().nullable().optional(),
     postTitleOnChangeHandler: z.function().nullable().optional(),
     postContentValue: z.string().trim().nullable().optional(),
@@ -31,6 +34,8 @@ const modalSchema = z.object({
     profileLocationOnChangeHandler: z.function().nullable().optional(),
     profileBirthdayValue: z.string().trim().nullable().optional(),
     profileBirthdayOnChangeHandler: z.function().nullable().optional(),
+    showErrorBox: z.boolean().nullable().optional(),
+    errors: z.looseObject({}).nullable().optional(),
 });
 
 const Modal = ({
@@ -38,6 +43,8 @@ const Modal = ({
     modalType = 'addPost',
     modalBoxRef,
     closeModalBtnHandler,
+    submitBtnHandler,
+    isSubmitting = false,
     postTitleValue = null,
     postTitleOnChangeHandler = null,
     postContentValue = null,
@@ -54,6 +61,8 @@ const Modal = ({
     profileLocationOnChangeHandler = null,
     profileBirthdayValue = null,
     profileBirthdayOnChangeHandler = null,
+    showErrorBox = false,
+    errorObj,
 }) => {
     const [isCloseBtnHover, setIsCloseBtnHover] = useState(false);
 
@@ -128,6 +137,8 @@ const Modal = ({
                     </section>
 
                     <section className="modalBody">
+                        {showErrorBox && <ErrorBox errors={errorObj}></ErrorBox>}
+
                         {modalType === 'addPost' && (
                             <div className="addPostModalBody">
                                 <MainInp
@@ -198,7 +209,12 @@ const Modal = ({
                     </section>
 
                     <section className="modalFooter">
-                        <MainBtn isBtnPrimaryColor={true} btnClass={'modalFooterSubmitBtn'} onClickHandler={() => {}}>
+                        <MainBtn
+                            isBtnPrimaryColor={true}
+                            isBtnLoading={isSubmitting}
+                            btnClass={'modalFooterSubmitBtn'}
+                            onClickHandler={submitBtnHandler}
+                        >
                             {modalType === 'addPost' && 'Post'}
                             {modalType === 'editUsrProfile' && 'Update'}
                         </MainBtn>

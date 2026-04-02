@@ -4,12 +4,12 @@ import ValidatedComponent from '../../../utils/validateComponentProps';
 
 import './ErrorBox.scss';
 
-const logInAndRegisterErrorBoxSchema = z.object({
+const formErrorBoxSchema = z.object({
     errors: z.looseObject({}),
     children: z.unknown().optional(),
 });
 
-const LogInAndRegisterErrorBox = ({ errors, children }) => {
+const FormErrorBox = ({ errors, children }) => {
     return (
         <div className="errorBox">
             <h4 className="errorBoxHeading">
@@ -133,4 +133,4 @@ const LogInAndRegisterErrorBox = ({ errors, children }) => {
     );
 };
 
-export default ValidatedComponent(LogInAndRegisterErrorBox, logInAndRegisterErrorBoxSchema);
+export default ValidatedComponent(FormErrorBox, formErrorBoxSchema);

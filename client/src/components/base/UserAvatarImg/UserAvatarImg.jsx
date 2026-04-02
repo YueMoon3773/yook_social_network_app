@@ -6,7 +6,7 @@ import noAvatar from '../../../assets/img/no_avatar.jpg';
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserAvatarImg.scss';
 
-const userAvatarImgSchema = z.object({ imgSrc: z.string() });
+const userAvatarImgSchema = z.object({ imgSrc: z.string().nullable() });
 
 const UserAvatarImg = ({ imgSrc }) => {
     const isValidImgSrc = z.url().safeParse(imgSrc).success;

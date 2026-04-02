@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
     firstNameInpValidatorSchema,
@@ -18,14 +18,17 @@ import ErrorBox from '../../base/ErrorBox/ErrorBox';
 import MainInp from '../../base/MainInp/MainInp';
 import MainBtn from '../../base/MainBtn/MainBtn';
 import RoundToggleButton from '../../base/RoundToggleButton/RoundToggleButton';
-import LogInAndRegisterErrorBox from '../../base/ErrorBox/ErrorBox';
+import FormErrorBox from '../../base/ErrorBox/ErrorBox';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserRegisterPage.scss';
 
 const defaultAdminSecretKey = import.meta.env.VITE_ADMIN_SECRET_PASSWORD;
+const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const UserRegisterPage = () => {
+    const navigate = useNavigate();
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
@@ -75,7 +78,6 @@ const UserRegisterPage = () => {
             let lastNameErrors = [];
             let userNameErrors = [];
             let pwdErrors = [];
-            let isAdminErrors = [];
             let otherErrors = [];
 
             const firstNameErr = firstNameInpValidatorSchema.safeParse(firstName);
@@ -179,7 +181,33 @@ const UserRegisterPage = () => {
                 setIsSubmitting(false);
                 return;
             } else {
-                console.log('DO FETCH');
+                let errors = [];
+                const res = await fetch(`${baseBeURL}/user/register`, {
+                    mode: 'cors',
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ firstName, lastName, userName, pwd: password, isAdmin }),
+                });
+
+                const data = await res.json();
+                console.log({ data });
+
+                if (data.ok === false) {
+                    errors.push(data.msg);
+                    console.log({ errors });
+
+                    setInpErrors({ errors });
+                    setIsSubmitting(false);
+                } else {
+                    setIsSubmitting(false);
+                    navigate('/user/log-in', {
+                        state: {
+                            unAuthorizedUsrToLogIn: true,
+                            badgeType: 'info',
+                            badgeMsg: 'Account created successfully. Please log in to your account.',
+                        },
+                    });
+                }
             }
             setIsSubmitting(false);
         } catch (err) {
@@ -199,9 +227,7 @@ const UserRegisterPage = () => {
                         inpErrors.userNameErrors?.length > 0 ||
                         inpErrors.pwdErrors?.length > 0 ||
                         inpErrors.otherErrors?.length > 0 ||
-                        inpErrors.errors?.length > 0) && (
-                        <LogInAndRegisterErrorBox errors={inpErrors}></LogInAndRegisterErrorBox>
-                    )}
+                        inpErrors.errors?.length > 0) && <FormErrorBox errors={inpErrors}></FormErrorBox>}
 
                 <div className="firstLastNameWrapper">
                     <MainInp
@@ -287,6 +313,7 @@ const UserRegisterPage = () => {
                 <div className="controllersWrapper">
                     <MainBtn
                         isBtnPrimaryColor={true}
+                        isBtnLoading={isSubmitting}
                         btnClass={'registerSubmitBtn'}
                         onClickHandler={registerBtnOnClickHandler}
                     >
