@@ -57,6 +57,9 @@ const App = () => {
     const [postTitleValue, setPostTitleValue] = useState('');
     const [postContentValue, setPostContentValue] = useState('');
 
+    const [inpErrors, setInpErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const [sortByValue, setSortByValue] = useState(sortByOptsList[0].value);
     const [postsPerPageValue, setPostsPerPageValue] = useState('10');
 
@@ -144,6 +147,11 @@ const App = () => {
         setPostContentValue(e.target.value);
     };
 
+    const submitPostModalBtnHandler = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
     if (
         postError !== null &&
         postQuantityError !== null &&
@@ -166,15 +174,16 @@ const App = () => {
             <PageLayout
                 showModal={showModal}
                 closeModalBtnHandler={closeModalBtnHandler}
+                modalSubmitBtnHandler={submitPostModalBtnHandler}
+                isSubmittingModal={isSubmitting}
                 modalType="addPost"
                 modalBoxRef={modalBoxRef}
-                // showBadge={isShowBadge}
-                // badgeType={badgeType}
-                // badgeMsg={badgeMsg}
-                postTitleValue={postTitleValue}
-                postTitleOnChangeHandler={postTitleOnChangeHandler}
-                postContentValue={postContentValue}
-                postContentOnChangeHandler={postContentOnChangeHandler}
+                modalPostTitleValue={postTitleValue}
+                modalPostTitleOnChangeHandler={postTitleOnChangeHandler}
+                modalPostContentValue={postContentValue}
+                modalPostContentOnChangeHandler={postContentOnChangeHandler}
+                showErrorBoxInModal={!!Object.keys(inpErrors).length}
+                modalErrorObj={inpErrors}
             >
                 <div className="postsPageContent">
                     {postDataLoading === false &&

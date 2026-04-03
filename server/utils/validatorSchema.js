@@ -7,6 +7,7 @@ const userNameMaxLength = 16;
 const passwordMinLength = 8;
 const passwordMaxLength = 32;
 const bioMaxLength = 600;
+const locationMaxLength = 60;
 const postTitleMinLength = 1;
 const postTitleMaxLength = 100;
 const postContentMinLength = 1;
@@ -60,7 +61,22 @@ const passwordValidatorSchema = [
 
 const isAdminValidatorSchema = [body('isAdmin').not().isEmpty().toBoolean().isBoolean()];
 
-const birthdayDateValidatorSchema = [body('birthdayDate').isISO8601().withMessage('Invalid date format')];
+const avatarURLValidatorSchema = [body('avatarUrl').trim()];
+
+// const birthdayDateValidatorSchema = [
+//     body('birthdayDate')
+//         .optional({ values: 'falsy' })
+//         .custom((val) => {
+//             if (!val) return true;
+//             const date = new Date(val);
+//             if (isNaN(date.getTime())) throw new Error('Invalid date format');
+//             return true;
+//         }),
+// ];
+
+const birthdayDateValidatorSchema = [
+    body('birthdayDate').optional({ values: 'falsy' }).isISO8601().withMessage('Invalid date format'),
+];
 
 const bioValidatorSchema = [
     body('bio')
@@ -68,6 +84,14 @@ const bioValidatorSchema = [
         .trim()
         .isLength({ max: bioMaxLength })
         .withMessage('Bio must be at most 600 characters'),
+];
+
+const locationValidatorSchema = [
+    body('location')
+        .optional({ values: 'falsy' })
+        .trim()
+        .isLength({ max: locationMaxLength })
+        .withMessage('Location must be at most 600 characters'),
 ];
 
 const postTitleValidatorSchema = [
@@ -102,6 +126,8 @@ module.exports = {
     isAdminValidatorSchema,
     birthdayDateValidatorSchema,
     bioValidatorSchema,
+    locationValidatorSchema,
+    avatarURLValidatorSchema,
     postTitleValidatorSchema,
     postContentValidatorSchema,
     commentContentValidatorSchema,

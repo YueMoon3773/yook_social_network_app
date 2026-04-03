@@ -10,6 +10,8 @@ const formErrorBoxSchema = z.object({
 });
 
 const FormErrorBox = ({ errors, children }) => {
+    // console.log({ errors });
+
     return (
         <div className="errorBox">
             <h4 className="errorBoxHeading">
@@ -62,9 +64,42 @@ const FormErrorBox = ({ errors, children }) => {
                         })}
                     </>
                 )}
+                {errors.avatarUrlErrors && errors.avatarUrlErrors.length !== 0 && (
+                    <>
+                        {errors.avatarUrlErrors.map((item, index) => {
+                            return (
+                                <li key={index} className="errorItem">
+                                    {item}
+                                </li>
+                            );
+                        })}
+                    </>
+                )}
                 {errors.bioErrors && errors.bioErrors.length !== 0 && (
                     <>
                         {errors.bioErrors.map((item, index) => {
+                            return (
+                                <li key={index} className="errorItem">
+                                    {item}
+                                </li>
+                            );
+                        })}
+                    </>
+                )}
+                {errors.locationErrors && errors.locationErrors.length !== 0 && (
+                    <>
+                        {errors.locationErrors.map((item, index) => {
+                            return (
+                                <li key={index} className="errorItem">
+                                    {item}
+                                </li>
+                            );
+                        })}
+                    </>
+                )}
+                {errors.birthdayErrors && errors.birthdayErrors.length !== 0 && (
+                    <>
+                        {errors.birthdayErrors.map((item, index) => {
                             return (
                                 <li key={index} className="errorItem">
                                     {item}

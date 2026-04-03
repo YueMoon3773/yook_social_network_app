@@ -16,7 +16,6 @@ import InfoBadge from '../../base/InfoBadge/InfoBadge';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './PageLayout.scss';
-import { fa } from 'zod/v4/locales';
 
 const pageLayoutSchema = z.object({
     showModal: z.boolean().nullable().optional(),
@@ -120,6 +119,8 @@ const PageLayout = ({
                 <Modal
                     showModal={showModal}
                     closeModalBtnHandler={closeModalBtnHandler}
+                    submitBtnHandler={modalSubmitBtnHandler}
+                    isSubmitting={isSubmittingModal}
                     modalType={modalType}
                     modalBoxRef={modalBoxRef}
                     postTitleValue={modalPostTitleValue}
@@ -138,6 +139,8 @@ const PageLayout = ({
                     profileLocationOnChangeHandler={modalProfileLocationOnChangeHandler}
                     profileBirthdayValue={modalProfileBirthdayValue}
                     profileBirthdayOnChangeHandler={modalProfileBirthdayOnChangeHandler}
+                    showErrorBox={showErrorBoxInModal}
+                    errorObj={modalErrorObj}
                 ></Modal>
             )}
         </div>

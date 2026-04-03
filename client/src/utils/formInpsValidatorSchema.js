@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { isBefore, startOfDay } from 'date-fns';
 
 const bannedNames = [
     'nicki',
@@ -74,6 +75,13 @@ export const passwordInpValidatorSchema = z
     .regex(/[0-9]/, 'Password must include at least one number')
     .regex(/[,.?/!@#$%^&*()\-_=+]/, 'Password must include at least one symbol (,.?/!@#$%^&*()-_=+)');
 
+export const avatarURLInpValidatorSchema = z
+    .string()
+    .trim()
+    .pipe(z.union([z.url('Avatar URL is invalid'), z.literal('')]))
+    .optional()
+    .nullable();
+
 export const retypePasswordMissingErrorMsg = 'Retype password field must be filled and match with password field';
 export const retypePasswordErrorMsg = "Retype password field didn't match password field";
 
@@ -84,9 +92,28 @@ export const adminSecretKeyErrorMsg = 'Admin secret key is incorrect';
 
 export const bioInpValidatorSchema = z.string().trim().max(600, 'Bio must be at most 600 characters').optional();
 
-// export const birthdayDateValidatorSchema = z.string().refine((val) => !isNaN(Date.parse(val)), 'Invalid date format');
+export const locationInpValidatorSchema = z
+    .string()
+    .trim()
+    .max(60, 'Location must be at most 60 characters')
+    .optional();
 
-export const birthdayDateInpValidatorSchema = z.date({ message: 'Invalid date format' });
+export const birthdayDateInpValidatorSchema = z
+    .string()
+    .trim()
+    .pipe(
+        z.union([
+            z
+                .string()
+                .date('Invalid date format')
+                .refine((val) => isBefore(new Date(val), startOfDay(new Date())), {
+                    message: 'Birthday must be before today',
+                }),
+            z.literal(''),
+        ]),
+    )
+    .optional()
+    .nullable();
 
 export const postTitleInpValidatorSchema = z
     .string()

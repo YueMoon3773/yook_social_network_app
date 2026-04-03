@@ -23,7 +23,7 @@ const getUserById = async (id) => {
 };
 
 const updateUserInfo = async (id, firstName, lastName, avatarUrl, bio, location, birthdayDate) => {
-    await pool.update(
+    await pool.query(
         `
         UPDATE users SET
             first_name = $2,
@@ -31,7 +31,7 @@ const updateUserInfo = async (id, firstName, lastName, avatarUrl, bio, location,
             avatar_url = $4,
             bio = $5,
             location = $6,
-            birthday_date = $7,
+            birthday_date = $7
         WHERE id = $1;
     `,
         [id, firstName, lastName, avatarUrl, bio, location, birthdayDate],

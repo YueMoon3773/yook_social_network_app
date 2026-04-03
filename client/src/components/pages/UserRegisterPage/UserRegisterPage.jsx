@@ -14,7 +14,6 @@ import {
 } from '../../../utils/formInpsValidatorSchema';
 
 import LogInRegisterLogo from '../../base/LogInRegisterLogo/LogInRegisterLogo';
-import ErrorBox from '../../base/ErrorBox/ErrorBox';
 import MainInp from '../../base/MainInp/MainInp';
 import MainBtn from '../../base/MainBtn/MainBtn';
 import RoundToggleButton from '../../base/RoundToggleButton/RoundToggleButton';
@@ -155,13 +154,13 @@ const UserRegisterPage = () => {
                     }
                 }
             }
-            console.log({
-                firstNameErrors,
-                lastNameErrors,
-                userNameErrors,
-                pwdErrors,
-                otherErrors,
-            });
+            // console.log({
+            //     firstNameErrors,
+            //     lastNameErrors,
+            //     userNameErrors,
+            //     pwdErrors,
+            //     otherErrors,
+            // });
 
             setInpErrors({
                 firstNameErrors,
@@ -190,11 +189,11 @@ const UserRegisterPage = () => {
                 });
 
                 const data = await res.json();
-                console.log({ data });
+                // console.log({ data });
 
                 if (data.ok === false) {
                     errors.push(data.msg);
-                    console.log({ errors });
+                    // console.log({ errors });
 
                     setInpErrors({ errors });
                     setIsSubmitting(false);

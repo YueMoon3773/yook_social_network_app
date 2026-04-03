@@ -182,15 +182,23 @@ h1.modalErrorMsg {
 }
 
 .modalBody {
+    padding-left: min($distance_xxl, 4rem);
+    padding-right: min($distance_xxl, 4rem);
     @include flexColumn;
     align-items: stretch;
-    gap: calc($modalRowGap * 1.26);
+    gap: calc($modalRowGap * 0.36);
     overflow-y: auto;
+
+    .errorBox {
+        margin-top: clamp($distance_xl, 3.6rem, 40px);
+    }
 
     .addPostModalBody,
     .editUsrProfileModalBody {
         height: 100%;
-        padding: min($distance_xl, 3.2rem) min($distance_xxl, 4rem) 0;
+        // padding: min($distance_xl, 3.2rem) min($distance_xxl, 4rem) 0;
+        padding-top: min($distance_xl, 3.2rem);
+        padding-bottom: 0;
         row-gap: calc($modalRowGap * 1.26);
 
         @media (max-width: 1024px) {
@@ -265,14 +273,14 @@ h1.modalErrorMsg {
 
 .modalFooterSubmitBtn {
     width: 100%;
-    font-size: $fs_normal_md;
+    font-size: $fs_normal_md !important;
     font-weight: 700;
 
     @media (max-width: 1024px) {
-        font-size: $fs_normal_sm;
+        font-size: $fs_normal_sm !important;
     }
 
     @media (max-width: 768px) {
-        font-size: $fs_normal_ssm;
+        font-size: $fs_normal_ssm !important;
     }
 }

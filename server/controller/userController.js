@@ -25,10 +25,14 @@ const logInPost = [
     body('userName').notEmpty().withMessage('Username is required'),
     body('pwd').notEmpty().withMessage('Password is required'),
     async (req, res, next) => {
+        console.log('===USER LOG IN===');
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            return res.json({ ok: false, msg: errors.array() });
+            const msg = errors.array().map((item) => {
+                return item.msg;
+            });
+            return res.json({ ok: false, msg });
         }
 
         passport.authenticate('local', (err, user, info) => {
@@ -68,13 +72,16 @@ const userRegisterPost = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            return res.json({ ok: false, msg: errors.array() });
+            const msg = errors.array().map((item) => {
+                return item.msg;
+            });
+            return res.status(400).json({ ok: false, msg });
         }
 
         const { firstName, lastName, userName, pwd, isAdmin } = matchedData(req);
 
         const checkUserInDb = await db.getUserByUserName(userName);
-        console.log({ checkUserInDb });
+        // console.log({ checkUserInDb });
 
         if (checkUserInDb) {
             return res
@@ -86,7 +93,7 @@ const userRegisterPost = [
         const isAdminDb = !!isAdmin;
 
         try {
-            console.log({ firstName, lastName, userName, hashedPwd, isAdminDb });
+            // console.log({ firstName, lastName, userName, hashedPwd, isAdminDb });
 
             await db.insertNewUser(firstName, lastName, userName, hashedPwd, isAdminDb);
             return res.status(201).json({ ok: true, msg: 'Account created successfully' });
@@ -99,4 +106,61 @@ const userRegisterPost = [
     },
 ];
 
-module.exports = { userAuthenticateActiveSession, logInPost, logOutPost, userRegisterPost };
+const updateProfilePost = [
+    validatorSchema.firstNameValidatorSchema,
+    validatorSchema.lastNameValidatorSchema,
+    validatorSchema.avatarURLValidatorSchema,
+    validatorSchema.bioValidatorSchema,
+    validatorSchema.locationValidatorSchema,
+    validatorSchema.birthdayDateValidatorSchema,
+    async (req, res, next) => {
+        console.log('===UPDATE PROFILE===');
+        const userId = req.params.userId;
+        // console.log({ userId });
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            const msg = errors.array().map((item) => {
+                return item.msg;
+            });
+            return res.status(400).json({ ok: false, msg });
+        }
+
+        const checkUserExistence = await db.getUserById(userId);
+        if (!checkUserExistence) {
+            return res.json({ ok: false, msg: 'User not found' });
+        }
+
+        const { firstName, lastName, avatarUrl, bio, location, birthdayDate } = matchedData(req);
+        const avatarUrlToDb = avatarUrl ? avatarUrl : null;
+        const bioToDb = bio ? bio : null;
+        const locationToDb = location ? location : null;
+        const birthdayDateToDb = birthdayDate ? birthdayDate : null;
+
+        // return res.json({ ok: true });
+
+        try {
+            // console.log({ firstName, lastName, avatarUrl, bio, location, birthdayDate });
+            // console.log({ firstName, lastName, avatarUrlToDb, bioToDb, locationToDb, birthdayDateToDb });
+
+            await db.updateUserInfo(
+                userId,
+                firstName,
+                lastName,
+                avatarUrlToDb,
+                bioToDb,
+                locationToDb,
+                birthdayDateToDb,
+            );
+
+            return res.json({ ok: true, msg: 'Profile updated successfully' });
+        } catch (err) {
+            console.log({ err });
+            res.status(500).json({ ok: false, msg: 'Failed to update profile' });
+            return next(err);
+        }
+    },
+];
+
+module.exports = { userAuthenticateActiveSession, logInPost, logOutPost, userRegisterPost, updateProfilePost };

@@ -35,7 +35,7 @@ const modalSchema = z.object({
     profileBirthdayValue: z.string().trim().nullable().optional(),
     profileBirthdayOnChangeHandler: z.function().nullable().optional(),
     showErrorBox: z.boolean().nullable().optional(),
-    errors: z.looseObject({}).nullable().optional(),
+    errorObj: z.looseObject({}).nullable().optional(),
 });
 
 const Modal = ({
