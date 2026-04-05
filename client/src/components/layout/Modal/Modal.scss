@@ -193,6 +193,16 @@ h1.modalErrorMsg {
         margin-top: clamp($distance_xl, 3.6rem, 40px);
     }
 
+    @media (max-width: 1024px) {
+        padding-left: min(36px, 3.6rem);
+        padding-right: min(36px, 3.6rem);
+    }
+
+    @media (max-width: 768px) {
+        padding-left: min($distance_lg, 2.4em);
+        padding-right: min($distance_lg, 2.4rem);
+    }
+
     .addPostModalBody,
     .editUsrProfileModalBody {
         height: 100%;
@@ -210,7 +220,7 @@ h1.modalErrorMsg {
         }
 
         @media (max-width: 460px) {
-            padding: min($distance_lg, 2.44rem) min($distance_lg, 2.44rem) 0;
+            // padding: min($distance_lg, 2.44rem) 0 0;
         }
     }
 

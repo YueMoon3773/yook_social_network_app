@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
+import { format } from 'date-fns';
 
 import ValidatedComponent from '../../../utils/validateComponentProps';
 
@@ -43,6 +44,13 @@ const CommentItem = ({
     disableDeleteBtn = true,
     deletePostBtnHandler,
 }) => {
+    let date;
+    let displayDate = '';
+    if (commentDate !== undefined) {
+        date = new Date(commentDate);
+        displayDate = format(date, 'MMM do, yyyy HH:mm');
+    }
+
     if (
         (showUserInfoInCommentItem && showPostTitleInCommentItem) ||
         (!showUserInfoInCommentItem && !showPostTitleInCommentItem)
@@ -117,7 +125,7 @@ const CommentItem = ({
                         {isSkeletonLoading ? (
                             <span className={`${pageBaseStyles.skeletonLoading}`}>skeleton post long date</span>
                         ) : (
-                            <span className="cmtDate">{commentDate}</span>
+                            <span className="cmtDate">{displayDate}</span>
                         )}
                     </div>
                     <div className="cmtItemFooterRight">

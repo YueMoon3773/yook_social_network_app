@@ -81,7 +81,7 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
     width: 100%;
     @include flexColumn;
     align-items: center;
-    gap: clamp($distance_md, 2rem, $distance_lg);
+    gap: clamp(20px, 2.4rem, 30px);
 
     .usrProfileInfoTop {
         width: 100%;
@@ -123,9 +123,11 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
     }
 
     .usrProfileInfoBottom {
+        width: 100%;
         @include flexCenter;
-        flex-wrap: wrap;
+        justify-content: space-between;
         gap: clamp($distance_xl, 3.6rem, $distance_xxl);
+        flex-wrap: wrap;
 
         @media (max-width: 1024px) {
             gap: clamp($distance_md, 2.6rem, $distance_lg);
@@ -133,11 +135,6 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
 
         @media (max-width: 768px) {
             gap: clamp(10px, 1.6rem, $distance_md);
-        }
-
-        div {
-            @include flexCenter;
-            gap: clamp($distance_ssm, 0.6rem, $distance_sm);
         }
 
         .skeletonInfoBtm,
@@ -165,6 +162,33 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
 
             @media (max-width: 768px) {
                 height: $fs_normal_lg;
+            }
+        }
+    }
+}
+
+.infoBttmRight,
+.infoBttmLeft {
+    @include flexCenter;
+    gap: clamp($distance_xl, 3.6rem, $distance_xxl);
+
+    a,
+    div.infoBttmLeftItem {
+        @include flexCenter;
+        gap: clamp($distance_ssm, 0.6rem, $distance_sm);
+    }
+
+    a {
+        color: var(--text_color);
+        text-decoration: underline;
+        text-underline-offset: 0.6em;
+        transition: $transition_md;
+
+        &:hover {
+            text-decoration-color: $primary_color;
+            svg,
+            span {
+                color: $primary_color;
             }
         }
     }
@@ -212,6 +236,17 @@ $profileBoxPadding: max($distance_xxl, 4.2rem);
         background-color: var(--bg_color_brighter);
         svg {
             color: $primary_color;
+        }
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+        svg {
+            color: rgba($color: $gray_color, $alpha: 0.66);
+        }
+
+        &:hover {
+            background-color: transparent;
         }
     }
 }

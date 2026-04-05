@@ -16,7 +16,7 @@ passport.use(
             if (!matchedPwd) return done(null, false, { message: `Incorrect password for user "${userName}".` });
             console.log({ user });
 
-            const { password, bio, location, ...responseUser } = user;
+            const { password, ...responseUser } = user;
             // return done(null, user);
             return done(null, responseUser);
         } catch (err) {

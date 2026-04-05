@@ -33,7 +33,7 @@
         svg {
             font-size: 1rem;
             height: $fs_normal_lg;
-            margin-right: 0.4em;
+            margin-right: 0.66em;
             transition: $transition_md;
 
             path,
@@ -56,7 +56,7 @@
         }
 
         @media (max-width: 1024px) {
-            font-size: calc($fs_normal_sm * 0.86);
+            font-size: calc($fs_normal_sm * 0.96);
         }
 
         @media (max-width: 768px) {

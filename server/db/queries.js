@@ -111,6 +111,56 @@ const getSpecificNumberOfPostsAndTheirInfoFromBeginning = async (postQuantity) =
     return rows;
 };
 
+const getAllPostsFromSpecificUserByUserId = async (userId) => {
+    const { rows } = await pool.query(
+        `
+        SELECT 
+            p.id AS post_id,
+            p.post_title,
+            p.post_content,
+            p.created_at,
+            COUNT (pc.comment_id) As number_comment
+        FROM posts p
+        JOIN post_user pu
+            ON p.id = pu.post_id
+        LEFT JOIN post_comment pc
+            ON pc.post_id = p.id
+        WHERE pu.user_id = $1
+        GROUP BY p.id, p.post_title, p.post_content
+        ORDER BY p.id;
+    `,
+        [userId],
+    );
+
+    return rows;
+};
+
+const getAllCommentsFromSpecificUserByUserId = async (userId) => {
+    const { rows } = await pool.query(
+        `
+        SELECT 
+            c.id AS comment_id,
+            c.comment,
+            c.created_at,
+            pc.post_id AS post_id,
+            p.post_title AS post_title
+        FROM comments c
+        JOIN comment_user cu
+            ON cu.comment_id = c.id
+        LEFT JOIN post_comment pc
+            ON pc.comment_id = cu.comment_id
+        LEFT JOIN posts p
+            ON p.id = pc.post_id
+        WHERE cu.user_id = $1
+        GROUP BY c.id, pc.post_id, c.comment, p.post_title
+        ORDER BY c.id;
+    `,
+        [userId],
+    );
+
+    return rows;
+};
+
 module.exports = {
     getUserByUserName,
     getUserById,
@@ -119,4 +169,6 @@ module.exports = {
     getPostQuantity,
     getAllPostsAndTheirInfo,
     getSpecificNumberOfPostsAndTheirInfoFromBeginning,
+    getAllPostsFromSpecificUserByUserId,
+    getAllCommentsFromSpecificUserByUserId,
 };

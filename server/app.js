@@ -19,9 +19,10 @@ const pgSession = require('connect-pg-simple')(session);
 /* =================================================================== */
 /* IMPORT ROUTES */
 /* =================================================================== */
-const mainRouter = require('./routes/mainRouter');
+// const mainRouter = require('./routes/mainRouter');
 const userRouter = require('./routes/userRouter');
-const postRouter = require('./routes/postRoutes');
+const postRouter = require('./routes/postRouter');
+const commentRouter = require('./routes/commentRouter');
 
 /* =================================================================== */
 /* App setup */
@@ -113,9 +114,10 @@ app.use(passport.session());
 /* =================================================================== */
 /* Routes logic handle */
 /* =================================================================== */
-app.use('/', mainRouter);
+// app.use('/', mainRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
+app.use('/comment', commentRouter);
 
 /* =================================================================== */
 /* Handle Errors */

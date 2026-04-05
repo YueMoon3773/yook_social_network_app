@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import {
@@ -10,11 +10,13 @@ import {
     locationInpValidatorSchema,
     birthdayDateInpValidatorSchema,
 } from '../../../utils/formInpsValidatorSchema';
+
 import { useAuthenticate } from '../../../hooks/useAuthenticate';
+import { useFetchGetData } from '../../../hooks/useFetchData';
 import { useOpenCloseModal } from '../../../hooks/useOpenCloseModal';
 import { useShowBadge } from '../../../hooks/useShowBadge';
 
-import { EditUserIcon, LocationIcon, BirthdayIcon } from '../../../assets/svgIcon';
+import { EditUserIcon, LocationIcon, BirthdayIcon, UserActivitiesInProfilePageIcon } from '../../../assets/svgIcon';
 import PageLayout from '../../layout/PageLayout/PageLayout';
 import UserAvatarImg from '../../base/UserAvatarImg/UserAvatarImg';
 
@@ -24,10 +26,21 @@ import './UserProfilePage.scss';
 const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const UserProfilePage = () => {
+    const { userName } = useParams();
+
     const { showBadge, setBadgeType, setBadgeMsg } = useShowBadge();
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
-    const { user, loading: userAuthenLoading, fetchUserInfo } = useAuthenticate();
-    // console.log({ user, userAuthenLoading });
+
+    const { user: userAuthen, loading: userAuthenLoading, fetchUserInfo } = useAuthenticate();
+    const {
+        data: userInViewData,
+        error: userInViewError,
+        loading: userInViewLoading,
+        refetch: userInViewRefetch,
+        newFetchUrl: userInViewNewFetchUrl,
+    } = useFetchGetData(`${baseBeURL}/user/user-info/${userName}`);
+    // console.log({ userAuthen, userAuthenLoading });
+    // console.log({ userInViewData, userInViewError, userInViewLoading });
 
     const [profileFirstNameValue, setProfileFirstNameValue] = useState('');
     const [profileLastNameValue, setProfileLastNameValue] = useState('');
@@ -49,52 +62,51 @@ const UserProfilePage = () => {
     // });
 
     useEffect(() => {
-        document.title = `Yook | User's profile`;
         resetModalState();
     }, []);
 
-    // update modal inps value accordingly
+    // Update modal inps value accordingly
     useEffect(() => {
-        if (user !== null) {
-            document.title = `Yook | ${user.user_name}'s profile`;
+        if (userInViewData !== null) {
+            document.title = `Yook | ${userInViewData.user.user_name}'s profile`;
 
-            if (user.first_name !== null) {
-                setProfileFirstNameValue(user.first_name);
-            } else if (user.first_name === null) {
+            if (userInViewData.user.first_name !== null) {
+                setProfileFirstNameValue(userInViewData.user.first_name);
+            } else if (userInViewData.user.first_name === null) {
                 setProfileFirstNameValue('');
             }
 
-            if (user.last_name !== null) {
-                setProfileLastNameValue(user.last_name);
-            } else if (user.last_name === null) {
+            if (userInViewData.user.last_name !== null) {
+                setProfileLastNameValue(userInViewData.user.last_name);
+            } else if (userInViewData.user.last_name === null) {
                 setProfileLastNameValue('');
             }
 
-            if (user.avatar_url !== null) {
-                setProfileAvatarUrlValue(user.avatar_url);
-            } else if (user.avatar_url === null) {
+            if (userInViewData.user.avatar_url !== null) {
+                setProfileAvatarUrlValue(userInViewData.user.avatar_url);
+            } else if (userInViewData.user.avatar_url === null) {
                 setProfileAvatarUrlValue('');
             }
 
-            if (user.bio !== null) {
-                setProfileBioValue(user.bio);
-            } else if (user.bio === null) {
+            if (userInViewData.user.bio !== null) {
+                setProfileBioValue(userInViewData.user.bio);
+            } else if (userInViewData.user.bio === null) {
                 setProfileBioValue('');
             }
 
-            if (user.location !== null) {
-                setProfileLocationValue(user.location);
-            } else if (user.location === null) {
+            if (userInViewData.user.location !== null) {
+                setProfileLocationValue(userInViewData.user.location);
+            } else if (userInViewData.user.location === null) {
                 setProfileLocationValue('');
             }
 
-            if (user.birthday_date !== null) {
-                setProfileBirthdayValue(user.birthday_date);
-            } else if (user.birthday_date === null) {
+            if (userInViewData.user.birthday_date !== null) {
+                setProfileBirthdayValue(userInViewData.user.birthday_date);
+            } else if (userInViewData.user.birthday_date === null) {
                 setProfileBirthdayValue('');
             }
-        }
-    }, [user]);
+        } else document.title = `Yook | User's profile`;
+    }, [userInViewData]);
 
     const closeModalBtnHandler = () => {
         if (!isSubmitting) {
@@ -102,26 +114,22 @@ const UserProfilePage = () => {
         } else return;
     };
 
+    /* On change functions handle for inps */
     const profileFirstNameOnChangeHandler = (e) => {
         setProfileFirstNameValue(e.target.value);
     };
-
     const profileLastNameOnChangeHandler = (e) => {
         setProfileLastNameValue(e.target.value);
     };
-
     const profileAvatarUrlOnChangeHandler = (e) => {
         setProfileAvatarUrlValue(e.target.value);
     };
-
     const profileBioOnChangeHandler = (e) => {
         setProfileBioValue(e.target.value);
     };
-
     const profileLocationOnChangeHandler = (e) => {
         setProfileLocationValue(e.target.value);
     };
-
     const profileBirthdayOnChangeHandler = (e) => {
         setProfileBirthdayValue(e.target.value);
     };
@@ -165,14 +173,14 @@ const UserProfilePage = () => {
                 birthdayErrors = birthdayErr.error.issues.map((item) => item.message);
             }
 
-            console.log({
-                firstNameErrors,
-                lastNameErrors,
-                avatarUrlErrors,
-                bioErrors,
-                locationErrors,
-                birthdayErrors,
-            });
+            // console.log({
+            //     firstNameErrors,
+            //     lastNameErrors,
+            //     avatarUrlErrors,
+            //     bioErrors,
+            //     locationErrors,
+            //     birthdayErrors,
+            // });
 
             setInpErrors({
                 firstNameErrors,
@@ -197,16 +205,16 @@ const UserProfilePage = () => {
                 setInpErrors({});
                 let errors = [];
 
-                console.log({
-                    profileFirstNameValue,
-                    profileLastNameValue,
-                    profileAvatarUrlValue,
-                    profileBioValue,
-                    profileLocationValue,
-                    profileBirthdayValue,
-                });
+                // console.log({
+                //     profileFirstNameValue,
+                //     profileLastNameValue,
+                //     profileAvatarUrlValue,
+                //     profileBioValue,
+                //     profileLocationValue,
+                //     profileBirthdayValue,
+                // });
 
-                const res = await fetch(`${baseBeURL}/user/update-profile/${user.id}`, {
+                const res = await fetch(`${baseBeURL}/user/update-profile/${userInViewData.user.id}`, {
                     mode: 'cors',
                     method: 'POST',
                     credentials: 'include',
@@ -232,6 +240,7 @@ const UserProfilePage = () => {
                 } else {
                     setIsSubmitting(false);
                     await fetchUserInfo();
+                    await userInViewRefetch();
                     setBadgeType('info');
                     setBadgeMsg('Profile updated successfully');
                     closeModal();
@@ -244,7 +253,7 @@ const UserProfilePage = () => {
         }
     };
 
-    if (user === null && userAuthenLoading === false) {
+    if (userAuthen === null && userAuthenLoading === false) {
         setBadgeType('waring');
         setBadgeMsg('Please log in to access the previous content.');
 
@@ -258,6 +267,8 @@ const UserProfilePage = () => {
                 }}
             ></Navigate>
         );
+    } else if (userInViewError !== null) {
+        <Navigate to="/error"></Navigate>;
     } else {
         return (
             <PageLayout
@@ -284,30 +295,30 @@ const UserProfilePage = () => {
             >
                 <div className="userProfileWrapper">
                     <div className="usrProfileAvatarWrapper">
-                        {userAuthenLoading ? (
+                        {userInViewLoading ? (
                             <div className={`${pageBaseStyles.skeletonLoading} skeletonImage`}></div>
                         ) : (
-                            <UserAvatarImg imgSrc={user.avatar_url}></UserAvatarImg>
+                            <UserAvatarImg imgSrc={userInViewData.user.avatar_url}></UserAvatarImg>
                         )}
                     </div>
 
                     <section className="usrProfileNamesWrapper">
-                        {userAuthenLoading ? (
+                        {userInViewLoading ? (
                             <>
                                 <span className={`${pageBaseStyles.skeletonLoading}`}>Skeleton user full name</span>
                                 <span className={`${pageBaseStyles.skeletonLoading}`}>skeleton user name</span>
                             </>
                         ) : (
                             <>
-                                <span>{user.first_name + ' ' + user.last_name}</span>
-                                <span>{'@' + user.user_name}</span>
+                                <span>{userInViewData.user.first_name + ' ' + userInViewData.user.last_name}</span>
+                                <span>{'@' + userInViewData.user.user_name}</span>
                             </>
                         )}
                     </section>
 
                     <section className="usrProfileInfoWrapper">
                         <div className="usrProfileInfoTop">
-                            {userAuthenLoading ? (
+                            {userInViewLoading ? (
                                 <div className="usrProfileSkeletonContentWrapper">
                                     <div className={`${pageBaseStyles.skeletonLoading} usrProfileSkeletonContent`}>
                                         Skeleton content
@@ -326,48 +337,73 @@ const UserProfilePage = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <p>{user.bio === null || user.bio === '' ? 'User bio is not set' : user.bio}</p>
+                                <p>
+                                    {userInViewData.user.bio === null || userInViewData.user.bio === ''
+                                        ? 'User bio is not set'
+                                        : userInViewData.user.bio}
+                                </p>
                             )}
                         </div>
 
                         <div className="usrProfileInfoBottom">
                             <div className="infoBttmLeft">
-                                {userAuthenLoading ? (
+                                {userInViewLoading ? (
                                     <div className={`${pageBaseStyles.skeletonLoading} skeletonInfoBtm`}>
                                         Skeleton location
                                     </div>
                                 ) : (
-                                    <>
+                                    <div className="infoBttmLeftItem">
                                         <LocationIcon></LocationIcon>
                                         <span>
-                                            {user.location === null || user.location === ''
+                                            {userInViewData.user.location === null ||
+                                            userInViewData.user.location === ''
                                                 ? 'User location is not set'
-                                                : user.location}
+                                                : userInViewData.user.location}
                                         </span>
-                                    </>
+                                    </div>
                                 )}
-                            </div>
-                            <div className="infoBttmRight">
-                                {userAuthenLoading ? (
+
+                                {userInViewLoading ? (
                                     <div className={`${pageBaseStyles.skeletonLoading} skeletonInfoBtm`}>
                                         Skeleton birthday
                                     </div>
                                 ) : (
-                                    <>
+                                    <div className="infoBttmLeftItem">
                                         <BirthdayIcon></BirthdayIcon>
                                         <span>
-                                            {user.birthday_date === null || user.birthday_date === ''
+                                            {userInViewData.user.birthday_date === null ||
+                                            userInViewData.user.birthday_date === ''
                                                 ? 'User birthday date is not set'
-                                                : format(new Date(user.birthday_date), 'do MMM yyyy')}
+                                                : format(new Date(userInViewData.user.birthday_date), 'MMM do, yyyy')}
                                         </span>
-                                    </>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="infoBttmRight">
+                                {userInViewLoading ? (
+                                    <div className={`${pageBaseStyles.skeletonLoading} skeletonInfoBtm`}>
+                                        Skeleton profile
+                                    </div>
+                                ) : (
+                                    <Link to={`/user/activities/${userInViewData.user.user_name}`}>
+                                        <UserActivitiesInProfilePageIcon></UserActivitiesInProfilePageIcon>
+                                        <span>{`@${userInViewData.user.user_name}'s activities`}</span>
+                                    </Link>
                                 )}
                             </div>
                         </div>
                     </section>
 
-                    {!userAuthenLoading && (
-                        <button className="usrProfileEditBtn" onClick={() => openModal()}>
+                    {!userInViewLoading && (
+                        <button
+                            className={`usrProfileEditBtn ${userInViewData.user.id === userAuthen.id ? '' : 'disabled'}`}
+                            disabled={userInViewData.user.id === userAuthen.id ? false : true}
+                            onClick={() => {
+                                if (userInViewData.user.id === userAuthen.id) {
+                                    openModal();
+                                } else return;
+                            }}
+                        >
                             <EditUserIcon></EditUserIcon>
                         </button>
                     )}

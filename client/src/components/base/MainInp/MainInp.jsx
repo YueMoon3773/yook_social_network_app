@@ -13,7 +13,7 @@ const mainInpSchema = z.object({
     isDisabled: z.boolean().optional(),
     inpLabel: z.string(),
     inpId: z.string(),
-    inpValue: z.string().trim().nullable(),
+    inpValue: z.string().nullable(),
     onChangeHandler: z.function().nullable(),
 });
 
@@ -24,7 +24,7 @@ const MainInp = ({ inpType = 'text', inpLabel, inpId, inpClass, inpValue, onChan
     const showPwdBtnOnClickHandler = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         setInputType((prev) => {
             if (prev === 'password') {
                 setIsShowingPwd(true);

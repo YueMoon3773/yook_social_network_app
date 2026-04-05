@@ -163,4 +163,40 @@ const updateProfilePost = [
     },
 ];
 
-module.exports = { userAuthenticateActiveSession, logInPost, logOutPost, userRegisterPost, updateProfilePost };
+// const userInfoByUserId = async (req, res, next) => {
+//     const userId = req.params.userId;
+
+//     try {
+//         const userFromDb = await db.getUserById(userId);
+//         const { password, ...rest } = userFromDb;
+//         return res.json({ ok: true, user: rest });
+//     } catch (err) {
+//         console.log({ err });
+//         res.status(500).json({ ok: false, msg: 'failed to retrieve user info', errors: err });
+//         return next(err);
+//     }
+// };
+
+const userInfoByUserName = async (req, res, next) => {
+    const userName = req.params.userName;
+
+    try {
+        const userFromDb = await db.getUserByUserName(userName);
+        const { password, ...rest } = userFromDb;
+        return res.json({ ok: true, user: rest });
+    } catch (err) {
+        console.log({ err });
+        res.status(500).json({ ok: false, msg: 'failed to retrieve user info', errors: err });
+        return next(err);
+    }
+};
+
+module.exports = {
+    userAuthenticateActiveSession,
+    logInPost,
+    logOutPost,
+    userRegisterPost,
+    updateProfilePost,
+    // userInfoByUserId,
+    userInfoByUserName,
+};

@@ -76,6 +76,7 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
             }
         }
 
+        a.basicInfoRightProfileLink,
         .basicInfoRight {
             @include flexColumn;
             gap: clamp($distance_sm, 1.2rem, $distance_md);
@@ -96,6 +97,9 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
                 color: var(--text_color);
                 transition: $transition_md;
 
+                text-decoration: underline;
+                text-underline-offset: 0.36em;
+
                 @media (max-width: 1024px) {
                     font-size: $fs_normal_sm;
                 }
@@ -111,6 +115,13 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
 
             & > *:last-child {
                 color: var(--in_focus_gray);
+            }
+
+            &:hover {
+                span {
+                    color: $primary_color;
+                    text-decoration-color: $primary_color;
+                }
             }
         }
     }
@@ -130,4 +141,18 @@ $activitiesProfileBoxPadding: max($distance_xl, 3.2rem);
 }
 
 .usrCommentsWrapper {
+}
+
+.noPostCommentText {
+    font-size: $fs_normal_md;
+    color: var(--text_color);
+    transition: $transition_md;
+
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_sm;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_ssm;
+    }
 }

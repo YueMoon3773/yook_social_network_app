@@ -74,7 +74,7 @@ const routes = [
         ),
     },
     {
-        path: '/user/profile',
+        path: '/user/profile/:userName',
         element: (
             <AuthenticateUserProvider>
                 <OpenCloseModalProvider>
@@ -93,7 +93,7 @@ const routes = [
         ),
     },
     {
-        path: '/user/activities',
+        path: '/user/activities/:userName',
         element: (
             <AuthenticateUserProvider>
                 <ShowBadgeProvider>

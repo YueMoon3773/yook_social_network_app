@@ -44,7 +44,23 @@ const getPostQuantity = async (req, res, next) => {
     }
 };
 
+const getPostsBySpecificUser = async (req, res, next) => {
+    console.log('===GET POSTS BY ONE USER===');
+    const userName = req.params.userName;
+
+    try {
+        const user = await db.getUserByUserName(userName);
+        const posts = await db.getAllPostsFromSpecificUserByUserId(user.id);
+        return res.json({ ok: true, posts });
+    } catch (err) {
+        console.log({ err });
+        res.status(500).json({ ok: false, msg: 'failed to retrieve posts from user', errors: err });
+        return next(err);
+    }
+};
+
 module.exports = {
     getPosts,
     getPostQuantity,
+    getPostsBySpecificUser,
 };

@@ -25,8 +25,8 @@ const sideBarSchema = z.object({
 
 const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
     const { theme, toggleTheme } = useTheme();
-    const { user } = useAuthenticate();
     const { showBadge } = useShowBadge();
+    const { user } = useAuthenticate();
 
     return (
         <aside
@@ -39,7 +39,7 @@ const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
                     <span>Home</span>
                 </NavLink>
                 <NavLink
-                    to="/user/profile"
+                    to={user !== null ? `/user/profile/${user.user_name}` : '/'}
                     className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
                     onClick={(e) => {
                         if (user === null) {
@@ -52,7 +52,8 @@ const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
                     <span>Profile</span>
                 </NavLink>
                 <NavLink
-                    to="/user/activities"
+                    to={user !== null ? `/user/activities/${user.user_name}` : '/'}
+                    // to="/user/activities"
                     className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
                     onClick={(e) => {
                         if (user === null) {

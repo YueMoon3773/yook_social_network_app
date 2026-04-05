@@ -58,7 +58,7 @@ export const useFetchGetData = (rawUrl) => {
                 // setLoading(false);
                 setTimeout(() => {
                     setLoading(false);
-                }, 1600);
+                }, 2600);
             });
 
         return () => controller.abort();

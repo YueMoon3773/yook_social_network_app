@@ -52,10 +52,10 @@ const PostItem = ({
     deletePostBtnHandler,
 }) => {
     let date;
-    let displayDate;
+    let displayDate = '';
     if (postDate !== undefined) {
         date = new Date(postDate);
-        displayDate = format(date, 'MMM d, yyyy HH:mm');
+        displayDate = format(date, 'MMM do, yyyy HH:mm');
     }
 
     return (
@@ -82,7 +82,7 @@ const PostItem = ({
                             </div>
                         ) : (
                             <Link
-                                to={`/user/${usrUserName}`}
+                                to={`/user/profile/${usrUserName}`}
                                 onClick={(e) => {
                                     if (!isUserAuthenticated) {
                                         e.preventDefault();
