@@ -9,7 +9,7 @@ const formErrorBoxSchema = z.object({
     children: z.unknown().optional(),
 });
 
-const FormErrorBox = ({ errors, children }) => {
+const ErrorBox = ({ errors, children }) => {
     // console.log({ errors });
 
     return (
@@ -168,4 +168,4 @@ const FormErrorBox = ({ errors, children }) => {
     );
 };
 
-export default ValidatedComponent(FormErrorBox, formErrorBoxSchema);
+export default ValidatedComponent(ErrorBox, formErrorBoxSchema);

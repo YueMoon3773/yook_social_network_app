@@ -118,6 +118,8 @@ const commentContentValidatorSchema = [
         .withMessage(`Comment content must be between ${commentMinLength} and ${commentMaxLength} characters`),
 ];
 
+const userIdValidatorSchema = [body('userId').isNumeric().withMessage('user id must be a number')];
+
 module.exports = {
     firstNameValidatorSchema,
     lastNameValidatorSchema,
@@ -131,4 +133,5 @@ module.exports = {
     postTitleValidatorSchema,
     postContentValidatorSchema,
     commentContentValidatorSchema,
+    userIdValidatorSchema,
 };

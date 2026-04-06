@@ -8,7 +8,7 @@ const mainInpSchema = z.object({
     textAreaLabel: z.string(),
     textAreaId: z.string(),
     textAreaClass: z.string().optional(),
-    textAreValue: z.string().trim().nullable(),
+    textAreValue: z.string().nullable(),
     onChangeHandler: z.function().nullable(),
 });
 

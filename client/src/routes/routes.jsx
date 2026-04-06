@@ -110,7 +110,7 @@ const routes = [
         ),
     },
     {
-        path: '/post',
+        path: '/post/:postId',
         element: (
             <AuthenticateUserProvider>
                 <ShowBadgeProvider>

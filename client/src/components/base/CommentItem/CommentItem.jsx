@@ -81,7 +81,7 @@ const CommentItem = ({
                                         </div>
                                     </div>
                                 ) : (
-                                    <Link to={`/user/${usrUserName}`}>
+                                    <Link to={`/user/profile/${usrUserName}`}>
                                         <span>{usrFirstName + ' ' + usrLastName}</span>
                                         <span>{'@' + usrUserName}</span>
                                     </Link>

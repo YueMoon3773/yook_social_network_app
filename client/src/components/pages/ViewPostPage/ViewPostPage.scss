@@ -7,7 +7,7 @@
 }
 
 .postDetailSection {
-    gap: clamp($distance_xl, 3.6rem, $distance_xxl);
+    gap: clamp(36px, 4rem, $distance_xxl);
     max-height: none;
     height: max-content;
 
@@ -19,8 +19,15 @@
 
 .formCmtForPost {
     @include flexColumn;
-    align-items: flex-end;
+    align-items: stretch;
     gap: clamp($distance_md, 2rem, $distance_lg);
+    margin-top: 0.8em;
+
+    &:has(.errorBox) {
+        .errorBox {
+            margin-bottom: 3em;
+        }
+    }
 }
 
 .cmtForPost {
@@ -29,7 +36,7 @@
     font-size: $fs_normal_md;
     color: $black_text;
     padding: 0.6em;
-    height: clamp(120px, 14rem, 160px);
+    height: clamp(120px, 14rem, 160px) !important;
     background-color: $snow_white_color;
 
     outline: 1px solid var(--out_focus_gray);
@@ -52,7 +59,8 @@
 }
 
 .addCmtBtn {
-    font-size: $fs_normal_md;
+    align-self: flex-end;
+    font-size: $fs_normal_md !important;
     font-weight: 600;
 
     @media (max-width: 1024px) {
@@ -65,6 +73,22 @@
 }
 
 .postCommentsSection {
+    @include flexColumn;
+    align-items: stretch;
+}
+
+.noPostCommentText {
+    font-size: $fs_normal_md;
+    color: var(--text_color);
+    transition: $transition_md;
+
+    @media (max-width: 1024px) {
+        font-size: $fs_normal_sm;
+    }
+
+    @media (max-width: 768px) {
+        font-size: $fs_normal_ssm;
+    }
 }
 
 .noPostCommentText {

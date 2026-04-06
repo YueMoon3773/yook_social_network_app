@@ -39,7 +39,7 @@ const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
                     <span>Home</span>
                 </NavLink>
                 <NavLink
-                    to={user !== null ? `/user/profile/${user.user_name}` : '/'}
+                    to={user !== null ? `/user/profile/${user.user_name}` : '/error'}
                     className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
                     onClick={(e) => {
                         if (user === null) {
@@ -52,7 +52,7 @@ const SideBar = ({ sideBarRef, showSideBarInMobileView }) => {
                     <span>Profile</span>
                 </NavLink>
                 <NavLink
-                    to={user !== null ? `/user/activities/${user.user_name}` : '/'}
+                    to={user !== null ? `/user/activities/${user.user_name}` : '/error'}
                     // to="/user/activities"
                     className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
                     onClick={(e) => {

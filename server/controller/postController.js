@@ -54,7 +54,21 @@ const getPostsBySpecificUser = async (req, res, next) => {
         return res.json({ ok: true, posts });
     } catch (err) {
         console.log({ err });
-        res.status(500).json({ ok: false, msg: 'failed to retrieve posts from user', errors: err });
+        res.status(500).json({ ok: false, msg: 'Failed to retrieve posts from user', errors: err });
+        return next(err);
+    }
+};
+
+const getPost = async (req, res, next) => {
+    console.log('===GET SPECIFIC POST BY POST ID===');
+    const postId = req.params.postId;
+
+    try {
+        const post = await db.getSpecificPostAndItsInfoByPostId(postId);
+        return res.json({ ok: true, post });
+    } catch (err) {
+        console.log({ err });
+        res.status(500).json({ ok: false, msg: 'Failed to retrieve post details', errors: err });
         return next(err);
     }
 };
@@ -63,4 +77,5 @@ module.exports = {
     getPosts,
     getPostQuantity,
     getPostsBySpecificUser,
+    getPost,
 };

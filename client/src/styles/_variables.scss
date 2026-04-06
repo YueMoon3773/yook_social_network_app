@@ -50,7 +50,7 @@ $fs_normal_ssm: clamp(1.36rem, 0.3vw + 1.4rem, 1.56rem);
 $fs_normal_3sm: clamp(1rem, 0.3vw + 1.2rem, 1.36rem);
 $fs_normal_4sm: clamp(0.66rem, 0.2vw + 0.86rem, 1rem);
 
-$distance_xxxl: 48px;
+$distance_3xl: 48px;
 $distance_xxl: 40px;
 $distance_xl: 32px;
 $distance_lg: 24px;
@@ -87,10 +87,10 @@ $postAndCommentItemPadding: 20px;
 $postAndCommentItemAvatarWidth: clamp(42px, 14%, 50px);
 
 $login_register_page_bgc: #3d1b00;
-// $login_register_form_padding_normal: $distance_xxl $distance_xxxl $distance_xl;
+// $login_register_form_padding_normal: $distance_xxl $distance_3xl $distance_xl;
 // $login_register_form_padding_tablet: $distance_xl $distance_xxl $distance_lg;
 // $login_register_form_padding_mobile: $distance_lg $distance_lg $distance_md;
-$login_register_form_padding_normal: calc($distance_xxl * 0.8) $distance_xxxl calc($distance_xl * 0.8);
+$login_register_form_padding_normal: calc($distance_xxl * 0.8) $distance_3xl calc($distance_xl * 0.8);
 $login_register_form_padding_tablet: calc($distance_xl * 0.86) $distance_xxl calc($distance_lg * 0.8);
 $login_register_form_padding_mobile: calc($distance_lg * 1.16) $distance_lg calc($distance_md * 0.8);
 

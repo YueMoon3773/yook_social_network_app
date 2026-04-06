@@ -172,7 +172,7 @@ const updateProfilePost = [
 //         return res.json({ ok: true, user: rest });
 //     } catch (err) {
 //         console.log({ err });
-//         res.status(500).json({ ok: false, msg: 'failed to retrieve user info', errors: err });
+//         res.status(500).json({ ok: false, msg: 'Failed to retrieve user info', errors: err });
 //         return next(err);
 //     }
 // };
@@ -186,7 +186,7 @@ const userInfoByUserName = async (req, res, next) => {
         return res.json({ ok: true, user: rest });
     } catch (err) {
         console.log({ err });
-        res.status(500).json({ ok: false, msg: 'failed to retrieve user info', errors: err });
+        res.status(500).json({ ok: false, msg: 'Failed to retrieve user info', errors: err });
         return next(err);
     }
 };

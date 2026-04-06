@@ -17,7 +17,7 @@ import LogInRegisterLogo from '../../base/LogInRegisterLogo/LogInRegisterLogo';
 import MainInp from '../../base/MainInp/MainInp';
 import MainBtn from '../../base/MainBtn/MainBtn';
 import RoundToggleButton from '../../base/RoundToggleButton/RoundToggleButton';
-import FormErrorBox from '../../base/ErrorBox/ErrorBox';
+import ErrorBox from '../../base/ErrorBox/ErrorBox';
 
 import pageBaseStyles from '../../../styles/modules/basePageStyles.module.scss';
 import './UserRegisterPage.scss';
@@ -226,7 +226,7 @@ const UserRegisterPage = () => {
                         inpErrors.userNameErrors?.length > 0 ||
                         inpErrors.pwdErrors?.length > 0 ||
                         inpErrors.otherErrors?.length > 0 ||
-                        inpErrors.errors?.length > 0) && <FormErrorBox errors={inpErrors}></FormErrorBox>}
+                        inpErrors.errors?.length > 0) && <ErrorBox errors={inpErrors}></ErrorBox>}
 
                 <div className="firstLastNameWrapper">
                     <MainInp

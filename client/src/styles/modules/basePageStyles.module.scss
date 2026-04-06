@@ -186,7 +186,7 @@
     padding: $distance_md;
     @include flexColumn;
     gap: clamp($distance_lg, 2.6rem, 30px);
-    gap: 26px;
+    // gap: 26px;
     overflow-y: auto;
     max-height: 760px;
     z-index: 50;

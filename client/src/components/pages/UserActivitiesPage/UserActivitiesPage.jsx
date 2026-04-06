@@ -149,6 +149,7 @@ const UserActivitiesPage = () => {
                                                             showPostItemHeader={false}
                                                             isPostTitleClickable={true}
                                                             isNumberPostCommentsClickable={true}
+                                                            isUserAuthenticated={!!userAuthen}
                                                             disableDeleteBtn={true}
                                                             deletePostBtnHandler={() => {}}
                                                         ></PostItem>

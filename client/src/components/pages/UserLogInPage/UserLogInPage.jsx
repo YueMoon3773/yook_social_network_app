@@ -6,7 +6,7 @@ import { userNameInpValidatorSchema, passwordInpValidatorSchema } from '../../..
 
 import InfoBadge from '../../base/InfoBadge/InfoBadge';
 import LogInRegisterLogo from '../../base/LogInRegisterLogo/LogInRegisterLogo';
-import FormErrorBox from '../../base/ErrorBox/ErrorBox';
+import ErrorBox from '../../base/ErrorBox/ErrorBox';
 import MainInp from '../../base/MainInp/MainInp';
 import MainBtn from '../../base/MainBtn/MainBtn';
 
@@ -110,7 +110,8 @@ const UserLogInPage = () => {
                 {Object.keys(inpErrors).length > 0 &&
                     (inpErrors.userNameErrors?.length > 0 ||
                         inpErrors.pwdErrors?.length > 0 ||
-                        inpErrors.errors?.length > 0) && <FormErrorBox errors={inpErrors}></FormErrorBox>}
+                        inpErrors.errors?.length > 0) && <ErrorBox errors={inpErrors}></ErrorBox>}
+                
                 <MainInp
                     inpLabel={'User name*'}
                     inpId={'registerUserName'}

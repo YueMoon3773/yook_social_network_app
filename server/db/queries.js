@@ -54,6 +54,38 @@ const getPostQuantity = async () => {
     return rows[0].count;
 };
 
+const getSpecificPostAndItsInfoByPostId = async (postId) => {
+    const { rows } = await pool.query(
+        `
+        SELECT 
+            p.id AS post_id,
+            p.post_title,
+            p.post_content,
+            p.created_at,
+            u.id AS user_id,
+            u.first_name,
+            u.last_name,
+            u.user_name,
+            u.avatar_url,
+            u.is_admin,
+            COUNT (pc.comment_id) AS number_comment
+        FROM posts p
+        JOIN post_user pu
+            ON pu.post_id = p.id
+        JOIN users u
+            ON u.id = pu.user_id
+        LEFT JOIN post_comment pc 
+            ON pc.post_id = p.id
+        WHERE p.id = $1
+        GROUP BY p.id, p.post_title, p.post_content, u.id
+        ORDER BY p.id;
+    `,
+        [postId],
+    );
+
+    return rows[0];
+};
+
 const getAllPostsAndTheirInfo = async () => {
     const { rows } = await pool.query(`
         SELECT 
@@ -65,6 +97,7 @@ const getAllPostsAndTheirInfo = async () => {
             u.first_name,
             u.last_name,
             u.user_name,
+            u.is_admin,
             COUNT (pc.comment_id) AS number_comment
         FROM posts p
         JOIN post_user pu
@@ -93,6 +126,7 @@ const getSpecificNumberOfPostsAndTheirInfoFromBeginning = async (postQuantity) =
             u.last_name,
             u.user_name,
             u.avatar_url,
+            u.is_admin,
             COUNT (pc.comment_id) AS number_comment
         FROM posts p
         JOIN post_user pu
@@ -161,14 +195,78 @@ const getAllCommentsFromSpecificUserByUserId = async (userId) => {
     return rows;
 };
 
+const getCommentsAndItsInfoFromSpecificPostByPostId = async (postId) => {
+    const { rows } = await pool.query(
+        `
+        SELECT 
+            c.id AS comment_id,
+            c.comment,
+            c.created_at,
+            pc.post_id AS post_id,
+            u.id AS user_id,
+            u.first_name,
+            u.last_name,
+            u.user_name,
+            u.avatar_url,
+            u.is_admin
+        FROM comments c
+        RIGHT JOIN post_comment pc
+            ON pc.comment_id = c.id
+        JOIN comment_user cu
+            ON cu.comment_id = c.id
+        JOIN users u
+            ON u.id = cu.user_id
+        WHERE pc.post_id = $1
+        GROUP BY c.id, c.comment, pc.post_id, u.id
+        ORDER BY c.id;
+    `,
+        [postId],
+    );
+
+    return rows;
+};
+
+const insertNewCommentAndItsRelations = async (postId, user_id, comment) => {
+    const { rows: newCommentId } = await pool.query(
+        `
+        INSERT INTO comments
+            (comment) VALUES
+            ($1)
+        RETURNING id;
+    `,
+        [comment],
+    );
+
+    await pool.query(
+        `
+        INSERT INTO post_comment
+            (post_id, comment_id) VALUES
+            ($1, $2);
+    `,
+        [postId, newCommentId[0].id],
+    );
+
+    await pool.query(
+        `
+        INSERT INTO comment_user
+            (comment_id, user_id) VALUES
+            ($1, $2);
+    `,
+        [newCommentId[0].id, user_id],
+    );
+};
+
 module.exports = {
     getUserByUserName,
     getUserById,
     insertNewUser,
     updateUserInfo,
     getPostQuantity,
+    getSpecificPostAndItsInfoByPostId,
     getAllPostsAndTheirInfo,
     getSpecificNumberOfPostsAndTheirInfoFromBeginning,
     getAllPostsFromSpecificUserByUserId,
     getAllCommentsFromSpecificUserByUserId,
+    getCommentsAndItsInfoFromSpecificPostByPostId,
+    insertNewCommentAndItsRelations,
 };

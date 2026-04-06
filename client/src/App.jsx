@@ -38,8 +38,8 @@ const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const App = () => {
     /* Check user authentication */
-    const { user, loading: userAuthenLoading } = useAuthenticate();
-    console.log({ user, userAuthenLoading });
+    const { user:userAuthen, loading: userAuthenLoading } = useAuthenticate();
+    // console.log({ userAuthen, userAuthenLoading });
 
     /* UI/UX variables + set up */
     const [showHelperAddPostBtn, setShowHelperAddPostBtn] = useState(false);
@@ -92,33 +92,33 @@ const App = () => {
 
     /* Set badge info based on use authentication status */
     useEffect(() => {
-        if (user === null) {
+        if (userAuthen === null) {
             setBadgeType('warning');
             setBadgeMsg('Log in to see this content.');
             setPostsPerPageValue('10');
         } else {
             setBadgeType('info');
-            setBadgeMsg(`You logged in as ${user.user_name} successfully`);
+            setBadgeMsg(`You logged in as ${userAuthen.user_name} successfully`);
             setPostsPerPageValue(postPerPageOptsList[0].value);
             showBadge();
         }
-    }, [user]);
+    }, [userAuthen]);
 
     /* Refetch 25 posts if user authentication session exist */
     /* Otherwise fetch 10 posts only */
     useEffect(() => {
-        if (user !== null) {
+        if (userAuthen !== null) {
             setPostApiUrl(`${baseBeURL}/post/get-posts?postQuantity=25`);
         } else {
             setPostApiUrl(`${baseBeURL}/post/get-posts?postQuantity=10`);
         }
-    }, [user]);
+    }, [userAuthen]);
 
     /* Handling user action functions */
     const closeModalBtnHandler = () => closeModal();
 
     const sortByOnChangeHandler = (e) => {
-        if (user === null) {
+        if (userAuthen === null) {
             e.preventDefault();
             showBadge();
         } else {
@@ -129,7 +129,7 @@ const App = () => {
     };
 
     const postsPerPageOnChangeHandler = (e) => {
-        if (user === null) {
+        if (userAuthen === null) {
             e.preventDefault();
             showBadge();
         } else {
@@ -223,7 +223,7 @@ const App = () => {
                                             showPostItemHeader={true}
                                             isPostTitleClickable={true}
                                             isNumberPostCommentsClickable={true}
-                                            isUserAuthenticated={!!user}
+                                            isUserAuthenticated={!!userAuthen}
                                             showBadgeHandler={showBadge}
                                             disableDeleteBtn={true}
                                             deletePostBtnHandler={() => {}}
@@ -232,6 +232,7 @@ const App = () => {
                                 })}
                             </Masonry>
                         )}
+
                         {postDataLoading === false && postData !== null && (
                             <Masonry
                                 breakpointCols={breakpointColumnsObj}
@@ -256,7 +257,7 @@ const App = () => {
                                             showPostItemHeader={true}
                                             isPostTitleClickable={true}
                                             isNumberPostCommentsClickable={true}
-                                            isUserAuthenticated={!!user}
+                                            isUserAuthenticated={!!userAuthen}
                                             showBadgeHandler={showBadge}
                                             disableDeleteBtn={true}
                                             deletePostBtnHandler={() => {}}
@@ -282,7 +283,7 @@ const App = () => {
                                     <MainBtn
                                         btnClass={'prevBtn'}
                                         onClickHandler={(e) => {
-                                            if (user === null) {
+                                            if (userAuthen === null) {
                                                 e.preventDefault();
                                                 showBadge();
                                             }
@@ -294,7 +295,7 @@ const App = () => {
                                     <MainBtn
                                         btnClass={'nextBtn'}
                                         onClickHandler={(e) => {
-                                            if (user === null) {
+                                            if (userAuthen === null) {
                                                 e.preventDefault();
                                                 showBadge();
                                             }
@@ -321,7 +322,7 @@ const App = () => {
                                 setShowHelperAddPostBtn(false);
                             }}
                             onClick={(e) => {
-                                if (user === null) {
+                                if (userAuthen === null) {
                                     e.preventDefault();
                                     showBadge();
                                 } else {

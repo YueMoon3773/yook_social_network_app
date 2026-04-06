@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { z } from 'zod';
 
 import ValidatedComponent from '../../../utils/validateComponentProps';
@@ -12,10 +13,10 @@ const logInRegisterSchema = z.object({
 const LogInRegisterLogo = ({ showSlogan = false }) => {
     return (
         <div className="logInRegisterLogoWrapper">
-            <h1>
+            <Link to="/">
                 <img src={logoImg} alt="Logo image" />
                 ook
-            </h1>
+            </Link>
 
             {showSlogan && <p>The story of us, by us.</p>}
         </div>
