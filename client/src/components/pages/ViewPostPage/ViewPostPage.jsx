@@ -81,13 +81,14 @@ const ViewPostPage = () => {
                     commentInpErrors = commentInpErr.error.issues.map((item) => item.message);
                 }
 
-                console.log({ commentInpErrors });
-                setInpErrors({ commentContentErrors: commentInpErrors });
+                // console.log({ commentInpErrors });
 
                 if (commentInpErrors.length > 0) {
+                    setInpErrors({ commentContentErrors: commentInpErrors });
                     setIsSubmitting(false);
                     return;
                 } else {
+                    setInpErrors({});
                     const res = await fetch(`${baseBeURL}/comment/add-comment-to-post/${postId}`, {
                         mode: 'cors',
                         method: 'POST',

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Navigate } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 
+import { postTitleInpValidatorSchema, postContentInpValidatorSchema } from './utils/formInpsValidatorSchema';
 import { useOpenCloseModal } from './hooks/useOpenCloseModal';
 import { useShowBadge } from './hooks/useShowBadge';
 import { useAuthenticate } from './hooks/useAuthenticate';
@@ -38,7 +39,7 @@ const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const App = () => {
     /* Check user authentication */
-    const { user:userAuthen, loading: userAuthenLoading } = useAuthenticate();
+    const { user: userAuthen, loading: userAuthenLoading } = useAuthenticate();
     // console.log({ userAuthen, userAuthenLoading });
 
     /* UI/UX variables + set up */
@@ -47,10 +48,7 @@ const App = () => {
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
 
     // const { isShowBadge, showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
-    const { showBadge, setBadgeType, setBadgeMsg } = useShowBadge();
-    // const [badgeType, setBadgeType] = useState(null);
-    // const [badgeMsg, setBadgeMsg] = useState(null);
-    // console.table([isShowBadge, badgeType, badgeMsg]);
+    const { showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
     // console.log({ badgeType, badgeMsg });
 
     /* Controller values */
@@ -115,7 +113,11 @@ const App = () => {
     }, [userAuthen]);
 
     /* Handling user action functions */
-    const closeModalBtnHandler = () => closeModal();
+    const closeModalBtnHandler = () => {
+        if (!isSubmitting) {
+            closeModal();
+        } else return;
+    };
 
     const sortByOnChangeHandler = (e) => {
         if (userAuthen === null) {
@@ -147,9 +149,70 @@ const App = () => {
         setPostContentValue(e.target.value);
     };
 
-    const submitPostModalBtnHandler = (e) => {
+    const submitPostModalBtnHandler = async (e) => {
         e.preventDefault();
         e.stopPropagation();
+        setIsSubmitting(true);
+
+        try {
+            let postTitleErrors = [];
+            let postContentErrors = [];
+
+            const postTitleErr = postTitleInpValidatorSchema.safeParse(postTitleValue);
+            const postContentErr = postContentInpValidatorSchema.safeParse(postContentValue);
+
+            if (postTitleErr.success === false) {
+                postTitleErrors = postTitleErr.error.issues.map((item) => item.message);
+            }
+            if (postContentErr.success === false) {
+                postContentErrors = postContentErr.error.issues.map((item) => item.message);
+            }
+
+            if (postTitleErrors.length > 0 || postContentErrors.length > 0) {
+                setInpErrors({ postTitleErrors, postContentErrors });
+                setIsSubmitting(false);
+                return;
+            } else {
+                setInpErrors({});
+
+                const res = await fetch(`${baseBeURL}/post/add-post/${userAuthen.id}`, {
+                    mode: 'cors',
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        postTitle: postTitleValue,
+                        postContent: postContentValue,
+                    }),
+                });
+
+                const data = await res.json();
+                console.log({ data });
+
+                if (data.ok === false) {
+                    let errors = [];
+                    errors.push(data.msg);
+
+                    setInpErrors({ errors });
+                    setIsSubmitting(false);
+                    setBadgeType('error');
+                    setBadgeMsg(data.msg);
+                    showBadge();
+                } else {
+                    setPostTitleValue('');
+                    setPostContentValue('');
+
+                    setIsSubmitting(false);
+                    closeModal();
+
+                    setBadgeType('info');
+                    setBadgeMsg(data.msg);
+                    showBadge();
+                }
+            }
+        } catch (err) {
+            setIsSubmitting(false);
+            console.log('err: ', err);
+        }
     };
 
     if (

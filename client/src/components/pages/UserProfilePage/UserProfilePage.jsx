@@ -182,15 +182,6 @@ const UserProfilePage = () => {
             //     birthdayErrors,
             // });
 
-            setInpErrors({
-                firstNameErrors,
-                lastNameErrors,
-                avatarUrlErrors,
-                bioErrors,
-                locationErrors,
-                birthdayErrors,
-            });
-
             if (
                 firstNameErrors.length > 0 ||
                 lastNameErrors.length > 0 ||
@@ -199,6 +190,14 @@ const UserProfilePage = () => {
                 locationErrors.length > 0 ||
                 birthdayErrors.length > 0
             ) {
+                setInpErrors({
+                    firstNameErrors,
+                    lastNameErrors,
+                    avatarUrlErrors,
+                    bioErrors,
+                    locationErrors,
+                    birthdayErrors,
+                });
                 setIsSubmitting(false);
                 return;
             } else {

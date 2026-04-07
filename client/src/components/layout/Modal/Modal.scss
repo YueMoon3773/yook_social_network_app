@@ -230,6 +230,10 @@ h1.modalErrorMsg {
 
         .mainTextAreaWrapper {
             flex: 1;
+            
+            textarea {
+                height: clamp(160px, 16rem, 180px) !important;
+            }
         }
 
         .postTitle {

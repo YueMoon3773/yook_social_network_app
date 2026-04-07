@@ -1,4 +1,6 @@
+const { validationResult, matchedData } = require('express-validator');
 const db = require('../db/queries');
+const validatorSchema = require('../utils/validatorSchema');
 
 const getPosts = async (req, res, next) => {
     try {
@@ -73,9 +75,40 @@ const getPost = async (req, res, next) => {
     }
 };
 
+const postNewPost = [
+    validatorSchema.postTitleValidatorSchema,
+    validatorSchema.postContentValidatorSchema,
+    async (req, res, next) => {
+        console.log('===POST NEW POST===');
+        const errors = validationResult(req);
+        const userId = Number(req.params.userId);
+        console.log({ userId });
+
+        if (!errors.isEmpty()) {
+            const msg = errors.array().map((item) => {
+                return item.msg;
+            });
+            return res.json({ ok: false, msg });
+        }
+
+        const { postTitle, postContent } = matchedData(req);
+        // console.log({ postTitle, postContent, userId });
+
+        try {
+            await db.insertNewPostAndItsRelation(postTitle, postContent, userId);
+            return res.json({ ok: true, msg: 'Your post has been added' });
+        } catch (err) {
+            console.log({ err });
+            res.status(500).json({ ok: false, msg: 'Failed to add post', errors: err });
+            return next(err);
+        }
+    },
+];
+
 module.exports = {
     getPosts,
     getPostQuantity,
     getPostsBySpecificUser,
     getPost,
+    postNewPost,
 };

@@ -49,6 +49,27 @@ const insertNewUser = async (firstName, lastName, userName, pwd, isAdmin) => {
     );
 };
 
+const insertNewPostAndItsRelation = async (postTitle, postContent, userId) => {
+    const { rows: newPostId } = await pool.query(
+        `
+        INSERT INTO posts 
+            (post_title, post_content) VALUES
+            ($1, $2)
+        RETURNING id;
+    `,
+        [postTitle, postContent],
+    );
+
+    await pool.query(
+        `
+        INSERT INTO post_user
+            (post_id, user_id) VALUES
+            ($1, $2);
+    `,
+        [newPostId[0].id, userId],
+    );
+};
+
 const getPostQuantity = async () => {
     const { rows } = await pool.query('SELECT COUNT(id) FROM posts;');
     return rows[0].count;
@@ -226,7 +247,7 @@ const getCommentsAndItsInfoFromSpecificPostByPostId = async (postId) => {
     return rows;
 };
 
-const insertNewCommentAndItsRelations = async (postId, user_id, comment) => {
+const insertNewCommentAndItsRelations = async (postId, userId, comment) => {
     const { rows: newCommentId } = await pool.query(
         `
         INSERT INTO comments
@@ -252,7 +273,7 @@ const insertNewCommentAndItsRelations = async (postId, user_id, comment) => {
             (comment_id, user_id) VALUES
             ($1, $2);
     `,
-        [newCommentId[0].id, user_id],
+        [newCommentId[0].id, userId],
     );
 };
 
@@ -261,6 +282,7 @@ module.exports = {
     getUserById,
     insertNewUser,
     updateUserInfo,
+    insertNewPostAndItsRelation,
     getPostQuantity,
     getSpecificPostAndItsInfoByPostId,
     getAllPostsAndTheirInfo,

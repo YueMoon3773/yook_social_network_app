@@ -51,7 +51,6 @@ const UserLogInPage = () => {
         try {
             let userNameErrors = [];
             let pwdErrors = [];
-            let errors = [];
 
             const userNameErr = userNameInpValidatorSchema.safeParse(userName);
             const pwdErr = passwordInpValidatorSchema.safeParse(password);
@@ -65,18 +64,15 @@ const UserLogInPage = () => {
             }
 
             // console.log({ userNameErr, pwdErr });
-            console.log({ userNameErrors, pwdErrors });
-
-            setInpErrors({
-                userNameErrors,
-                pwdErrors,
-            });
+            // console.log({ userNameErrors, pwdErrors });
 
             if (userNameErrors.length === 0 && pwdErrors.length === 0) {
-                console.log({ userName, password });
+                // console.log({ userName, password });
+                setInpErrors({});
+                let errors = [];
 
                 const data = await logIn(userName, password);
-                console.log({ data });
+                // console.log({ data });
 
                 if (!data.ok) {
                     errors.push(data.err[0]?.msg);
@@ -89,6 +85,10 @@ const UserLogInPage = () => {
                     navigate('/');
                 }
             } else {
+                setInpErrors({
+                    userNameErrors,
+                    pwdErrors,
+                });
                 setIsSubmitting(false);
                 return;
             }
@@ -111,7 +111,7 @@ const UserLogInPage = () => {
                     (inpErrors.userNameErrors?.length > 0 ||
                         inpErrors.pwdErrors?.length > 0 ||
                         inpErrors.errors?.length > 0) && <ErrorBox errors={inpErrors}></ErrorBox>}
-                
+
                 <MainInp
                     inpLabel={'User name*'}
                     inpId={'registerUserName'}

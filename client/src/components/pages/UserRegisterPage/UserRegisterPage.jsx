@@ -162,14 +162,6 @@ const UserRegisterPage = () => {
             //     otherErrors,
             // });
 
-            setInpErrors({
-                firstNameErrors,
-                lastNameErrors,
-                userNameErrors,
-                pwdErrors,
-                otherErrors,
-            });
-
             if (
                 firstNameErrors.length > 0 ||
                 lastNameErrors.length > 0 ||
@@ -177,9 +169,17 @@ const UserRegisterPage = () => {
                 pwdErrors.length > 0 ||
                 otherErrors.length > 0
             ) {
+                setInpErrors({
+                    firstNameErrors,
+                    lastNameErrors,
+                    userNameErrors,
+                    pwdErrors,
+                    otherErrors,
+                });
                 setIsSubmitting(false);
                 return;
             } else {
+                setInpErrors({});
                 let errors = [];
                 const res = await fetch(`${baseBeURL}/user/register`, {
                     mode: 'cors',

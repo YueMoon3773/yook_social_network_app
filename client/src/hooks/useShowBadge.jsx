@@ -9,15 +9,16 @@ export const ShowBadgeProvider = ({ children }) => {
     const timerRef = useRef(null);
 
     const showBadge = () => {
-        setIsShowBadge((prev) => {
-            if (prev === false) return true;
-        });
-
+        // Clear any existing timer 
         if (timerRef.current) {
             clearTimeout(timerRef.current);
-            setIsShowBadge(false);
+            timerRef.current = null;
         }
 
+        // Set badge to visible
+        setIsShowBadge(true);
+
+        // Schedule hide badge
         timerRef.current = setTimeout(() => {
             setIsShowBadge(false);
             timerRef.current = null;
