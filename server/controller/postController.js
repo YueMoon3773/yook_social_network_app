@@ -3,27 +3,56 @@ const db = require('../db/queries');
 const validatorSchema = require('../utils/validatorSchema');
 
 const getPosts = async (req, res, next) => {
+    console.log('===GET POSTS===');
     try {
         const sortBy = req.query.sortBy;
-        const postQuantity = Number(req.query.postQuantity);
-        console.log('===GET POSTS===');
-
-        console.log({ sortBy, postQuantity });
+        const postPerPage = Number(req.query.postPerPage);
+        const cursorLastId = Number(req.query.cursorLastId);
+        const cursorLastCmtNumber = Number(req.query.cursorLastCmtNumber);
+        console.log({ sortBy, postPerPage, cursorLastId, cursorLastCmtNumber });
 
         let posts;
-        if (sortBy === undefined && postQuantity === undefined) {
-            console.log('here 1');
 
-            posts = await db.getSpecificNumberOfPostsAndTheirInfoFromBeginning(10);
-        } else if (sortBy === undefined && postQuantity !== undefined) {
-            console.log('here 2');
+        if (sortBy === undefined && postPerPage === undefined) {
+            console.log('Unauthorized user => retrieve 10 posts only');
 
-            posts = await db.getSpecificNumberOfPostsAndTheirInfoFromBeginning(postQuantity);
+            posts = await db.getInitialNumberOfPostsAndTheirInfoForBaseRender(10);
+        } else if (sortBy === undefined && postPerPage !== undefined) {
+            console.log('Authorized usr');
+            console.log('Login 1st time => retrieve 1st 25 posts');
+
+            posts = await db.getInitialNumberOfPostsAndTheirInfoForBaseRender(postPerPage);
         } else {
-            // posts = await db.getSpecificNumberOfPostsAndTheirInfo(postQuantity);
+            console.log('here1');
+
+            let orderDirection;
+            if (sortBy === 'newToOld' || sortBy === 'mostCmt') {
+                orderDirection = 'DESC';
+            } else if (sortBy === 'oldToNew' || sortBy === 'leastCmt') {
+                orderDirection = 'ASC';
+            }
+
+            if (sortBy === 'newToOld' || sortBy === 'oldToNew') {
+                if (Number.isNaN(cursorLastId) || Number.isNaN(cursorLastCmtNumber)) {
+                    console.log('here2');
+                    posts = await db.getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderById(
+                        orderDirection,
+                        postPerPage,
+                    );
+                }
+            } else if (sortBy === 'mostCmt' || sortBy === 'leastCmt') {
+                if (Number.isNaN(cursorLastId) || Number.isNaN(cursorLastCmtNumber)) {
+                    console.log('here3');
+                    posts = await db.getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderByCommentNumber(
+                        orderDirection,
+                        postPerPage,
+                    );
+                }
+            }
+            // posts = await db.getSpecificNumberOfPostsAndTheirInfo(postPerPage);
         }
 
-        // let posts = await db.getSpecificNumberOfPostsAndTheirInfoFromBeginning(10);
+        // let posts = await db.getInitialNumberOfPostsAndTheirInfoForBaseRender(10);
         // console.log({ posts });
 
         return res.json({ posts });
@@ -34,9 +63,9 @@ const getPosts = async (req, res, next) => {
 };
 
 const getPostQuantity = async (req, res, next) => {
+    console.log('===GET POST QUANTITY===');
     try {
         const postQuantity = await db.getPostQuantity();
-        console.log('===GET POST QUANTITY===');
         console.log({ postQuantity });
 
         return res.json({ postQuantity });

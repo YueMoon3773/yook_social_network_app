@@ -24,7 +24,7 @@ const ViewPostPage = () => {
     const { showBadge, setBadgeType, setBadgeMsg } = useShowBadge();
 
     const { user: userAuthen, loading: userAuthenLoading } = useAuthenticate();
-    console.log({ userAuthen, userAuthenLoading });
+    // console.log({ userAuthen, userAuthenLoading });
 
     const {
         data: postData,
@@ -40,8 +40,8 @@ const ViewPostPage = () => {
         refetch: commentRefetch,
         newFetchUrl: commentNewFetchUrl,
     } = useFetchGetData(`${baseBeURL}/comment/comments-from-post/${postId}`);
-    console.log({ postData, postError, postLoading });
-    console.log({ commentData, commentError, commentLoading });
+    // console.log({ postData, postError, postLoading });
+    // console.log({ commentData, commentError, commentLoading });
 
     const [commentContentValue, setCommentContentValue] = useState('');
     const [inpErrors, setInpErrors] = useState({});

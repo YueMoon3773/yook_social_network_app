@@ -1,10 +1,11 @@
 .postItem {
     padding: $postAndCommentItemPadding;
+    background-color: var(--post_comment_item_bg);
 
     @include flexColumn;
     gap: clamp($distance_md, 2rem, $distance_lg);
     border-radius: $distance_sm;
-    box-shadow: 0 $distance_3sm $distance_ssm var(--out_focus_gray);
+    box-shadow: 0 $distance_3sm $distance_ssm var(--bg_color_brighter);
     transition: $transition_md;
     transition-delay: 160ms;
 
@@ -17,9 +18,9 @@
     }
 
     &:hover {
-        filter: brightness(1.03);
+        filter: brightness(1.003);
         transform: translateY(-2px);
-        box-shadow: 0 $distance_ssm $distance_md var(--out_focus_gray);
+        box-shadow: 0 $distance_ssm $distance_md var(--bg_color_brighter);
     }
 }
 

@@ -82,7 +82,7 @@ const UserLogInPage = () => {
                     setIsSubmitting(false);
                 } else {
                     setIsSubmitting(false);
-                    navigate('/');
+                    navigate('/', { state: { userJustLoggedIn: true } });
                 }
             } else {
                 setInpErrors({

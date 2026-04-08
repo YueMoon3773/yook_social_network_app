@@ -178,11 +178,14 @@ const updateProfilePost = [
 // };
 
 const userInfoByUserName = async (req, res, next) => {
+    console.log('===GET USER BY USER NAME===');
     const userName = req.params.userName;
 
     try {
         const userFromDb = await db.getUserByUserName(userName);
         const { password, ...rest } = userFromDb;
+        // console.log('user: ', rest);
+
         return res.json({ ok: true, user: rest });
     } catch (err) {
         console.log({ err });

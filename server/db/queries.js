@@ -113,11 +113,12 @@ const getAllPostsAndTheirInfo = async () => {
             p.id AS post_id,
             p.post_title,
             p.post_content,
-            p.created_at AS post_created_at,
+            p.created_at AS created_at,
             u.id AS user_id,
             u.first_name,
             u.last_name,
             u.user_name,
+            u.avatar_url,
             u.is_admin,
             COUNT (pc.comment_id) AS number_comment
         FROM posts p
@@ -134,14 +135,14 @@ const getAllPostsAndTheirInfo = async () => {
     return rows;
 };
 
-const getSpecificNumberOfPostsAndTheirInfoFromBeginning = async (postQuantity) => {
+const getInitialNumberOfPostsAndTheirInfoForBaseRender = async (postPerPage) => {
     const { rows } = await pool.query(
         `
         SELECT 
             p.id AS post_id,
             p.post_title,
             p.post_content,
-            p.created_at AS post_created_at,
+            p.created_at AS created_at,
             u.id AS user_id,
             u.first_name,
             u.last_name,
@@ -160,7 +161,74 @@ const getSpecificNumberOfPostsAndTheirInfoFromBeginning = async (postQuantity) =
         ORDER BY p.id
         LIMIT $1;
     `,
-        [postQuantity],
+        [postPerPage],
+    );
+
+    return rows;
+};
+
+const getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderById = async (orderDirection, postPerPage) => {
+    const { rows } = await pool.query(
+        `
+        SELECT 
+            p.id AS post_id,
+            p.post_title,
+            p.post_content,
+            p.created_at AS created_at,
+            u.id AS user_id,
+            u.first_name,
+            u.last_name,
+            u.user_name,
+            u.avatar_url,
+            u.is_admin,
+            COUNT (pc.comment_id) AS number_comment
+        FROM posts p
+        JOIN post_user pu
+            ON pu.post_id = p.id
+        JOIN users u
+            ON u.id = pu.user_id
+        LEFT JOIN post_comment pc
+            ON pc.post_id = p.id
+        GROUP BY p.id, u.id
+        ORDER BY p.id ${orderDirection}
+        LIMIT $1;
+    `,
+        [postPerPage],
+    );
+
+    return rows;
+};
+
+const getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderByCommentNumber = async (
+    orderDirection,
+    postPerPage,
+) => {
+    const { rows } = await pool.query(
+        `
+        SELECT 
+            p.id AS post_id,
+            p.post_title,
+            p.post_content,
+            p.created_at AS created_at,
+            u.id AS user_id,
+            u.first_name,
+            u.last_name,
+            u.user_name,
+            u.avatar_url,
+            u.is_admin,
+            COUNT (pc.comment_id) AS number_comment
+        FROM posts p
+        JOIN post_user pu
+            ON pu.post_id = p.id
+        JOIN users u
+            ON u.id = pu.user_id
+        LEFT JOIN post_comment pc
+            ON pc.post_id = p.id
+        GROUP BY p.id, u.id
+        ORDER BY number_comment ${orderDirection}
+        LIMIT $1;
+    `,
+        [postPerPage],
     );
 
     return rows;
@@ -286,7 +354,9 @@ module.exports = {
     getPostQuantity,
     getSpecificPostAndItsInfoByPostId,
     getAllPostsAndTheirInfo,
-    getSpecificNumberOfPostsAndTheirInfoFromBeginning,
+    getInitialNumberOfPostsAndTheirInfoForBaseRender,
+    getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderById,
+    getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderByCommentNumber,
     getAllPostsFromSpecificUserByUserId,
     getAllCommentsFromSpecificUserByUserId,
     getCommentsAndItsInfoFromSpecificPostByPostId,

@@ -393,7 +393,7 @@ const UserProfilePage = () => {
                         </div>
                     </section>
 
-                    {!userInViewLoading && (
+                    {userAuthenLoading === false && userInViewLoading === false && (
                         <button
                             className={`usrProfileEditBtn ${userInViewData.user.id === userAuthen.id ? '' : 'disabled'}`}
                             disabled={userInViewData.user.id === userAuthen.id ? false : true}

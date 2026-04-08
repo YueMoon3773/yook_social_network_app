@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 
 import { postTitleInpValidatorSchema, postContentInpValidatorSchema } from './utils/formInpsValidatorSchema';
@@ -25,22 +25,22 @@ const breakpointColumnsObj = {
 };
 
 const sortByOptsList = [
-    { id: 1, content: 'Newest to Oldest', value: 'newToOld' },
-    { id: 2, content: 'Oldest to Newest', value: 'oldToNew' },
+    { id: 1, content: 'Oldest to Newest', value: 'oldToNew' },
+    { id: 2, content: 'Newest to Oldest', value: 'newToOld' },
     { id: 3, content: 'Most comments', value: 'mostCmt' },
     { id: 4, content: 'Fewest comments', value: 'leastCmt' },
 ];
 const postPerPageOptsList = [
-    { id: 1, content: 25, value: '25' },
-    { id: 2, content: 50, value: '50' },
-    { id: 3, content: 100, value: '100' },
+    { id: 1, content: 25, value: 25 },
+    { id: 2, content: 50, value: 50 },
+    { id: 3, content: 100, value: 100 },
 ];
 const baseBeURL = import.meta.env.VITE_API_BASE_URL;
 
 const App = () => {
+    const location = useLocation();
     /* Check user authentication */
     const { user: userAuthen, loading: userAuthenLoading } = useAuthenticate();
-    // console.log({ userAuthen, userAuthenLoading });
 
     /* UI/UX variables + set up */
     const [showHelperAddPostBtn, setShowHelperAddPostBtn] = useState(false);
@@ -49,7 +49,6 @@ const App = () => {
 
     // const { isShowBadge, showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
     const { showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
-    // console.log({ badgeType, badgeMsg });
 
     /* Controller values */
     const [postTitleValue, setPostTitleValue] = useState('');
@@ -58,13 +57,21 @@ const App = () => {
     const [inpErrors, setInpErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const [sortByValue, setSortByValue] = useState(sortByOptsList[0].value);
-    const [postsPerPageValue, setPostsPerPageValue] = useState('10');
+    /* Set cursor for id and number comments sort */
+    const unauthorizedUsrPostPerPage = 10;
+    const [cursorFirstId, setCurSorFirstId] = useState(null);
+    const [cursorLastId, setCurSorLastId] = useState(null);
 
-    // console.log({ sortByValue, postsPerPageValue });
+    const [cursorLastCmtNumber, setCursorLastCmtNumber] = useState(null);
+    const [cursorFirstCmtNumber, setCursorFirstCmtNumber] = useState(null);
+
+    const [sortByValue, setSortByValue] = useState(sortByOptsList[0].value);
+    const [postsPerPageValue, setPostsPerPageValue] = useState(unauthorizedUsrPostPerPage);
 
     /* Variables for fetching from API */
-    const [postApiUrl, setPostApiUrl] = useState(`${baseBeURL}/post/get-posts?postQuantity=10`);
+    const [postApiUrl, setPostApiUrl] = useState(
+        `${baseBeURL}/post/get-posts?postPerPage=${unauthorizedUsrPostPerPage}`,
+    );
     const {
         data: postData,
         error: postError,
@@ -78,9 +85,6 @@ const App = () => {
         refetch: refetchPostQuantity,
         newFetchUrl,
     } = useFetchGetData(`${baseBeURL}/post/get-post-quantity`);
-    // console.log({ postApiUrl });
-    // console.log({ postData, postError, postDataLoading });
-    // console.log({ postQuantityData, postQuantityError, postQuantityLoading });
 
     /* Set page title */
     useEffect(() => {
@@ -93,11 +97,9 @@ const App = () => {
         if (userAuthen === null) {
             setBadgeType('warning');
             setBadgeMsg('Log in to see this content.');
-            setPostsPerPageValue('10');
-        } else {
+        } else if (location.state?.userJustLoggedIn === true) {
             setBadgeType('info');
             setBadgeMsg(`You logged in as ${userAuthen.user_name} successfully`);
-            setPostsPerPageValue(postPerPageOptsList[0].value);
             showBadge();
         }
     }, [userAuthen]);
@@ -106,11 +108,35 @@ const App = () => {
     /* Otherwise fetch 10 posts only */
     useEffect(() => {
         if (userAuthen !== null) {
-            setPostApiUrl(`${baseBeURL}/post/get-posts?postQuantity=25`);
+            setPostsPerPageValue(postPerPageOptsList[0].value);
+            setPostApiUrl(`${baseBeURL}/post/get-posts?postPerPage=${postPerPageOptsList[0].value}`);
         } else {
-            setPostApiUrl(`${baseBeURL}/post/get-posts?postQuantity=10`);
+            setPostsPerPageValue(unauthorizedUsrPostPerPage);
+            setPostApiUrl(`${baseBeURL}/post/get-posts?postPerPage=${unauthorizedUsrPostPerPage}`);
         }
     }, [userAuthen]);
+
+    /* Set cursor id/comments to the first/last post id/comments number retrieved */
+    useEffect(() => {
+        if (userAuthen !== null && postData !== null) {
+            setCurSorFirstId(postData.posts[0].post_id);
+            setCurSorLastId(postData.posts[postData.posts.length - 1].post_id);
+
+            if (sortByValue === 'mostCmt' || sortByValue === 'leastCmt') {
+                setCursorFirstCmtNumber(postData.posts[0].number_comment);
+                setCursorLastCmtNumber(Number(postData.posts[postData.posts.length - 1].number_comment));
+            }
+        }
+    }, [userAuthen, postData]);
+
+    /* Logging */
+    // console.log({ userAuthen, userAuthenLoading });
+    console.log({ postApiUrl });
+    console.log({ postData, postError, postDataLoading });
+    // console.log({ postQuantityData, postQuantityError, postQuantityLoading });
+    // console.log({ badgeType, badgeMsg });
+    console.log({ sortByValue, postsPerPageValue });
+    console.log({ cursorLastId, cursorLastCmtNumber });
 
     /* Handling user action functions */
     const closeModalBtnHandler = () => {
@@ -123,10 +149,16 @@ const App = () => {
         if (userAuthen === null) {
             e.preventDefault();
             showBadge();
+            return;
         } else {
             const newSortByVal = e.target.value;
             setSortByValue(newSortByVal);
-            setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${newSortByVal}&postQuantity=${postsPerPageValue}`);
+
+            // console.log(
+            //     `${baseBeURL}/post/get-posts?sortBy=${newSortByVal}&postPerPage=${postsPerPageValue}&cursorLastId=${cursorLastId}&cursorLastCmtNumber=${cursorLastCmtNumber}`,
+            // );
+
+            setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${newSortByVal}&postPerPage=${postsPerPageValue}`);
         }
     };
 
@@ -134,10 +166,15 @@ const App = () => {
         if (userAuthen === null) {
             e.preventDefault();
             showBadge();
+            return;
         } else {
             const newPostsPerPageVal = e.target.value;
             setPostsPerPageValue(newPostsPerPageVal);
-            setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postQuantity=${newPostsPerPageVal}`);
+            // console.log(
+            //     `${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postPerPage=${newPostsPerPageVal}&cursorLastId=${cursorLastId}&cursorLastCmtNumber=${cursorLastCmtNumber}`,
+            // );
+
+            setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postPerPage=${newPostsPerPageVal}`);
         }
     };
 
@@ -315,7 +352,7 @@ const App = () => {
                                             postTitle={item.post_title}
                                             postContent={item.post_content}
                                             numberPostComments={item.number_comment}
-                                            postDate={item.post_created_at}
+                                            postDate={item.created_at}
                                             isSkeletonLoading={false}
                                             showPostItemHeader={true}
                                             isPostTitleClickable={true}

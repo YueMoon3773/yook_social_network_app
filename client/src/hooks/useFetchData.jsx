@@ -19,7 +19,7 @@ export const useFetchGetData = (rawUrl) => {
 
     useEffect(() => {
         if (!urlToFetch) {
-            // setLoading(false);
+            setLoading(false);
             return;
         }
 
@@ -51,14 +51,14 @@ export const useFetchGetData = (rawUrl) => {
             .catch((err) => {
                 if (err.name !== 'AbortError') {
                     setError(err);
-                    setLoading(false);
+                    // setLoading(false);
                 }
             })
             .finally(() => {
                 // setLoading(false);
                 setTimeout(() => {
                     setLoading(false);
-                }, 2600);
+                }, 300);
             });
 
         return () => controller.abort();

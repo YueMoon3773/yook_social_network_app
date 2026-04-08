@@ -8,7 +8,7 @@ const selectionControllerSchema = z.object({
     labelText: z.string(),
     selectId: z.string(),
     selectOptionList: z.array(z.looseObject({})).min(1, 'Array options can not be empty.'),
-    selectValue: z.string(),
+    selectValue: z.union([z.string(), z.number()]),
     selectOnChangeHandler: z.function(),
 });
 
