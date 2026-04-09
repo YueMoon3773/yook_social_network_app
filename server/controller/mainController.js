@@ -4,7 +4,7 @@ const db = require('../db/queries');
 
 const homePageGet = async (req, res) => {
     const data = await db.getUserByUserName();
-    console.log({ data });
+    // console.log({ data });
 
     res.json({ data });
 };

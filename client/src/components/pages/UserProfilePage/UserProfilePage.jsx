@@ -232,7 +232,7 @@ const UserProfilePage = () => {
 
                 if (data.ok === false) {
                     errors.push(data.msg);
-                    console.log({ errors });
+                    // console.log({ errors });
 
                     setInpErrors({ errors });
                     setIsSubmitting(false);

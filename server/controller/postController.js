@@ -7,53 +7,129 @@ const getPosts = async (req, res, next) => {
     try {
         const sortBy = req.query.sortBy;
         const postPerPage = Number(req.query.postPerPage);
+        const cursorFirstId = Number(req.query.cursorFirstId);
         const cursorLastId = Number(req.query.cursorLastId);
+        const cursorFirstCmtNumber = Number(req.query.cursorFirstCmtNumber);
         const cursorLastCmtNumber = Number(req.query.cursorLastCmtNumber);
-        console.log({ sortBy, postPerPage, cursorLastId, cursorLastCmtNumber });
+        const paginationDirection = req.query.paginationDirection;
+
+        // console.log({ sortBy, postPerPage });
+        // console.log({ cursorFirstId, cursorLastId });
+        // console.log({ cursorFirstCmtNumber, cursorLastCmtNumber });
+        // console.log({ paginationDirection });
 
         let posts;
 
-        if (sortBy === undefined && postPerPage === undefined) {
-            console.log('Unauthorized user => retrieve 10 posts only');
+        // if (sortBy === undefined && postPerPage === undefined) {
+        //     console.log('Unauthorized user => retrieve 10 posts only');
 
-            posts = await db.getInitialNumberOfPostsAndTheirInfoForBaseRender(10);
-        } else if (sortBy === undefined && postPerPage !== undefined) {
-            console.log('Authorized usr');
-            console.log('Login 1st time => retrieve 1st 25 posts');
+        //     posts = await db.getInitialNumberOfPostsAndTheirInfoForBaseRender(10);
+        // } else
+        if (sortBy === undefined && postPerPage !== undefined) {
+            // console.log('Authorized user');
+            // console.log('Login 1st time => retrieve 1st 25 posts');
 
             posts = await db.getInitialNumberOfPostsAndTheirInfoForBaseRender(postPerPage);
-        } else {
-            console.log('here1');
-
+        } else if (sortBy !== undefined && postPerPage !== undefined) {
             let orderDirection;
-            if (sortBy === 'newToOld' || sortBy === 'mostCmt') {
-                orderDirection = 'DESC';
-            } else if (sortBy === 'oldToNew' || sortBy === 'leastCmt') {
-                orderDirection = 'ASC';
+            let orderDisplay;
+            let paginationDirectionToDb;
+
+            if (sortBy === 'oldToNew' || sortBy === 'leastCmt') {
+                if (paginationDirection === 'next') {
+                    orderDirection = 'ASC';
+                    paginationDirectionToDb = '>';
+                } else if (paginationDirection === 'prev') {
+                    orderDirection = 'DESC';
+                    paginationDirectionToDb = '<';
+                } else orderDirection = 'ASC';
+                orderDisplay = 'ASC';
+            } else if (sortBy === 'newToOld' || sortBy === 'mostCmt') {
+                if (paginationDirection === 'next') {
+                    orderDirection = 'DESC';
+                    paginationDirectionToDb = '<';
+                } else if (paginationDirection === 'prev') {
+                    orderDirection = 'ASC';
+                    paginationDirectionToDb = '>';
+                } else orderDirection = 'DESC';
+                orderDisplay = 'DESC';
             }
 
+
+            // console.log({ orderDirection, orderDisplay });
+            // console.log({ paginationDirectionToDb });
+
+            /* Sorting by date (post id) */
             if (sortBy === 'newToOld' || sortBy === 'oldToNew') {
-                if (Number.isNaN(cursorLastId) || Number.isNaN(cursorLastCmtNumber)) {
-                    console.log('here2');
+                if (paginationDirection === undefined && (Number.isNaN(cursorLastId) || Number.isNaN(cursorFirstId))) {
+                    // console.log('Change posts per page by ID from 1st post');
                     posts = await db.getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderById(
                         orderDirection,
                         postPerPage,
                     );
+                } else if (paginationDirection === 'next' && !Number.isNaN(cursorLastId)) {
+                    // console.log('order by post id, next btn');
+                    posts = await db.getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderById(
+                        orderDirection,
+                        orderDisplay,
+                        paginationDirectionToDb,
+                        cursorLastId,
+                        postPerPage,
+                    );
+                } else if (paginationDirection === 'prev' && !Number.isNaN(cursorFirstId)) {
+                    // console.log('order by post id, prev btn');
+                    posts = await db.getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderById(
+                        orderDirection,
+                        orderDisplay,
+                        paginationDirectionToDb,
+                        cursorFirstId,
+                        postPerPage,
+                    );
                 }
             } else if (sortBy === 'mostCmt' || sortBy === 'leastCmt') {
-                if (Number.isNaN(cursorLastId) || Number.isNaN(cursorLastCmtNumber)) {
-                    console.log('here3');
+                if (
+                    paginationDirection === undefined &&
+                    (Number.isNaN(cursorFirstId) ||
+                        Number.isNaN(cursorLastId) ||
+                        Number.isNaN(cursorFirstCmtNumber) ||
+                        Number.isNaN(cursorLastCmtNumber))
+                ) {
+                    // console.log('Change posts per page by COMMENT NUMBER from 1st post');
                     posts = await db.getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderByCommentNumber(
                         orderDirection,
                         postPerPage,
                     );
+                } else if (
+                    paginationDirection === 'next' &&
+                    !Number.isNaN(cursorLastId) &&
+                    !Number.isNaN(cursorLastCmtNumber)
+                ) {
+                    // console.log('order by cmt number, next btn');
+                    posts = await db.getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderByCommentNumber(
+                        orderDirection,
+                        orderDisplay,
+                        paginationDirectionToDb,
+                        cursorLastId,
+                        cursorLastCmtNumber,
+                        postPerPage,
+                    );
+                } else if (
+                    paginationDirection === 'prev' &&
+                    !Number.isNaN(cursorFirstId) &&
+                    !Number.isNaN(cursorFirstCmtNumber)
+                ) {
+                    // console.log('order by cmt number, prev btn');
+                    posts = await db.getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderByCommentNumber(
+                        orderDirection,
+                        orderDisplay,
+                        paginationDirectionToDb,
+                        cursorFirstId,
+                        cursorFirstCmtNumber,
+                        postPerPage,
+                    );
                 }
             }
-            // posts = await db.getSpecificNumberOfPostsAndTheirInfo(postPerPage);
         }
-
-        // let posts = await db.getInitialNumberOfPostsAndTheirInfoForBaseRender(10);
-        // console.log({ posts });
 
         return res.json({ posts });
     } catch (err) {
@@ -66,7 +142,7 @@ const getPostQuantity = async (req, res, next) => {
     console.log('===GET POST QUANTITY===');
     try {
         const postQuantity = await db.getPostQuantity();
-        console.log({ postQuantity });
+        // console.log({ postQuantity });
 
         return res.json({ postQuantity });
     } catch (err) {
@@ -111,7 +187,7 @@ const postNewPost = [
         console.log('===POST NEW POST===');
         const errors = validationResult(req);
         const userId = Number(req.params.userId);
-        console.log({ userId });
+        // console.log({ userId });
 
         if (!errors.isEmpty()) {
             const msg = errors.array().map((item) => {

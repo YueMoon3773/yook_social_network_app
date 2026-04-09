@@ -76,7 +76,7 @@ const UserLogInPage = () => {
 
                 if (!data.ok) {
                     errors.push(data.err[0]?.msg);
-                    console.log({ errors });
+                    // console.log({ errors });
 
                     setInpErrors({ errors });
                     setIsSubmitting(false);

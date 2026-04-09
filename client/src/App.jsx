@@ -65,6 +65,8 @@ const App = () => {
     const [cursorLastCmtNumber, setCursorLastCmtNumber] = useState(null);
     const [cursorFirstCmtNumber, setCursorFirstCmtNumber] = useState(null);
 
+    const [currentPaginationNumber, setCurrentPaginationNumber] = useState(1);
+
     const [sortByValue, setSortByValue] = useState(sortByOptsList[0].value);
     const [postsPerPageValue, setPostsPerPageValue] = useState(unauthorizedUsrPostPerPage);
 
@@ -131,12 +133,13 @@ const App = () => {
 
     /* Logging */
     // console.log({ userAuthen, userAuthenLoading });
-    console.log({ postApiUrl });
-    console.log({ postData, postError, postDataLoading });
+    // console.log({ postApiUrl });
+    // console.log({ postData, postError, postDataLoading });
     // console.log({ postQuantityData, postQuantityError, postQuantityLoading });
     // console.log({ badgeType, badgeMsg });
-    console.log({ sortByValue, postsPerPageValue });
-    console.log({ cursorLastId, cursorLastCmtNumber });
+    // console.log({ sortByValue, postsPerPageValue });
+    // console.log({ cursorFirstId, cursorLastId, cursorFirstCmtNumber, cursorLastCmtNumber });
+    // console.log({ currentPaginationNumber });
 
     /* Handling user action functions */
     const closeModalBtnHandler = () => {
@@ -151,12 +154,9 @@ const App = () => {
             showBadge();
             return;
         } else {
+            setCurrentPaginationNumber(1);
             const newSortByVal = e.target.value;
             setSortByValue(newSortByVal);
-
-            // console.log(
-            //     `${baseBeURL}/post/get-posts?sortBy=${newSortByVal}&postPerPage=${postsPerPageValue}&cursorLastId=${cursorLastId}&cursorLastCmtNumber=${cursorLastCmtNumber}`,
-            // );
 
             setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${newSortByVal}&postPerPage=${postsPerPageValue}`);
         }
@@ -168,14 +168,31 @@ const App = () => {
             showBadge();
             return;
         } else {
+            setCurrentPaginationNumber(1);
             const newPostsPerPageVal = e.target.value;
             setPostsPerPageValue(newPostsPerPageVal);
-            // console.log(
-            //     `${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postPerPage=${newPostsPerPageVal}&cursorLastId=${cursorLastId}&cursorLastCmtNumber=${cursorLastCmtNumber}`,
-            // );
 
             setPostApiUrl(`${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postPerPage=${newPostsPerPageVal}`);
         }
+    };
+
+    const nextPaginationOnClickHandler = () => {
+        setCurrentPaginationNumber((prev) => prev + 1);
+
+        setPostApiUrl(
+            `${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postPerPage=${postsPerPageValue}&cursorLastId=${cursorLastId}&cursorLastCmtNumber=${cursorLastCmtNumber}&paginationDirection=next`,
+        );
+    };
+
+    const previousPaginationOnClickHandler = () => {
+        setCurrentPaginationNumber((prev) => {
+            if (prev === 1) return 1;
+            else return prev - 1;
+        });
+
+        setPostApiUrl(
+            `${baseBeURL}/post/get-posts?sortBy=${sortByValue}&postPerPage=${postsPerPageValue}&cursorFirstId=${cursorFirstId}&cursorFirstCmtNumber=${cursorFirstCmtNumber}&paginationDirection=prev`,
+        );
     };
 
     const postTitleOnChangeHandler = (e) => {
@@ -223,7 +240,7 @@ const App = () => {
                 });
 
                 const data = await res.json();
-                console.log({ data });
+                // console.log({ data });
 
                 if (data.ok === false) {
                     let errors = [];
@@ -374,36 +391,47 @@ const App = () => {
                         postQuantityData !== null && (
                             <section className="pageController">
                                 <p>
-                                    Showing <span>{postData.posts.length - postsPerPageValue + 1}</span> -{' '}
-                                    <span>{postData.posts.length}</span> of <span>{postQuantityData.postQuantity}</span>{' '}
-                                    posts
+                                    Showing <span>{Number(postsPerPageValue * (currentPaginationNumber - 1) + 1)}</span>{' '}
+                                    -{' '}
+                                    <span>
+                                        {Number(
+                                            postsPerPageValue * (currentPaginationNumber - 1) + postData.posts.length,
+                                        )}
+                                    </span>{' '}
+                                    of <span>{postQuantityData.postQuantity}</span> posts
                                 </p>
 
                                 <div className="paginationControllers">
-                                    <MainBtn
-                                        btnClass={'prevBtn'}
-                                        onClickHandler={(e) => {
-                                            if (userAuthen === null) {
-                                                e.preventDefault();
-                                                showBadge();
-                                            }
-                                        }}
-                                    >
-                                        <ArrowLeftIcon></ArrowLeftIcon>
-                                        <span>Prev</span>
-                                    </MainBtn>
-                                    <MainBtn
-                                        btnClass={'nextBtn'}
-                                        onClickHandler={(e) => {
-                                            if (userAuthen === null) {
-                                                e.preventDefault();
-                                                showBadge();
-                                            }
-                                        }}
-                                    >
-                                        <span>Next</span>
-                                        <ArrowRightIcon></ArrowRightIcon>
-                                    </MainBtn>
+                                    {postsPerPageValue * (currentPaginationNumber - 1) + 1 !== 1 && (
+                                        <MainBtn
+                                            btnClass={'prevBtn'}
+                                            onClickHandler={(e) => {
+                                                if (userAuthen === null) {
+                                                    e.preventDefault();
+                                                    showBadge();
+                                                } else previousPaginationOnClickHandler();
+                                            }}
+                                        >
+                                            <ArrowLeftIcon></ArrowLeftIcon>
+                                            <span>Prev</span>
+                                        </MainBtn>
+                                    )}
+
+                                    {postsPerPageValue * (currentPaginationNumber - 1) + postData.posts.length !==
+                                        Number(postQuantityData.postQuantity) && (
+                                        <MainBtn
+                                            btnClass={'nextBtn'}
+                                            onClickHandler={(e) => {
+                                                if (userAuthen === null) {
+                                                    e.preventDefault();
+                                                    showBadge();
+                                                } else nextPaginationOnClickHandler();
+                                            }}
+                                        >
+                                            <span>Next</span>
+                                            <ArrowRightIcon></ArrowRightIcon>
+                                        </MainBtn>
+                                    )}
                                 </div>
                             </section>
                         )}

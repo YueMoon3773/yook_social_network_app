@@ -48,7 +48,7 @@ const postCommentsToSpecificPost = [
         }
 
         const { userId, comment } = matchedData(req);
-        console.log({ postId, userId, comment });
+        // console.log({ postId, userId, comment });
 
         try {
             await db.insertNewCommentAndItsRelations(postId, userId, comment);

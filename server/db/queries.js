@@ -199,13 +199,54 @@ const getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderById = async (ord
     return rows;
 };
 
+const getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderById = async (
+    orderDirection,
+    orderDisplay,
+    paginationDirection,
+    postKeyPaginationId,
+    postPerPage,
+) => {
+    const { rows } = await pool.query(
+        `
+        SELECT * FROM (
+            SELECT 
+                p.id AS post_id,
+                p.post_title,
+                p.post_content,
+                p.created_at AS created_at,
+                u.id AS user_id,
+                u.first_name,
+                u.last_name,
+                u.user_name,
+                u.avatar_url,
+                u.is_admin,
+                COUNT (pc.comment_id) AS number_comment
+            FROM posts p
+            JOIN post_user pu
+                ON pu.post_id = p.id
+            JOIN users u
+                ON u.id = pu.user_id
+            LEFT JOIN post_comment pc
+                ON pc.post_id = p.id
+            WHERE p.id ${paginationDirection} $1
+            GROUP BY p.id, u.id
+            ORDER BY p.id ${orderDirection}
+            LIMIT $2
+        ) ORDER BY post_id ${orderDisplay};
+    `,
+        [postKeyPaginationId, postPerPage],
+    );
+
+    return rows;
+};
+
 const getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderByCommentNumber = async (
     orderDirection,
     postPerPage,
 ) => {
     const { rows } = await pool.query(
         `
-        SELECT 
+        SELECT
             p.id AS post_id,
             p.post_title,
             p.post_content,
@@ -225,10 +266,54 @@ const getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderByCommentNumber =
         LEFT JOIN post_comment pc
             ON pc.post_id = p.id
         GROUP BY p.id, u.id
-        ORDER BY number_comment ${orderDirection}
+        ORDER BY number_comment ${orderDirection}, post_id ${orderDirection}
         LIMIT $1;
     `,
         [postPerPage],
+    );
+
+    return rows;
+};
+
+const getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderByCommentNumber = async (
+    orderDirection,
+    orderDisplay,
+    paginationDirection,
+    postKeyPaginationId,
+    postKeyPaginationCommentNumber,
+    postPerPage,
+) => {
+    const { rows } = await pool.query(
+        `
+        SELECT * FROM (
+            SELECT 
+                p.id AS post_id,
+                p.post_title,
+                p.post_content,
+                p.created_at AS created_at,
+                u.id AS user_id,
+                u.first_name,
+                u.last_name,
+                u.user_name,
+                u.avatar_url,
+                u.is_admin,
+                COUNT (pc.comment_id) AS number_comment
+            FROM posts p
+            JOIN post_user pu
+                ON pu.post_id = p.id
+            JOIN users u
+                ON u.id = pu.user_id
+            LEFT JOIN post_comment pc
+                ON pc.post_id = p.id
+            GROUP BY p.id, u.id
+            HAVING
+                COUNT(pc.comment_id) ${paginationDirection} $1
+                OR (COUNT(pc.comment_id) = $1 AND p.id ${paginationDirection} $2)
+            ORDER BY number_comment ${orderDirection}, post_id ${orderDirection}
+            LIMIT $3
+        ) tmp ORDER BY tmp.number_comment ${orderDisplay}, tmp.post_id ${orderDisplay};
+    `,
+        [postKeyPaginationCommentNumber, postKeyPaginationId, postPerPage],
     );
 
     return rows;
@@ -356,7 +441,9 @@ module.exports = {
     getAllPostsAndTheirInfo,
     getInitialNumberOfPostsAndTheirInfoForBaseRender,
     getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderById,
+    getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderById,
     getSpecificNumberOfPostsAndTheirInfoFromTheBeginningOrderByCommentNumber,
+    getSpecificNumberOfPostsAndTheirInfoFromSpecificKeyPaginationOrderByCommentNumber,
     getAllPostsFromSpecificUserByUserId,
     getAllCommentsFromSpecificUserByUserId,
     getCommentsAndItsInfoFromSpecificPostByPostId,
