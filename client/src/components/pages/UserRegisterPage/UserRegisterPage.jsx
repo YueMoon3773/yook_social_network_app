@@ -254,7 +254,7 @@ const UserRegisterPage = () => {
                         onChangeHandler={userNameOnChangeHandler}
                     ></MainInp>
                     <p className="helperText">
-                        * Must be 3-16 characters long and contain only letters, numbers and underscore.
+                        *Must be 3-16 characters long and can contain only letters, numbers and underscore.
                     </p>
                 </div>
 
@@ -268,7 +268,7 @@ const UserRegisterPage = () => {
                         onChangeHandler={passwordOnChangeHandler}
                     ></MainInp>
                     <p className="helperText">
-                        * Must be 8–32 characters long, including at least one uppercase, one lowercase, a number, and a
+                        *Must be 8–32 characters long, must including at least one uppercase, one lowercase, a number, and a
                         symbol.
                     </p>
                 </div>

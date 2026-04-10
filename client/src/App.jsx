@@ -16,8 +16,6 @@ import MainBtn from './components/base/MainBtn/MainBtn';
 
 import './App.scss';
 
-import { testUsrPosts } from './utils/testDataArr';
-
 const breakpointColumnsObj = {
     default: 3,
     1200: 2,
@@ -48,7 +46,7 @@ const App = () => {
     const { showModal, modalBoxRef, openModal, closeModal, resetModalState } = useOpenCloseModal();
 
     // const { isShowBadge, showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
-    const { showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
+    const { showBadge, setBadgeType, setBadgeMsg } = useShowBadge();
 
     /* Controller values */
     const [postTitleValue, setPostTitleValue] = useState('');
@@ -252,6 +250,7 @@ const App = () => {
                     setBadgeMsg(data.msg);
                     showBadge();
                 } else {
+                    refetchPosts();
                     setPostTitleValue('');
                     setPostContentValue('');
 

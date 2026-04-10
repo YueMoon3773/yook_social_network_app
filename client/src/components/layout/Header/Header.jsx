@@ -26,8 +26,8 @@ const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSide
     const controllerDropDownRef = useRef(null);
     const { showBadge, badgeType, setBadgeType, badgeMsg, setBadgeMsg } = useShowBadge();
 
-    const { user, loading: userAuthLoading, logOut } = useAuthenticate();
-    // console.log({ user });
+    const { user: userAuthen, loading: userAuthLoading, logOut } = useAuthenticate();
+    // console.log({ userAuthen });
 
     // Hide drop down when click outside header controller
     useEffect(() => {
@@ -81,25 +81,28 @@ const Header = ({ expandHeaderBottomBorder, showSideBarBtnClickHandler, showSide
             </div>
 
             <section ref={controllerDropDownRef} className="headerController">
-                {user !== null && (
+                {userAuthen !== null && (
                     <div className="userControllerWrapper">
                         <div className="userController" onClick={() => setOpenUserDropDownController((prev) => !prev)}>
                             <div className="userAvatarWrapper">
-                                <UserAvatarImg imgSrc={user.avatar_url}></UserAvatarImg>
+                                <UserAvatarImg imgSrc={userAuthen.avatar_url}></UserAvatarImg>
                             </div>
                             <div className="userInfoWrapper">
-                                <span className="userFullName">{user.first_name + ' ' + user.last_name}</span>
-                                <span className="userUserName">{'@' + user.user_name}</span>
+                                <span className="userFullName">
+                                    {userAuthen.first_name + ' ' + userAuthen.last_name}
+                                </span>
+                                <span className="userUserName">{'@' + userAuthen.user_name}</span>
                             </div>
                         </div>
                         <UserControllerDropDown
                             isOpen={openUserDropDownController}
+                            userAuthenUserName={userAuthen.user_name}
                             logOutOnClickHandler={logOutOnClickHandler}
                         ></UserControllerDropDown>
                     </div>
                 )}
 
-                {user === null && (
+                {userAuthen === null && (
                     <div className="logInAndRegisterControllerWrapper">
                         <Link to="/user/log-in">Log in</Link>
                         <Link to="/user/register">Register</Link>

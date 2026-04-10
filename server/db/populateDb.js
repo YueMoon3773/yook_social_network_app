@@ -24,6 +24,6 @@ async function populateDb() {
     console.log('DB SET UP DONE');
 }
 
-populateDb();
+// populateDb();
 
-// module.exports = populateDb;
+module.exports = populateDb;

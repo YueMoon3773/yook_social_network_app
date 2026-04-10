@@ -188,7 +188,8 @@ const ViewPostPage = () => {
                                     <ErrorBox errors={inpErrors}></ErrorBox>
                                 )}
 
-                            {postLoading === false &&
+                            {userAuthen !== null &&
+                                postLoading === false &&
                                 postData !== null &&
                                 commentLoading === false &&
                                 commentData !== null && (

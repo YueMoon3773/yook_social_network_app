@@ -9,32 +9,33 @@ const AuthenticateUserProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const fetchUserInfo = async () => {
-        // fetch(`${beUrl}/user/authenticate/me`, {
-        //     credentials: 'include', // makes BE send cookie with the res
-        // })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         setUser(data.user || null);
-        //         setLoading(false);
-        //     })
-        //     .catch(() => {
-        //         setUser(null);
-        //         setLoading(false);
-        //     });
-        setTimeout(() => {
-            fetch(`${beUrl}/user/authenticate/me`, {
-                credentials: 'include', // makes BE send cookie with the res
+        fetch(`${beUrl}/user/authenticate/me`, {
+            credentials: 'include', // makes BE send cookie with the res
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setUser(data.user || null);
+                setLoading(false);
             })
-                .then((res) => res.json())
-                .then((data) => {
-                    setUser(data.user || null);
-                    setLoading(false);
-                })
-                .catch(() => {
-                    setUser(null);
-                    setLoading(false);
-                });
-        }, 1600);
+            .catch(() => {
+                setUser(null);
+                setLoading(false);
+            });
+            
+        // setTimeout(() => {
+        //     fetch(`${beUrl}/user/authenticate/me`, {
+        //         credentials: 'include', // makes BE send cookie with the res
+        //     })
+        //         .then((res) => res.json())
+        //         .then((data) => {
+        //             setUser(data.user || null);
+        //             setLoading(false);
+        //         })
+        //         .catch(() => {
+        //             setUser(null);
+        //             setLoading(false);
+        //         });
+        // }, 1600);
     };
 
     // when web app start, connect to BE and check for "active session"

@@ -266,7 +266,7 @@ const UserProfilePage = () => {
                 }}
             ></Navigate>
         );
-    } else if (userInViewError !== null) {
+    } else if (userInViewError !== null && userInViewData === null) {
         <Navigate to="/error"></Navigate>;
     } else {
         return (

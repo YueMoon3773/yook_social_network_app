@@ -86,7 +86,7 @@ const userRegisterPost = [
         if (checkUserInDb) {
             return res
                 .status(400)
-                .json({ ok: false, msg: `User name "${userName}" is taken, please choose a different one` });
+                .json({ ok: false, msg: `User name "${userName}" was taken, please choose a different one` });
         }
 
         const hashedPwd = await bcrypt.hash(pwd, 16);

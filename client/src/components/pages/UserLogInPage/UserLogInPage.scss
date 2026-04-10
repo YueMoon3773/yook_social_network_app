@@ -34,3 +34,19 @@
         min-width: 80%;
     }
 }
+
+.supportTextWrapper {
+    font-size: 1rem;
+    margin: -1.2em 0 -0.6em;
+    .supportTextHeading,
+    .supportText {
+        font-size: $fs_normal_4sm;
+        user-select: none;
+
+        span {
+            font-size: $fs_normal_3sm;
+            font-weight: 600;
+            user-select: text;
+        }
+    }
+}

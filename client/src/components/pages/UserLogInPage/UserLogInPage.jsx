@@ -129,6 +129,16 @@ const UserLogInPage = () => {
                     onChangeHandler={passwordOnChangeHandler}
                 ></MainInp>
 
+                <section className="supportTextWrapper">
+                    <p className="supportTextHeading">Sample user:</p>
+                    <p className="supportText">
+                        User name: <span>jHutcherson</span>
+                    </p>
+                    <p className="supportText">
+                        Password: <span>Pass-123-word</span>
+                    </p>
+                </section>
+
                 <div className="controllersWrapper">
                     <MainBtn
                         isBtnPrimaryColor={true}

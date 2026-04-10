@@ -7,16 +7,17 @@ import './UserControllerDropDown.scss';
 
 const userControllerDropDownSchema = z.object({
     isOpen: z.boolean().default(false),
+    userAuthenUserName: z.string().nullable(),
     logOutOnClickHandler: z.function(),
 });
 
-const UserControllerDropDown = ({ isOpen = false, logOutOnClickHandler }) => {
+const UserControllerDropDown = ({ isOpen = false, userAuthenUserName, logOutOnClickHandler }) => {
     // console.log({ isOpen });
 
     return (
         <ul className={`headerUsrDropDownList ${isOpen === true ? 'open' : ''}`}>
             <li className="usrDropDownItem">
-                <Link to="/user/profile">Profile</Link>
+                <Link to={userAuthenUserName ? `/user/profile/${userAuthenUserName}` : '/error'}>Profile</Link>
             </li>
             <li className="usrDropDownItem">
                 <span onClick={logOutOnClickHandler}>Log out</span>
