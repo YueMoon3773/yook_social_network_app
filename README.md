@@ -40,7 +40,7 @@ Users can register for an account, write posts about anything on their mind, com
 |---|---|
 | React | Component-based UI framework |
 | React Router | Client-side routing and navigation |
-| SCSS | Custom styling and theme management |
+| SCSS | Custom styling, theme management, and responsive layout |
 | Fetch API | HTTP requests to the REST API |
 
 ### Back-End
@@ -76,7 +76,7 @@ This project was built with several learning goals in mind:
 
 The application is live and available to explore:
 
-👉 **[Write your story here](https://yook-social-network-app.vercel.app)**
+👉 **[Join Yook and write your story here](https://yook-social-network-app.vercel.app)**
 
 You can use the following sample credentials to log in without registering:
 
@@ -94,7 +94,7 @@ You can use the following sample credentials to log in without registering:
 Developed by **YueMoon** — feel free to reach out or check out more work:
 
 [![GitHub](https://img.shields.io/badge/GitHub-YueMoon3773-181717?style=flat-square&logo=github)](https://github.com/YueMoon3773)
-[![Email](https://img.shields.io/badge/Email-your@email.com-D14836?style=flat-square&logo=gmail)](mailto:nguyenhuagiabao.98@gmail.com)
+[![Email](https://img.shields.io/badge/Email-nguyenhuagiabao.98@gmail.com-D14836?style=flat-square&logo=gmail)](mailto:nguyenhuagiabao.98@gmail.com)
 
 ---
 
