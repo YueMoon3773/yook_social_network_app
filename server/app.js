@@ -89,6 +89,7 @@ const sessionStore = new pgSession({
     createTableIfMissing: true,
     pruneSessionInterval: 30 * 60, // Delete expired session rows stored in postgres every 30 min
 });
+app.set('trust proxy', 1);
 app.use(
     session({
         secret: `${process.env.SESSION_SECRET_KEY}`,
@@ -96,6 +97,9 @@ app.use(
         saveUninitialized: false,
         store: sessionStore,
         cookie: {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // ← MUST be true in production (HTTPS)
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // ← MUST be 'none' for cross-origin
             maxAge: 3 * 24 * 60 * 60 * 1000,
         },
     }),
