@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('node:path');
+// const path = require('node:path');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -19,6 +19,7 @@ const populateDb = require('./db/populateDb');
 /* =================================================================== */
 /* IMPORT ROUTES */
 /* =================================================================== */
+const helperRouter = require('./routes/helperRouter');
 const userRouter = require('./routes/userRouter');
 const postRouter = require('./routes/postRouter');
 const commentRouter = require('./routes/commentRouter');
@@ -117,6 +118,7 @@ app.use(passport.session());
 /* =================================================================== */
 /* Routes logic handle */
 /* =================================================================== */
+app.use('/health', helperRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
 app.use('/comment', commentRouter);

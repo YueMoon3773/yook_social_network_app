@@ -1,6 +1,10 @@
 const pool = require('./pool');
 require('dotenv').config();
 
+const checkHealth = async () => {
+    await pool.query('SELECT 1;');
+};
+
 const getUserByUserName = async (userName) => {
     const { rows } = await pool.query(
         `
@@ -431,6 +435,7 @@ const insertNewCommentAndItsRelations = async (postId, userId, comment) => {
 };
 
 module.exports = {
+    checkHealth,
     getUserByUserName,
     getUserById,
     insertNewUser,
